@@ -17,6 +17,10 @@
 			<groupId>jdev.novid</groupId>
 			<artifactId>mod_component</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>jdev.novid</groupId>
+			<artifactId>mod_aerospike_mapper</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>
