@@ -66,15 +66,21 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- common and foundation -->
+
 			<dependency>
 				<groupId>jdev.novid</groupId>
-				<artifactId>mod_common</artifactId>
+				<artifactId>mod_aerospike_mapper</artifactId>
 				<version>${mod.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>jdev.novid</groupId>
-				<artifactId>mod_foundation</artifactId>
+				<artifactId>mod_client_smspoh</artifactId>
+				<version>${mod.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>jdev.novid</groupId>
+				<artifactId>mod_common</artifactId>
 				<version>${mod.version}</version>
 			</dependency>
 			<dependency>
@@ -84,12 +90,17 @@
 			</dependency>
 			<dependency>
 				<groupId>jdev.novid</groupId>
-				<artifactId>mod_user</artifactId>
+				<artifactId>mod_foundation</artifactId>
 				<version>${mod.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>jdev.novid</groupId>
-				<artifactId>mod_aerospike_mapper</artifactId>
+				<artifactId>mod_support</artifactId>
+				<version>${mod.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>jdev.novid</groupId>
+				<artifactId>mod_user</artifactId>
 				<version>${mod.version}</version>
 			</dependency>
 			<!-- Spring -->
@@ -437,6 +448,11 @@
 				<artifactId>javase</artifactId>
 				<version>3.4.0</version>
 			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>0.9.1</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -575,10 +591,13 @@
 	<modules>
 
 		<module>../mod_aerospike_mapper</module>
+		<module>../mod_client_smspoh</module>
 
 		<module>../mod_component</module>
 		<module>../mod_common</module>
 		<module>../mod_foundation</module>
+
+		<module>../mod_support</module>
 
 		<module>../mod_user</module>
 	</modules>

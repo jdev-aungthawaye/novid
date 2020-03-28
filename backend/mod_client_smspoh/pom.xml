@@ -2,7 +2,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>mod_user</artifactId>
+	<artifactId>mod_client_smspoh</artifactId>
 	<packaging>jar</packaging>
 
 	<parent>
@@ -13,14 +13,6 @@
 	</parent>
 
 	<dependencies>
-		<dependency>
-			<groupId>jdev.novid</groupId>
-			<artifactId>mod_component</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jdev.novid</groupId>
-			<artifactId>mod_common</artifactId>
-		</dependency>
+	
 	</dependencies>
-
 </project>

@@ -7,6 +7,7 @@ import java.util.Enumeration;
 
 /**
  * Distributed Sequence Generator. Inspired by Twitter snowflake:
+ * 
  * https://github.com/twitter/snowflake/tree/snowflake-2010
  */
 public final class Snowflake {
@@ -23,10 +24,8 @@ public final class Snowflake {
 
     private static final int maxSequence = (int) (Math.pow(2, SEQUENCE_BITS) - 1);
 
-    // Custom Epoch (January 1, 2015 Midnight UTC = 2015-01-01T00:00:00Z)
-    private static final long CUSTOM_EPOCH = 1420070400000L;
+    private static final long CUSTOM_EPOCH = 1585418138000L;
 
-    // Get current timestamp in milliseconds, adjust for the custom epoch.
     private static long timestamp() {
 
         return Instant.now().toEpochMilli() - CUSTOM_EPOCH;
@@ -39,23 +38,17 @@ public final class Snowflake {
 
     private long sequence = 0L;
 
-    // Let SequenceGenerator generate a nodeId
-    public Snowflake() {
+    private final static Snowflake INSTANCE = new Snowflake();
+
+    private Snowflake() {
 
         this.nodeId = createNodeId();
 
     }
 
-    // Create SequenceGenerator with a nodeId
-    public Snowflake(int nodeId) {
+    public final static Snowflake get() {
 
-        if (nodeId < 0 || nodeId > maxNodeId) {
-
-            throw new IllegalArgumentException(String.format("NodeId must be between %d and %d", 0, maxNodeId));
-
-        }
-
-        this.nodeId = nodeId;
+        return INSTANCE;
 
     }
 
@@ -77,14 +70,12 @@ public final class Snowflake {
 
                 if (sequence == 0) {
 
-                    // Sequence Exhausted, wait till next millisecond.
                     currentTimestamp = waitNextMillis(currentTimestamp);
 
                 }
 
             } else {
 
-                // reset sequence to start with zero for the next millisecond
                 sequence = 0;
 
             }
@@ -139,7 +130,6 @@ public final class Snowflake {
 
     }
 
-    // Block and wait till next millisecond
     private long waitNextMillis(long currentTimestamp) {
 
         while (currentTimestamp == lastTimestamp) {
