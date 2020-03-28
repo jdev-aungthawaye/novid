@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/margin_large"
+    android:background="@drawable/shape_dialog_bg"
+    android:padding="@dimen/margin_largest_x"
+    tools:ignore="RtlSymmetry">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imvIcon"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_solid_warning" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lblTitle"
+        style="@style/LabelMediumBlackBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imvIcon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_smaller"
+        android:layout_marginBottom="@dimen/margin_smaller"
+        android:gravity="center_horizontal"
+        android:lineSpacingMultiplier="1.25"
+        android:text="@string/PLACE_HOLDER"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lblMessage"
+        style="@style/LabelMediumBlackBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lblTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingMultiplier="1.25"
+        android:text="@string/PLACE_HOLDER"
+        android:textAlignment="center" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnOk"
+        style="@style/BtnSecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btn_height_regular"
+        android:layout_below="@+id/lblMessage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_smallest"
+        android:gravity="center"
+        android:text="@string/OK" />
+
+</RelativeLayout>

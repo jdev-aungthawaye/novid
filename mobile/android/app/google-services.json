@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "574946733519",
+    "firebase_url": "https://novid-mm.firebaseio.com",
+    "project_id": "novid-mm",
+    "storage_bucket": "novid-mm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574946733519:android:ac7fa93cd07bcda78c76ba",
+        "android_client_info": {
+          "package_name": "software.techbase.novid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574946733519-frb6d4l8c1011i9743gpqoilcufdctk8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "software.techbase.novid",
+            "certificate_hash": "c9ef92f017064343c9a986cf06f512bc5be95761"
+          }
+        },
+        {
+          "client_id": "574946733519-b2r2fr59h6dmsj3j9edug67imm83feh3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ9JToLFBTTMejCdqe3WReS21GmUuOfX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574946733519-b2r2fr59h6dmsj3j9edug67imm83feh3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
