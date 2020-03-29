@@ -5,6 +5,8 @@ import java.io.Serializable;
 import jdev.novid.common.value.Mobile;
 import jdev.novid.component.ddd.Result;
 import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
+import jdev.novid.support.verification.exception.CodeRequestRejectedException;
+import jdev.novid.support.verification.exception.TooManyRequestsException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -36,5 +38,6 @@ public interface RequestVerification {
 
     }
 
-    public Output execute(Input input) throws MobileAlreadyTakenException;
+    public Output execute(Input input)
+            throws MobileAlreadyTakenException, TooManyRequestsException, CodeRequestRejectedException;
 }

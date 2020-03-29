@@ -1,8 +1,8 @@
 package jdev.novid.support.verification.exception;
 
-import jdev.novid.component.ddd.InformationalException;
+import jdev.novid.component.ddd.DomainException;
 
-public class VerificationNotFoundException extends InformationalException {
+public class VerificationNotFoundException extends DomainException {
 
     /**
      * 

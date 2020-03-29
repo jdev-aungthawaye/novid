@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jdev.novid.component.ddd.DomainException;
-import jdev.novid.component.ddd.InformationalException;
 import lombok.Getter;
 
 @RestControllerAdvice
@@ -75,7 +74,7 @@ public class RestExceptionHandler {
 
     }
 
-    @ExceptionHandler(value = { DomainException.class, InformationalException.class })
+    @ExceptionHandler(value = { DomainException.class })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorResponse processServiceExceptionException(DomainException ex) {

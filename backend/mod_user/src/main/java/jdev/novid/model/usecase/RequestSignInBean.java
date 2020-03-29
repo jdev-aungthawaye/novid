@@ -8,37 +8,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jdev.novid.component.ddd.Result;
 import jdev.novid.model.domain.User;
-import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
+import jdev.novid.model.domain.exception.MobileNotFoundException;
 import jdev.novid.model.query.UserQuery;
 import jdev.novid.support.verification.VerificationService;
 import jdev.novid.support.verification.exception.CodeRequestRejectedException;
 import jdev.novid.support.verification.exception.TooManyRequestsException;
 
 @Service
-public class RequestVerificationBean implements RequestVerification {
-
-    @Autowired
-    private VerificationService verificationService;
+public class RequestSignInBean implements RequestSignIn {
 
     @Autowired
     private UserQuery userQuery;
+
+    @Autowired
+    private VerificationService verificationService;
 
     @Override
     @Transactional(
         rollbackFor = Exception.class,
         noRollbackFor = { TooManyRequestsException.class, CodeRequestRejectedException.class })
     public Output execute(Input input)
-            throws MobileAlreadyTakenException, TooManyRequestsException, CodeRequestRejectedException {
+            throws TooManyRequestsException, CodeRequestRejectedException, MobileNotFoundException {
 
         Optional<User> optUser = this.userQuery.findUser(input.mobile);
 
-        if (optUser.isPresent()) {
+        if (!optUser.isPresent()) {
 
-            throw new MobileAlreadyTakenException();
+            throw new MobileNotFoundException();
 
         }
 
-        this.verificationService.requestForSignUp(input.mobile);
+        this.verificationService.requestForSignIn(input.mobile);
 
         return new Output(Result.SUCCESS);
 

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jdev.novid.common.value.Mobile;
-import jdev.novid.component.ddd.InformationalException;
 import jdev.novid.component.persistence.PersistenceQualifiers;
 import jdev.novid.support.helper.SmsSender;
 import jdev.novid.support.verification.exception.CodeAlreadyExpiredException;
@@ -30,7 +29,9 @@ public class VerificationServiceBean implements VerificationService {
     private SmsSender smsSender;
 
     @Override
-    @Transactional(rollbackFor = Exception.class, noRollbackFor = InformationalException.class)
+    @Transactional(
+        rollbackFor = Exception.class,
+        noRollbackFor = { TooManyRequestsException.class, CodeRequestRejectedException.class })
     public void requestForSignUp(Mobile mobile) throws TooManyRequestsException, CodeRequestRejectedException {
 
         Optional<Verification> optVerification = this.verificationRepository.find(mobile);
@@ -55,7 +56,9 @@ public class VerificationServiceBean implements VerificationService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class, noRollbackFor = InformationalException.class)
+    @Transactional(
+        rollbackFor = Exception.class,
+        noRollbackFor = { TooManyAttemptsException.class, CodeAlreadyExpiredException.class })
     public boolean verify(Mobile mobile, String code)
             throws VerificationNotFoundException, TooManyAttemptsException, CodeAlreadyExpiredException {
 
@@ -98,7 +101,9 @@ public class VerificationServiceBean implements VerificationService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class, noRollbackFor = InformationalException.class)
+    @Transactional(
+        rollbackFor = Exception.class,
+        noRollbackFor = { TooManyRequestsException.class, CodeRequestRejectedException.class })
     public void requestForSignIn(Mobile mobile) throws TooManyRequestsException, CodeRequestRejectedException {
 
         Optional<Verification> optVerification = this.verificationRepository.find(mobile);

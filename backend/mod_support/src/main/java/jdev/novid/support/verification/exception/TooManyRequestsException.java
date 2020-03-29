@@ -1,8 +1,8 @@
 package jdev.novid.support.verification.exception;
 
-import jdev.novid.component.ddd.InformationalException;
+import jdev.novid.component.ddd.DomainException;
 
-public class TooManyRequestsException extends InformationalException {
+public class TooManyRequestsException extends DomainException {
 
     /**
      * 

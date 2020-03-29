@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jdev.novid.common.identity.UserId;
 import jdev.novid.common.value.Mobile;
 import jdev.novid.component.persistence.PersistenceQualifiers;
 import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
@@ -50,6 +51,20 @@ public class UserServiceBean implements UserService {
 
         Account account = Account.Builder.newInstance(user);
 
+        this.accountRepository.save(account);
+
+        return account;
+
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Account renew(UserId userId) {
+
+        Account account = this.accountRepository.get(userId);
+        
+        account.renew();
+        
         this.accountRepository.save(account);
 
         return account;

@@ -49,39 +49,16 @@ public class Account {
         super();
 
         this.userId = userId;
-
         this.secretKey = UUID.randomUUID().toString();
         this.keygenDate = LocalDateTime.now(ZoneId.systemDefault());
 
     }
 
-    protected AccessToken token() {
-
-        return this.generateToken();
-
-    }
-
-    protected AccessToken refresh() {
+    protected void renew() {
 
         this.secretKey = UUID.randomUUID().toString();
+
         this.keygenDate = LocalDateTime.now(ZoneId.systemDefault());
-
-        return this.generateToken();
-
-    }
-
-    private AccessToken generateToken() {
-
-        final int ONE_YEAR = 1; // 365 days
-
-        LocalDateTime expiredAt = LocalDateTime.now().plusYears(ONE_YEAR);
-
-        final String AUDIENCE = "USER";
-
-        String jwtToken = JwtTokenUtil.generateToken(Long.toString(this.userId.getId()), this.secretKey,
-                Date.from(expiredAt.atZone(ZoneId.systemDefault()).toInstant()), AUDIENCE);
-
-        return new AccessToken(this.userId, jwtToken, expiredAt);
 
     }
 
