@@ -23,7 +23,7 @@ public class VerificationId implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "location_id")
+    @Column(name = "verification_id")
     protected Long id;
 
     public VerificationId(Long value) {
@@ -62,7 +62,7 @@ public class VerificationId implements Serializable {
 
             }
 
-            throw new IllegalArgumentException("Source is not LocationId.");
+            throw new IllegalArgumentException("Source is not VerificationId.");
 
         }
 

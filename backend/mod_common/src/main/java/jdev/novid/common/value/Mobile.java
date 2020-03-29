@@ -35,7 +35,9 @@ public class Mobile extends Value {
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Pattern PATTERN = Pattern.compile("^(09|9)\\d{7,}$");
+    public static final String FORMAT = "^(09|9)\\d{7,}$";
+
+    private static final Pattern PATTERN = Pattern.compile(FORMAT);
 
     public Mobile(String value) {
 

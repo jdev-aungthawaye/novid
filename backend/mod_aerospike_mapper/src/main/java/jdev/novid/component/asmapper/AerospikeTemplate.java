@@ -26,7 +26,9 @@ import com.aerospike.client.task.RegisterTask;
 public class AerospikeTemplate {
 
     private AerospikeClient aerospikeClient;
+
     private AerospikeMapper aerospikeMapper;
+
     private String namespace;
 
     public AerospikeTemplate(AerospikeClient aerospikeClient, String namespace) {
@@ -34,6 +36,7 @@ public class AerospikeTemplate {
         this.aerospikeClient = aerospikeClient;
         this.aerospikeMapper = new AerospikeMapper();
         this.namespace = namespace;
+
     }
 
     public boolean createIndex(String name, String set, String bin, IndexType type) {
@@ -45,9 +48,11 @@ public class AerospikeTemplate {
         } catch (AerospikeException e) {
 
             return false;
+
         }
 
         return true;
+
     }
 
     public void delete(Long pk, String set) {
@@ -58,6 +63,7 @@ public class AerospikeTemplate {
         writePolicy.commitLevel = CommitLevel.COMMIT_ALL;
 
         this.aerospikeClient.delete(writePolicy, key);
+
     }
 
     public <T> Optional<T> find(Long pk, String set, Class<T> template) {
@@ -69,11 +75,13 @@ public class AerospikeTemplate {
         if (record == null) {
 
             return Optional.empty();
+
         }
 
         T instance = aerospikeMapper.deserialize(record, template);
 
         return Optional.of(instance);
+
     }
 
     public <T> List<T> query(String set, Filter filter, Class<T> template) {
@@ -93,6 +101,7 @@ public class AerospikeTemplate {
 
             Record record = recordSet.getRecord();
             result.add(this.aerospikeMapper.deserialize(record, template));
+
         }
 
         recordSet.close();
@@ -123,8 +132,11 @@ public class AerospikeTemplate {
             Object object = resultSet.getObject();
 
             if (object instanceof Map) {
+
                 result.add(this.aerospikeMapper.deserialize((Map<String, Object>) object, template));
+
             }
+
         }
 
         resultSet.close();
@@ -136,6 +148,7 @@ public class AerospikeTemplate {
     public void registerUdf(String resourcePath, String serverPath) {
 
         RegisterTask rt = aerospikeClient.register(null, resourcePath, serverPath, Language.LUA);
+
         rt.waitTillComplete();
 
     }
@@ -143,6 +156,7 @@ public class AerospikeTemplate {
     public void registerUdf(ClassLoader cl, String resourcePath, String serverPath) {
 
         RegisterTask rt = aerospikeClient.register(null, cl, resourcePath, serverPath, Language.LUA);
+
         rt.waitTillComplete();
 
     }
@@ -152,6 +166,7 @@ public class AerospikeTemplate {
         InfoPolicy infoPolicy = new InfoPolicy();
 
         this.aerospikeClient.removeUdf(infoPolicy, serverPath);
+
     }
 
     public void save(Long pk, String set, Object data) {
@@ -168,5 +183,7 @@ public class AerospikeTemplate {
         Bin[] bins = aerospikeMapper.serialize(data);
 
         this.aerospikeClient.put(writePolicy, key, bins);
+
     }
+
 }

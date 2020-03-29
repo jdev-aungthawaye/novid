@@ -15,7 +15,27 @@
 	<dependencies>
 		<dependency>
 			<groupId>jdev.novid</groupId>
+			<artifactId>mod_aerospike_mapper</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jdev.novid</groupId>
 			<artifactId>mod_component</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.aerospike</groupId>
+			<artifactId>aerospike-client</artifactId>
 		</dependency>
 	</dependencies>
 
