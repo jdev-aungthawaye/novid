@@ -23,6 +23,7 @@
     <dimen name="margin_larger">20dp</dimen>
     <dimen name="margin_largest">22dp</dimen>
     <dimen name="margin_largest_x">32dp</dimen>
+    <dimen name="margin_largest_xx">42dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
 

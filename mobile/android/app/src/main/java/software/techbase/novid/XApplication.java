@@ -23,6 +23,7 @@ public class XApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         FirebaseAnalytics.getInstance(this);
     }

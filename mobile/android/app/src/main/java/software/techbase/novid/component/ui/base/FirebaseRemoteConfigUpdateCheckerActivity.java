@@ -3,6 +3,7 @@ package software.techbase.novid.component.ui.base;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,15 +29,7 @@ public abstract class FirebaseRemoteConfigUpdateCheckerActivity extends AppCompa
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Language
-        String languageToLoad = "my";
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-
+        this.setLocale();
         this.setContentView(this.getLayoutFileId());
         this.checkUpdate();
     }
@@ -48,12 +41,7 @@ public abstract class FirebaseRemoteConfigUpdateCheckerActivity extends AppCompa
         this.getVersionCodeFromFirebase(versionCode -> {
 
             if (versionCode > getCurrentVersionCode()) {
-
-                new XAlertDialog(this,
-                        XAlertDialog.Type.INFO,
-                        "Update version available.",
-                        "Download",
-                        v -> this.directDownloadAndInstall()).show();
+                XAlertDialog.show(this, XAlertDialog.Type.INFO, "Update version available.", "Download", v -> this.directDownloadAndInstall());
             }
         });
     }
@@ -102,12 +90,23 @@ public abstract class FirebaseRemoteConfigUpdateCheckerActivity extends AppCompa
                     ApkInstaller.install(this, APP_DIRECT_DOWNLOAD_URL, "Novid.apk");
                 })
                 .onDenied(permissionResult -> {
-                    new XAlertDialog(this,
-                            XAlertDialog.Type.WARNING,
-                            "Need to allow storage permission.",
-                            null,
-                            v -> this.directDownloadAndInstall()).show();
+                    XAlertDialog.show(this, XAlertDialog.Type.WARNING, "Need to allow storage permission.", null, v -> {
+                        this.directDownloadAndInstall();
+                    });
                 })
                 .ask();
+    }
+
+    private void setLocale() {
+
+        String languageToLoad = "my";
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLayoutDirection(config.locale);
+        }
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 }
