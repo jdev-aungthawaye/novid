@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import jdev.novid.common.identity.UserId;
 import jdev.novid.component.security.JwtTokenUtil;
+import jdev.novid.model.infrastructure.jpa.AccountEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,13 +20,19 @@ public class Account {
 
         protected static Account newInstance(User user) {
 
-            return null;
+            return new Account(user.getUserId());
 
         }
 
-        public static Account fromState() {
+        public static Account fromState(AccountEntity state) {
 
-            return null;
+            Account domain = new Account();
+
+            domain.userId = state.getUserId();
+            domain.secretKey = state.getSecretKey();
+            domain.keygenDate = state.getKeygenDate();
+
+            return domain;
 
         }
 

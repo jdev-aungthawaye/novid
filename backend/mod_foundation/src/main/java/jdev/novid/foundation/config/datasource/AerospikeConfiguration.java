@@ -16,7 +16,6 @@ import com.aerospike.client.policy.ClientPolicy;
 
 import jdev.novid.component.asmapper.AerospikeTemplate;
 
-@Configuration
 @PropertySource(value = { "classpath:/aerospike.properties" })
 public class AerospikeConfiguration {
 
@@ -36,9 +35,9 @@ public class AerospikeConfiguration {
         // LuaConfig.SourceDirectory = sourceDir;
 
         String hosts = this.env.getProperty("aerospike.hosts");
-        
+
         int port = Integer.valueOf(this.env.getProperty("aerospike.port"));
-        
+
         int threadPoolSize = Integer.valueOf(this.env.getProperty("aerospike.threadPoolSize"));
 
         String[] hostNames = hosts.split("\\|", -1);
@@ -48,13 +47,13 @@ public class AerospikeConfiguration {
         for (String hostName : hostNames) {
 
             Host host = new Host(hostName, port);
-            
+
             hostList.add(host);
 
         }
 
         ClientPolicy policy = new ClientPolicy();
-        
+
         policy.threadPool = Executors.newFixedThreadPool(threadPoolSize);
 
         AerospikeClient aerospikeClient = new AerospikeClient(policy, hostList.toArray(new Host[hostList.size()]));

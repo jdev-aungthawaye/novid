@@ -23,6 +23,10 @@
 		</dependency>
 		<dependency>
 			<groupId>jdev.novid</groupId>
+			<artifactId>mod_foundation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jdev.novid</groupId>
 			<artifactId>mod_support</artifactId>
 		</dependency>
 	</dependencies>

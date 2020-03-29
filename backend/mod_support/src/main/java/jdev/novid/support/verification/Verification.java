@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 import jdev.novid.common.identity.VerificationId;
 import jdev.novid.common.value.Mobile;
-import jdev.novid.component.util.BeanMapper;
-import jdev.novid.component.util.SpringContext;
+import jdev.novid.component.ddd.Snowflake;
 import jdev.novid.support.verification.exception.CodeAlreadyExpiredException;
+import jdev.novid.support.verification.exception.CodeRequestRejectedException;
 import jdev.novid.support.verification.exception.TooManyAttemptsException;
 import jdev.novid.support.verification.exception.TooManyRequestsException;
 import jdev.novid.support.verification.infrastructure.jpa.VerificationEntity;
@@ -28,11 +28,19 @@ public class Verification {
 
         }
 
-        public static Verification fromState(VerificationEntity entity) {
+        public static Verification fromState(VerificationEntity state) {
 
-            BeanMapper beanMapper = SpringContext.getBean(BeanMapper.class);
+            Verification domain = new Verification();
 
-            return beanMapper.map(entity, Verification.class);
+            domain.verificationId = state.getVerificationId();
+            domain.mobile = state.getMobile();
+            domain.code = state.getCode();
+            domain.attempt = state.getAttempt();
+            domain.requestCount = state.getRequestCount();
+            domain.lockedUntil = state.getLockedUntil();
+            domain.expiredAt = state.getExpiredAt();
+
+            return domain;
 
         }
 
@@ -54,7 +62,7 @@ public class Verification {
 
     protected String code;
 
-    protected Integer attempt;
+    protected Integer attempt = 0;
 
     protected Integer requestCount = 0;
 
@@ -66,21 +74,45 @@ public class Verification {
 
         super();
 
+        this.verificationId = new VerificationId(Snowflake.get().nextId());
+
         this.mobile = mobile;
 
     }
 
-    protected String request() throws TooManyRequestsException {
+    protected String request() throws TooManyRequestsException, CodeRequestRejectedException {
 
-        if (++this.requestCount > MAX_REQ_COUNT) {
+        if (this.lockedUntil == null) {
 
-            this.lockedUntil = LocalDateTime.now().plusDays(ONE_DAY);
+            if (++this.requestCount > MAX_REQ_COUNT) {
 
-            throw new TooManyRequestsException();
+                this.lockedUntil = LocalDateTime.now().plusDays(ONE_DAY);
+
+                throw new TooManyRequestsException();
+
+            }
+
+        } else {
+
+            if (LocalDateTime.now().isAfter(this.lockedUntil)) {
+
+                this.requestCount = 1;
+                
+                this.lockedUntil = null;
+
+            } else {
+
+                throw new CodeRequestRejectedException();
+
+            }
 
         }
 
         this.code = Integer.toString(this.generateCode(MIN, MAX));
+
+        this.expiredAt = LocalDateTime.now().plusMinutes(15);
+        
+        this.attempt = 0;
 
         return this.code;
 
@@ -89,8 +121,6 @@ public class Verification {
     protected boolean verify(String code) throws TooManyAttemptsException, CodeAlreadyExpiredException {
 
         if (++this.attempt > MAX_ATTEMPT) {
-
-            this.lockedUntil = LocalDateTime.now().plusDays(ONE_DAY);
 
             throw new TooManyAttemptsException();
 
