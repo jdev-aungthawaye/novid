@@ -1,8 +1,6 @@
-package jdev.novid.model.service;
+package jdev.novid.model.domain;
 
 import jdev.novid.common.value.Mobile;
-import jdev.novid.model.domain.Account;
-import jdev.novid.model.domain.User;
 import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
 
 public interface UserService {

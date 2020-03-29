@@ -21,5 +21,9 @@
 			<groupId>jdev.novid</groupId>
 			<artifactId>mod_common</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>jdev.novid</groupId>
+			<artifactId>mod_foundation</artifactId>
+		</dependency>
 	</dependencies>
 </project>

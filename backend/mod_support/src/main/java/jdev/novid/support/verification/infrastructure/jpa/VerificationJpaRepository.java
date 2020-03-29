@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import jdev.novid.common.identity.VerificationId;
 import jdev.novid.common.value.Mobile;
 import jdev.novid.component.persistence.PersistenceQualifiers;
-import jdev.novid.component.util.BeanMapper;
 import jdev.novid.support.verification.Verification;
 import jdev.novid.support.verification.infrastructure.VerificationRepository;
 
@@ -20,9 +19,6 @@ public class VerificationJpaRepository implements VerificationRepository {
     @Autowired
     private VerificationEntityRepository verificationEntityRepository;
 
-    @Autowired
-    private BeanMapper beanMapper;
-
     @Override
     public void save(Verification domain) {
 
@@ -30,7 +26,7 @@ public class VerificationJpaRepository implements VerificationRepository {
 
         VerificationEntity entity = optEntity.isPresent() ? optEntity.get() : new VerificationEntity();
 
-        this.beanMapper.map(domain, entity);
+        VerificationEntity.map(domain, entity);
 
         this.verificationEntityRepository.saveAndFlush(entity);
 

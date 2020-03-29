@@ -5,11 +5,14 @@ import java.time.LocalDateTime;
 import jdev.novid.common.identity.UserId;
 import jdev.novid.common.value.Mobile;
 import jdev.novid.component.ddd.Snowflake;
+import jdev.novid.model.infrastructure.jpa.UserEntity;
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
 
@@ -21,9 +24,17 @@ public class User {
 
         }
 
-        public static User fromState() {
+        public static User fromState(UserEntity state) {
 
-            return null;
+            User domain = new User();
+
+            domain.userId = state.getUserId();
+            domain.mobile = state.getMobile();
+            domain.name = state.getName();
+            domain.nric = state.getNric();
+            domain.registeredDate = state.getRegisteredDate();
+
+            return domain;
 
         }
 
@@ -47,6 +58,7 @@ public class User {
         this.mobile = mobile;
         this.name = name;
         this.nric = nric;
+        this.registeredDate = LocalDateTime.now();
 
     }
 

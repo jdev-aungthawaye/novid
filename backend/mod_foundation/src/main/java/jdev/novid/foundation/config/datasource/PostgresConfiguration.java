@@ -21,7 +21,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import jdev.novid.component.security.JasyptCrypto;
 
-@Configuration
 @PropertySource(value = { "classpath:/postgres_jdbc.properties" })
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = { "jdev" })
@@ -57,6 +56,7 @@ public class PostgresConfiguration {
         HikariDataSource dataSource = new HikariDataSource(config);
 
         return dataSource;
+
     }
 
     @Bean
@@ -79,6 +79,7 @@ public class PostgresConfiguration {
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 
         return entityManagerFactoryBean;
+
     }
 
     @Bean
@@ -87,5 +88,7 @@ public class PostgresConfiguration {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
+
     }
+
 }
