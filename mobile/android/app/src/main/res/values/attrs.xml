@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="labelDescription" format="string" localization="suggested" />
+
+    <declare-styleable name="XReusableViewActionLabel">
+        <attr name="imvIcon" format="reference" />
+        <attr name="labelDescription" />
+    </declare-styleable>
+
+</resources>

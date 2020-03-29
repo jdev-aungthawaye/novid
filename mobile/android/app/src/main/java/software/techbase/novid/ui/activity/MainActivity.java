@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import software.techbase.novid.R;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
 import software.techbase.novid.component.service.Constants;
-import software.techbase.novid.component.service.CurrentLocationSenderService;
+import software.techbase.novid.component.service.DataSenderService;
 import software.techbase.novid.component.service.ServiceUtils;
 import software.techbase.novid.component.ui.base.BaseActivity;
 import software.techbase.novid.component.ui.reusable.XAlertDialog;
@@ -34,7 +35,6 @@ import software.techbase.novid.util.LocationUtils;
  */
 public class MainActivity extends BaseActivity {
 
-    private static final String TAG = "LOCATION_UPDATE";
     private GoogleMap mMap;
 
     @Override
@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,9 +114,9 @@ public class MainActivity extends BaseActivity {
 
     private void startCurrentLocationSenderService() {
 
-        if (ServiceUtils.isServiceRunning(CurrentLocationSenderService.class, this)) return;
+        if (ServiceUtils.isServiceRunning(DataSenderService.class, this)) return;
 
-        Intent startIntent = new Intent(MainActivity.this, CurrentLocationSenderService.class);
+        Intent startIntent = new Intent(MainActivity.this, DataSenderService.class);
         startIntent.setAction(Constants.ACTION.START_ACTION);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -133,7 +134,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
+        if (item.getItemId() == R.id.action_info) {
+            this.startActivity(new Intent(this, AboutActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

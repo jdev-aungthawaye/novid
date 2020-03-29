@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Novid</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_info">About</string>
 </resources>
