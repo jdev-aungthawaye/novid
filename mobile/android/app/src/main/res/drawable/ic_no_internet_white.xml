@@ -1,0 +1,50 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="32"
+    android:viewportHeight="32">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6.858,24.847L24.0336,7.6714A1,1 69.2518,0 1,25.4478 7.6714L25.4478,7.6714A1,1 86.8146,0 1,25.4478 9.0856L8.2722,26.2612A1,1 56.4453,0 1,6.858 26.2612L6.858,26.2612A1,1 0,0 1,6.858 24.847z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M5.83,17.23L10.77,22.17"
+        android:strokeWidth="1"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M7.63,16.12L12.25,20.73"
+        android:strokeWidth="1"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M8.19,13.81L13.69,19.3"
+        android:strokeWidth="1"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M8.87,11.63L15.1,17.86"
+        android:strokeWidth="1"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M10.22,10.09L16.56,16.43"
+        android:strokeWidth="1"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M11.95,8.99L17.96,15"
+        android:strokeWidth="1"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M14.19,8.38L19.37,13.56"
+        android:strokeWidth="1"
+        android:strokeColor="#FFFFFF" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M8,23h2.95l2,-2H8a2,2 0,0 1,0 -4h0.12a1,1 0,0 0,1 -1.14A6.07,6.07 0,0 1,9 15a6,6 0,0 1,11.73 -1.74l1.54,-1.54A8,8 0,0 0,7 15s0,0.08 0,0.13A4,4 0,0 0,8 23Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24.84,12.53l-1.56,1.56A3.5,3.5 0,0 1,22.5 21H16.37l-2,2H22.5a5.5,5.5 0,0 0,2.34 -10.47Z" />
+</vector>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.SignUpActivity">
+
+    <include
+        android:id="@+id/rlHeader"
+        layout="@layout/view_toolbar_with_navigation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llSignInForm"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlHeader">
+
+        <software.techbase.novid.component.ui.reusable.XAppCompatEditText
+            android:id="@+id/edtFullName"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_height_regular"
+            android:layout_marginStart="@dimen/margin_largest"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_largest"
+            android:layout_marginBottom="@dimen/margin_smaller"
+            android:hint="Full name"
+            android:inputType="text" />
+
+        <software.techbase.novid.component.ui.reusable.XAppCompatEditText
+            android:id="@+id/edtNRC"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_height_regular"
+            android:layout_marginStart="@dimen/margin_largest"
+            android:layout_marginTop="@dimen/margin_smaller"
+            android:layout_marginEnd="@dimen/margin_largest"
+            android:layout_marginBottom="@dimen/margin_smaller"
+            android:hint="NRC"
+            android:inputType="text" />
+
+        <software.techbase.novid.component.ui.reusable.XAppCompatEditText
+            android:id="@+id/edtPhoneNumber"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_height_regular"
+            android:layout_marginStart="@dimen/margin_largest"
+            android:layout_marginTop="@dimen/margin_smaller"
+            android:layout_marginEnd="@dimen/margin_largest"
+            android:layout_marginBottom="@dimen/margin_regular"
+            android:hint="Phone Number"
+            android:inputType="phone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSignUp"
+            style="@style/BtnSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height_regular"
+            android:layout_marginStart="@dimen/margin_largest"
+            android:layout_marginEnd="@dimen/margin_largest"
+            android:layout_marginBottom="@dimen/margin_regular"
+            android:text="SignUp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

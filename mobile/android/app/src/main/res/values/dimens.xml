@@ -1,0 +1,43 @@
+<resources>
+    <!-- text sizes -->
+    <dimen name="text_size_tiny_x">8sp</dimen>
+    <dimen name="text_size_tiny">10sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_regular">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_x_large">20sp</dimen>
+    <dimen name="text_size_xx_large">22sp</dimen>
+    <dimen name="text_size_xxx_large">32sp</dimen>
+
+    <!-- margin sizes -->
+    <dimen name="margin_tiny_x">1dp</dimen>
+    <dimen name="margin_tiny">2dp</dimen>
+    <dimen name="margin_smallest">4dp</dimen>
+    <dimen name="margin_smaller">8dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_medium_x">12dp</dimen>
+    <dimen name="margin_medium">14dp</dimen>
+    <dimen name="margin_regular">16dp</dimen>
+    <dimen name="margin_large">18dp</dimen>
+    <dimen name="margin_larger">20dp</dimen>
+    <dimen name="margin_largest">22dp</dimen>
+    <dimen name="margin_largest_x">32dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!--corner-->
+    <dimen name="vew_corner_small">4dp</dimen>
+    <dimen name="vew_corner_regular">8dp</dimen>
+
+    <!--view-->
+    <dimen name="toolbar_menu_size">28dp</dimen>
+    <dimen name="edt_height_regular">42dp</dimen>
+    <dimen name="btn_height_regular">42dp</dimen>
+
+    <!--card view-->
+    <dimen name="card_view_corner_radius_tiny_x">1dp</dimen>
+    <dimen name="card_view_corner_radius_tiny">2dp</dimen>
+    <dimen name="card_view_elevation_tiny_x">1dp</dimen>
+    <dimen name="card_view_elevation_tiny">2dp</dimen>
+</resources>

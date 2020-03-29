@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.OTPConfirmActivity">
+
+    <include
+        android:id="@+id/rlHeader"
+        layout="@layout/view_toolbar_with_navigation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llSignInForm"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlHeader">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/LabelSmallGrey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_largest"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_largest"
+            android:gravity="center"
+            android:text="Enter 4 digits code that we have sent to your mobile." />
+
+        <software.techbase.novid.component.ui.reusable.XAppCompatEditText
+            android:id="@+id/edtOTP"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edt_height_regular"
+            android:layout_marginStart="@dimen/margin_largest"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:layout_marginEnd="@dimen/margin_largest"
+            android:layout_marginBottom="@dimen/margin_regular"
+            android:hint="OTP Code"
+            android:inputType="number"
+            android:maxLength="4" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnConfirm"
+            style="@style/BtnSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height_regular"
+            android:layout_marginStart="@dimen/margin_largest"
+            android:layout_marginEnd="@dimen/margin_largest"
+            android:layout_marginBottom="@dimen/margin_regular"
+            android:text="Confirm" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
