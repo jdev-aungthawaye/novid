@@ -1,8 +1,8 @@
 package software.techbase.novid.ui.activity;
 
 import android.Manifest;
-import android.location.Address;
-import android.location.Geocoder;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,35 +10,32 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 import software.techbase.novid.R;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
+import software.techbase.novid.component.service.Constants;
+import software.techbase.novid.component.service.CurrentLocationSenderService;
+import software.techbase.novid.component.service.ServiceUtils;
 import software.techbase.novid.component.ui.base.BaseActivity;
 import software.techbase.novid.component.ui.reusable.XAlertDialog;
+import software.techbase.novid.util.CurrentLocation;
+import software.techbase.novid.util.LocationUtils;
 
 /**
  * Created by Wai Yan on 3/28/20.
  */
 public class MainActivity extends BaseActivity {
 
+    private static final String TAG = "LOCATION_UPDATE";
     private GoogleMap mMap;
-
-    private String addressName;
-    private double latitude;
-    private double longitude;
 
     @Override
     protected int getLayoutFileId() {
@@ -51,6 +48,27 @@ public class MainActivity extends BaseActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.requestRequiredPermissions();
+    }
+
+    private void requestRequiredPermissions() {
+
+        RuntimePermissions.with(this)
+                .permissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .onAccepted(permissionResult -> {
+
+                    this.startCurrentLocationSenderService();
+                    this.showMapOnUI();
+
+                })
+                .onDenied(permissionResult -> {
+                    XAlertDialog.show(this, XAlertDialog.Type.INFO, "Need to allow location permission.", null, v -> this.requestRequiredPermissions());
+                })
+                .ask();
+    }
+
+    private void showMapOnUI() {
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         assert mapFragment != null;
         mapFragment.getMapAsync(googleMap -> {
@@ -61,73 +79,49 @@ public class MainActivity extends BaseActivity {
 
     private void initMapStuff() {
 
-        RuntimePermissions.with(this)
-                .permissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-                .onAccepted(permissionResult -> {
-                    this.getCurrentLocation();
-                    mMap.setMyLocationEnabled(true);
-                    mMap.getUiSettings().setMyLocationButtonEnabled(true);
-                })
-                .onDenied(permissionResult -> {
-                    new XAlertDialog(this,
-                            XAlertDialog.Type.WARNING,
-                            "Need to allow location permission.",
-                            null,
-                            v -> this.initMapStuff()).show();
-                })
-                .ask();
+        this.setCurrentLocationOnMap();
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
     }
 
-    private void getCurrentLocation() {
+    private void setCurrentLocationOnMap() {
 
-        FusedLocationProviderClient locationClient = LocationServices.getFusedLocationProviderClient(this);
+        CurrentLocation.getCurrentLocation(this, mLocation -> {
+            if (mMap != null) {
+                //Current
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 10));
+                this.addMaker(mLocation.getLatitude(), mLocation.getLongitude());
 
-        try {
-            locationClient.getLastLocation()
-                    .addOnSuccessListener(location -> {
-                        // GPS location can be null if GPS is switched off
-                        if (location != null) {
-                            if (mMap != null) {
-                                //Current
-                                double latitude = location.getLatitude();
-                                double longitude = location.getLongitude();
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 10));
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(latitude, longitude))
-                                        // .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker))
-                                        .title(this.getAddressName(latitude, longitude)));
+                mMap.setOnCameraMoveListener(() -> mMap.clear());
 
-                                //OnChange
-                                mMap.setOnCameraMoveListener(() -> mMap.clear());
+                mMap.setOnCameraIdleListener(() -> {
 
-                                mMap.setOnCameraIdleListener(() -> {
-
-                                    LatLng midLatLng = mMap.getCameraPosition().target;
-                                    mMap.addMarker(new MarkerOptions().position(midLatLng));
-
-                                    this.addressName = this.getAddressName(midLatLng.latitude, midLatLng.longitude);
-                                    this.latitude = midLatLng.latitude;
-                                    this.longitude = midLatLng.longitude;
-                                });
-                            }
-                        }
-                    })
-                    .addOnFailureListener(Throwable::printStackTrace);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
+                    LatLng midLatLng = mMap.getCameraPosition().target;
+                    this.addMaker(midLatLng.latitude, midLatLng.longitude);
+                });
+            }
+        });
     }
 
-    private String getAddressName(double lat, double lng) {
+    private void addMaker(double latitude, double longitude) {
 
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
-            Address address = addresses.get(0);
-            return address.getAddressLine(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+        Marker marker = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .title(LocationUtils.getAddressName(this, latitude, longitude)));
+        marker.showInfoWindow();
+    }
+
+    private void startCurrentLocationSenderService() {
+
+        if (ServiceUtils.isServiceRunning(CurrentLocationSenderService.class, this)) return;
+
+        Intent startIntent = new Intent(MainActivity.this, CurrentLocationSenderService.class);
+        startIntent.setAction(Constants.ACTION.START_ACTION);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(startIntent);
+        } else {
+            startService(startIntent);
         }
     }
 
@@ -144,5 +138,4 @@ public class MainActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -1,4 +1,4 @@
-package software.techbase.novid.component.android;
+package software.techbase.novid.component.android.broadcast;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

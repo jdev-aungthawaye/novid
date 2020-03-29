@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".XApplication"
@@ -21,6 +22,11 @@
         android:supportsRtl="true"
         android:theme="@style/BaseTheme"
         tools:ignore="UnusedAttribute">
+
+        <service
+            android:name=".component.service.CurrentLocationSenderService"
+            android:enabled="true"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.gms.version"
