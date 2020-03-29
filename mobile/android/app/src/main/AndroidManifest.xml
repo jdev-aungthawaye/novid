@@ -10,6 +10,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
 
     <application
         android:name=".XApplication"
@@ -24,9 +30,8 @@
         tools:ignore="UnusedAttribute">
 
         <service
-            android:name=".component.service.CurrentLocationSenderService"
-            android:enabled="true"
-            android:exported="true" />
+            android:name=".component.service.DataSenderService"
+            android:enabled="true" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -54,6 +59,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -64,6 +70,8 @@
         <activity android:name=".ui.activity.SignUpActivity" />
         <activity android:name=".ui.activity.SignInActivity" />
         <activity android:name=".ui.activity.OTPConfirmActivity" />
+        <activity android:name=".ui.activity.AboutActivity" />
+        <activity android:name=".ui.activity.QuestionsActivity" />
     </application>
 
 </manifest>

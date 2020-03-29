@@ -53,7 +53,6 @@ public class CurrentLocation {
             mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
             mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, null);
         } catch (SecurityException ex) {
             XLoggerKt.debug("Lost location permission. Could not request updates." + ex);

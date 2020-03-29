@@ -7,15 +7,18 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import java.util.Objects;
 
 import software.techbase.novid.R;
 import software.techbase.novid.component.android.xlogger.XLoggerKt;
+import software.techbase.novid.component.ble.BLEDevices;
 import software.techbase.novid.ui.activity.MainActivity;
 import software.techbase.novid.util.CurrentLocation;
 import software.techbase.novid.util.LocationUtils;
@@ -23,7 +26,8 @@ import software.techbase.novid.util.LocationUtils;
 /**
  * Created by Wai Yan on 3/29/20.
  */
-public class CurrentLocationSenderService extends Service {
+@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+public class DataSenderService extends Service {
 
     private Handler handler;
     private Runnable runnable;
@@ -44,11 +48,21 @@ public class CurrentLocationSenderService extends Service {
             runnable = new Runnable() {
                 @Override
                 public void run() {
+
+                    //Current Location
                     CurrentLocation.getCurrentLocation(getApplicationContext(), location -> {
 
                         XLoggerKt.debug("Your are now in : " + LocationUtils.getAddressName(getApplicationContext(), location.getLatitude(), location.getLongitude()));
-                        //Send loc to server
+                        //TODO Send data to server
                     });
+
+                    //Nearby devices
+                    BLEDevices.scanDevices(getApplicationContext(), macAddress -> {
+
+                        XLoggerKt.debug("Nearby device : " + macAddress);
+                        //TODO Send data to server
+                    });
+
                     handler.postDelayed(this, 5000);
                 }
             };
