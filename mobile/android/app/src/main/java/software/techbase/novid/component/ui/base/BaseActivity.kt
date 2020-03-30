@@ -2,10 +2,8 @@ package software.techbase.novid.component.ui.base
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.provider.Settings
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import butterknife.ButterKnife
@@ -13,10 +11,8 @@ import com.google.android.material.snackbar.Snackbar
 import software.techbase.novid.R
 import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver
-import software.techbase.novid.component.android.xlogger.debug
-import software.techbase.novid.component.ui.reusable.XAlertDialog
+import software.techbase.novid.component.android.xlogger.XLogger
 import software.techbase.novid.component.ui.reusable.XSnackBar
-
 
 /**
  * Created by Wai Yan on 3/28/20.
@@ -49,14 +45,14 @@ abstract class BaseActivity : FirebaseRemoteConfigUpdateCheckerActivity(),
 
     override fun onInternetAvailable() {
 
-        debug { "onInternetAvailable" }
+        XLogger.debug(javaClass, "onInternetAvailable")
 
         XSnackBar.hide()
     }
 
     override fun onInternetUnavailable() {
 
-        debug { "onInternetUnavailable" }
+        XLogger.debug(javaClass, "onInternetUnavailable")
 
         XSnackBar.show(
             this.findViewById(android.R.id.content),
@@ -70,21 +66,12 @@ abstract class BaseActivity : FirebaseRemoteConfigUpdateCheckerActivity(),
 
     override fun isLocationEnable() {
 
-        debug { "isLocationEnable" }
-
-        XAlertDialog.hide()
+        XLogger.debug(javaClass, "LocationEnable")
     }
 
     override fun isLocationDisable() {
 
-        debug { "isLocationDisable" }
-
-        XAlertDialog.show(
-            this,
-            XAlertDialog.Type.ERROR,
-            resources.getString(R.string.MESSAGE_LOCAL__ENABLE_LOCATION_REQUEST),
-            resources.getString(R.string.OK)
-        ) { this.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
+        XLogger.debug(javaClass, "LocationDisable")
     }
 
     override fun onResume() {

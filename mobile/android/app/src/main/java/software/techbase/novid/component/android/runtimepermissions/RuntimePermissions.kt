@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import software.techbase.kindgirls.component.android.runtimepermissions.Try
 import java.lang.ref.WeakReference
 import java.util.concurrent.Semaphore
 
