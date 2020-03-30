@@ -1,7 +1,9 @@
-package software.techbase.novid.util;
+package software.techbase.novid.domain.location;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
+import android.provider.Settings;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -9,7 +11,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
-import software.techbase.novid.component.android.xlogger.XLoggerKt;
+import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
+import software.techbase.novid.component.android.xlogger.XLogger;
 
 /**
  * Created by Wai Yan on 3/29/20.
@@ -24,13 +27,6 @@ public class CurrentLocation {
         FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mContext);
 
         try {
-            LocationCallback mLocationCallback = new LocationCallback() {
-                @Override
-                public void onLocationResult(LocationResult locationResult) {
-                    super.onLocationResult(locationResult);
-                }
-            };
-
             mFusedLocationClient
                     .getLastLocation()
                     .addOnCompleteListener(task -> {
@@ -39,13 +35,23 @@ public class CurrentLocation {
                             if (mLocation != null) {
                                 listener.onLocationAvailable(mLocation);
                             }
-                            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+                            mFusedLocationClient.removeLocationUpdates(new LocationCallback() {
+                                @Override
+                                public void onLocationResult(LocationResult locationResult) {
+                                    super.onLocationResult(locationResult);
+                                }
+                            });
                         } else {
-                            XLoggerKt.debug("Failed to get location.");
+                            XLogger.debug(CurrentLocation.class, "Failed to get location.");
+                            if (!GPSStatusBroadcastReceiver.isLocationEnabled(mContext)) {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                mContext.startActivity(intent);
+                            }
                         }
                     });
         } catch (SecurityException ex) {
-            XLoggerKt.debug("Lost location permission." + ex);
+            XLogger.debug(CurrentLocation.class, "Lost location permission." + ex);
         }
 
         try {
@@ -55,7 +61,7 @@ public class CurrentLocation {
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, null);
         } catch (SecurityException ex) {
-            XLoggerKt.debug("Lost location permission. Could not request updates." + ex);
+            XLogger.debug(CurrentLocation.class, "Lost location permission." + ex);
         }
 
     }

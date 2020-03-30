@@ -1,4 +1,4 @@
-package software.techbase.kindgirls.component.android.runtimepermissions
+package software.techbase.novid.component.android.runtimepermissions
 
 import android.util.Log
 

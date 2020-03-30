@@ -1,549 +1,555 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style type="text/css">
-   
-    @font-face {
-        font-family: MyFont;
-        src: url("file:///android_asset/fonts/Pyidaungsu.ttf")
-    }
-
-    .body {
-        font-family: MyFont;
-        font-size: medium;
-        text-align: justify;
-        color: #ddd;
-    }
-
-    .bold {
-        font-weight: bold;
-        font-size: 18px;
-    }
-
-    .dropdown-item {
-        font-size: 16px;
-        width: 100%;
-    }
-
-    </style>
+    <title>COVID-19</title>
 </head>
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<style>
+@font-face {
+    font-family: 'MUA_Office';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''), local('MUA Office'), local('MUAOffice'),
+        url('https://www.mmunicode.org/fonts/web/MUAOffice.woff') format('woff'),
+        url('https://www.mmunicode.org/fonts/web/MUAOffice.ttf') format('truetype');
+    unicode-range: U1000-109F;
+    /*, U1000-109F, U200C-200D, U25CC; */
+}
+
+@font-face {
+    font-family: 'MUA_Office';
+    font-style: normal;
+    font-weight: 700;
+    src: local(' '), local('MUA Office Bold'), local('MUAOffice-Bold'),
+        url('https://www.mmunicode.org/fonts/web/MUAOffice-Bold.woff') format('woff'),
+        url('https://www.mmunicode.org/fonts/web/MUAOffice-Bold.ttf') format('truetype');
+    unicode-range: U1000-109F;
+}
+
+@font-face {
+    font-family: 'pyidaungsu';
+    src: local('Pyidaungsu'), url('https://mmwebfonts.sgp1.cdn.digitaloceanspaces.com/fonts/Pyidaungsu-2.1_Regular.woff') format('woff'), url('https://mmwebfonts.sgp1.cdn.digitaloceanspaces.com/fonts/Pyidaungsu-2.1_Regular.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'pyidaungsu';
+    src: local('Pyidaungsu'), url('https://mmwebfonts.sgp1.cdn.digitaloceanspaces.com/fonts/Pyidaungsu-2.1_Bold.woff') format('woff'), url('https://mmwebfonts.sgp1.cdn.digitaloceanspaces.com/fonts/Pyidaungsu-2.1_Bold.ttf') format('ttf');
+    font-weight: bold;
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+html {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'pyidaungsu';
+    background: #fff;
+    color: #000000;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 100vh;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 1%;
+    width: 100%;
+}
+
+h3 {
+    font-size: 1.75rem;
+    color: #373d51;
+    padding: 1.3rem;
+    margin: 0;
+}
+
+.accordion a {
+    font-size: small;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 3rem 1rem 1rem;
+    color: #000000;
+    font-size: 1.15rem;
+    font-weight: 400;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.accordion a:hover,
+.accordion a:hover::after {
+    cursor: pointer;
+    color: #000000;
+}
+
+.accordion a:hover::after {
+    border: 1px solid #000000;
+}
+
+.accordion a.active {
+    color: #000000;
+    border-bottom: 1px solid #000000;
+}
+
+.accordion a::after {
+    font-family: 'Ionicons';
+    content: '\f218';
+    position: absolute;
+    float: right;
+    right: 1rem;
+    font-size: 1rem;
+    color: #000000;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    text-align: center;
+}
+
+.accordion a.active::after {
+    font-family: 'Ionicons';
+    content: '\f209';
+    color: #000000;
+    border: 1px solid #000000;
+}
+
+.accordion .content {
+    opacity: 0;
+    padding: 0 1rem;
+    max-height: 0;
+    border-bottom: 1px solid #e5e5e5;
+    overflow: hidden;
+    clear: both;
+
+}
+
+.accordion .content p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.accordion .content.active {
+    opacity: 1;
+    padding: 1rem;
+    max-height: 100%;
+
+}
+
+.accordion .content.active {
+    opacity: 1;
+    padding: 1rem;
+    max-height: 100%;
+    -webkit-transition: all 0.35 s ease 0.15s;
+    -o-transition: all 0.35s ease 0.15s;
+    transition: all 0.35s ease 0.15s;
+}
+</style>
 
 <body>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        ကိုရိုနာဗိုင်းရပ်စ် (Coronavirus) ဆိုတာ ဘာလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp
-            ကိုရိုနာဗိုင်းရပ်စ် (Coronavirus) ဆိုတာ တိရစ္ဆာန်တွေမှာသာမက လူတွေမှာပါတွေ့နိုင်တဲ့
-            ကြီးမားတဲ့ ဗိုင်းရပ်စ် အုပ်စုတစ်မျိုးပါ။ လူတွေကို ကူးစက်တဲ့အခါ
-            သာမန်တုပ်ကွေးရောဂါလက္ခဏာကနေ ပြင်းထန်တဲ့ အသက်ရှူလမ်းကြောင်းဆိုင်ရာ ရောဂါတွေအထိ
-            ဖြစ်တတ်ပါတယ်။
-            (၂၀၀၂) ခုနှစ်က တရုတ်ပြည်သူ့သမ္မတနိုင်ငံမှာ ဖြစ်ပွားခဲ့တဲ့ SARS ရောဂါ၊ (၂၀၁၂)​ ခုနှစ်က
-            အရှေ့အလည်ပိုင်းဒေသမှာ ဖြစ်ပွားခဲ့တဲ့ MERS ရောဂါတွေလိုမျိုး ပြင်းထန်အဆုတ်ရောင် ရောဂါတွေဟာ
-            ကိုရိုနာဗိုင်းရပ်စ် ရောဂါပိုးတွေကြောင့် ဖြစ်ပွားရခြင်း ဖြစ်ပါတယ်။ မကြာသေးခင်ကမှ
-            အသစ်တွေ့ရှိရတဲ့ ကိုရိုနာဗိုင်းရပ်စ်ကတော့ (COVID-19) လက်တလော အသက်ရှူလမ်းကြောင်းဆိုင်ရာ
-            ရောဂါကိုဖြစ်ပွားစေခဲ့ပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left; ">
-        ကိုရိုနာဗိုင်းရပ်စ်ရောဂါ (COVID-19) ဆိုတာဘာလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp
-            ကိုရိုနာဗိုင်းရပ်စ်ရေဂါ (COVID-19) ဆိုတာ (၂၀၁၉) ခုနှစ်၊ ဒီဇင်ဘာလက
-            တရုတ်ပြည်သူ့သမ္မတနိုင်ငံ၊ ဝူဟန်မြို့မှာ စတင်တွေ့ရှိခဲ့တဲ့ Coronavirus မျိုးစိတ်
-            အသစ်တစ်ခုကြောင့် ဖြစ်ပွားခဲ့တဲ့ ကူးစက်ရောဂါပဲ ဖြစ်ပါတယ်။ ဒီဗိုင်းရပ်စပ်ကို အရင်တုန်းက
-            လူတွေမှာ မတွေ့ရှိခဲ့ ကြဖူးပါဘူး။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        ကိုရိုနာဗိုင်းရပ်စ်ရောဂါ (COVID-19) ရဲ့ရောဂါလက္ခဏာတွေက ဘာတွေလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp အဖြစ်များဆုံး
-            ရောဂါလက္ခဏာတွေကတော့ အဖျားကြီးခြင်း၊ အားအင်ကုန်ခမ်းခြင်း၊​ပင်ပန်းနွမ်းနယ်ခြင်း၊
-            ချောင်းခြောက်ဆိုးခြင်းတို့ ဖြစ်ပါတယ်။ တစ်ချို့လူနာတွေမှာ သလိပ်ထွက်ခြင်း၊ မောခြင်း၊
-            လည်ချောင်းနာခြင်း၊ ခေါင်းကိုက်ခြင်းတို့ ဖြစ်တတ်ပါတယ်။ ရောဂါပိုးကူးစက်ခံရသူတစ်ချို့မှာ
-            မည်သည့်ရောဂါလက္ခဏာမှ ဖြစ်ပေါ်ခြင်းမရှိပါ။ ရောဂါ ဖြစ်ပွားသူတွေထဲမှာမှ ၈၀% က အထူးကုသမှု
-            ခံယူစရာမလိုပဲ​ ပြန်လည်သက်သာသွားလေ့ရှိပါတယ်။ ရောဒါဖြစ်သွားသူ ၉ ယောက်ရှိလျှင် ၁ ယောက်က
-            အသက်ရှူခက်ခဲြခင်း စတဲ့ ပြင်းထန်ရောဂါလက္ခဏာတွေ ခံစားရတတ်ပါတယ်။ အထူးသဖြင့်
-            အသက်ကြီးတဲ့သူတွေ၊​ နာတာရှည်ရောဂါ (သွေးတိုး၊ ဆီးချို၊ နှလုံးရောဂါ)ရှိတဲ့လူတွေမှာ
-            ရောဂါလက္ခဏာတွေ ခံစားရပြီဆိုလျှင် ဆေးကုသမှုချက်ခြင်းခံယူသင့်ပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        ကိုရိုနာဗိုင်းရပ်စ်ရောဂါ ဘယ်လိုကူးစက်ခံရနိုင်တာလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp ရောဂါရှိတဲ့သူနဲ့
-            အနီးကပ် ထိတွေ့ရာကတစ်ဆင့် ရောဂါကူးစက်ခံရနိုင်ပါတယ်။ (COVID-19) ရောဂါခံစားနေရတဲ့သူ နှာချေ၊
-            ချောင်းဆိုးရာမှ ထွက်လာတဲ့ ရောဂါပိုး အစက်အမှုန် တွေ အသက်ရှူလမ်းကြောင်းကို
-            ဝင်ရောက်ရာမှတစ်ဆင့် ရောဂါကူးစက်ခံရနိုင်ပါတယ်။ ရောဂါပိုး အစက်အမှုန်တွေက
-            အနီးပတ်ဝန်းကျင်မှာရှိတဲ့ အရာဝတ္ထုတွေ၊ မျက်နှာပြင်တွေ ပေါ်ကို ကျရောက်တတ်ပါတယ်။
-            ဒီရောဂါပိုးတင်ကျန်နေတဲ့ မျက်နှာပြင်၊ အရာဝတ္ထုတွေ ကို ကိုင်တွယ်ထားတဲ့ လက်နဲ့
-            မိမိမျက်လုံး၊ နှာခေါင်း၊ ပါးစပ်တို့ကို ကိုင်တွယ်မိရာက တစ်ဆင့်လည်း ကူးစက်နိုင်ပါတယ်။
-            ဒါကြောင့်မို့လို့ လူတစ်ဦးနှင့်တစ်ဦး (၁) မီတာ ((၃)ပေ) အကွာမှာနေဖို့က အလွန်အရေးကြီးပါတယ်။
-            ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီး (WHO)အနေဖြင့် (COVID-19)ကူးစက်ပြန့်ပွားပုံနှင့်ပတ်သက်သော
-            သုတေသနလုပ်ငန်းများ ဆောင်ရွက်လျက်ရှိပြီး တွေ့ရှိချက်များကို ဆက်လက် ဖြန့်ဝေသွားမှာ
-            ဖြစ်ပါတယ်။
-            (COVID-19) ရောဂါဖြစ်စေတဲ့ ဗိုင်းရပ်စ်က လေမှတစ်ဆင့် ကူးစက်နိုင်ပါသလား?
-            ယခုလက်ရှိတွေ့ရှိချက်များအရ (COVID-19) ဖြစ်ပွားစေတဲ့ ရောဂါပိုးအစက်အမှုန်တွေကို
-            ထိတွေ့ရာကတစ်ဆင့် အဓိကကူးစက်တာပဲ ဖြစ်ပါတယ်။ (ကမ္ဘာ့ကျန်းမာ ရေးအဖွဲ့ကြီး (WHO)အနေဖြင့်
-            (COVID-19) ကူးစက်ပြန့်ပွားပုံနှင့် ပတ်သတ်သော သုတေသနလုပ်ငန်းများ ဆောင်ရွက်လျက်ရှိပြီး
-            တွေ့ရှိချက်များကို ဆက်လက်ဖြန့်ဝေသွားမှာ ဖြစ်ပါတယ်)
-            ရောဂါရှိသူရဲ့ မစင်ကတစ်ဆင့် ကူးစက်နိုင်ပါသလား?
-            ရောဂါရှိသူရဲ့ မစင်ကတစ်ဆင့် ကူးစက်နိုင်ခြေနည်းပါတယ်။ ကနဦးတွေ့ရှိချက်တွေအရ
-            တစ်ချို့လူနာတွေရဲ့ မစင်ထဲမှာ ရောဂါပိုးရှိနေနိုင်ပေမယ့် အစာအိမ်အူ လမ်းကြောင်းကတစ်ဆင့်
-            အဓိက ကူးစက်ခြင်းမဟုတ်တာကို တွေ့ရပါတယ်။ မည်သို့ပင်ဖြစ်စေ ကူးစက်နိုင်ခြင်းကို
-            ကာကွယ်ဖို့အတွက် အစာမစားမီတိုင်း၊ အိမ်သာမှ ဆင်းပြီးတိုင်း၊ လက်ကိုစနစ်တကျ စင်ကြယ်အောင်
-            ဆေးကြောပါ။ (ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီး (WHO) အနေဖြင့် (COVID-19) ကူးစက်ပြန့်ပွားပုံနှင့်
-            ပတ်သက်သော သုတေသနလုပ်ငန်းများ ဆောင်ရွက်လျက်ရှိပြီး တွေ့ရှိချက်များကို
-            ဆက်လက်ဖြန့်ဝေသွားမှာ ဖြစ်ပါတယ်)
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        ရောဂါကာကွယ်ဖို့နည်းလမ်းတွေက ဘာတွေလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style=" margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp ကျန်းမာရေးနဲ့
-            အားကစားဝန်ကြီးဌာနက အချိန်နဲ့တစ်ပြေးညီ ထုတ်ပြန်တဲ့ရောဂါကာကွယ်နိုင်မယ့်
-            ကျန်းမာရေးအသိပညာပေး သတင်းအချက်အလက်တွေကို သတိပြု ဖတ်ရှုကြဖို့ တိုက်တွန်းလိုပါတယ်။ ယခုအခါ
-            ကမ္ဘာ့နိုင်ငံအများစုမှာ ရောဂါကူးစက် ပျံ့နှံ့ နေပြီ ဖြစ်ပါတယ်။
-            တရုတ်ပြည်သူ့သမ္မတနိုင်ငံအပါအဝင် တချို့နိုင်ငံတွေမှာ ရောဂါ ထိန်းချုပ်မှုတွေ
-            အောင်မြင်နေပြီဖြစ်ပေမယ့် အခြေအနေတွေက ခန့်မှန်းလို့ မရနိုင်သေး ပါဘူး။ နောက်ဆုံးရ
-            သတင်းတွေကို ပုံမှန်စောင့်ကြည့်ဖို့ အရေးကြီးပါတယ်။ ကိုယ့်ကိုယ်ကို ကာကွယ်ဖို့အတွက် </br>
-            • ရေနဲ့ ဆပ်ပြာအသုံးပြုပြီး အနည်းဆုံးစက္ကန့် (၂၀)ကြာအောင် လက်ကို မကြာခဏစနစ်တကျ ဆေးကြောပါ။
-            (သို့မဟုတ်) Alcohol (အနည်းဆုံး ၆၀%)ပါတဲ့ လက် သန့်စင် ဆေးရည်ကို အသုံးပြုပါ။ (လက်ကို
-            စနစ်တကျ မကြာခဏ ဆေးခြင်းအားဖြင့်လက်မှာကပ်ငြိနေတဲ့ ရောဂါပိုးတွေကို သေစေနိုင်ပါတယ်)
-            </br>
-            • နှာချေ၊ ချောင်းဆိုးနေတဲ့သူတွေနဲ့ တွေ့ဆုံတဲ့အခါ အနည်းဆုံး (၁)မီတာ ((၃)ပေ) အကွာမှာနေပါ။
-            (ရောဂါပိုးရှိသူတွေ နှာချေ၊ ချောင်းဆိုးတဲ့အခါ ထွက်လာတဲ့ သေးငယ်သော အမှုန်အမွှားတွေမှာ
-            ရောဂါပိုးတွေ ပါရှိတတ်လို့ပါ)
-            </br>
-            • မိမိရဲ့ မျက်လုံး၊ နှာခေါင်းနဲ့ ပါးစပ်တို့ကို မကြာခဏ ကိုင်တွယ်ခြင်း မပြုပါနဲ့။
-            (လက်မှာရောဂါပိုးတွေ ကပ်ငြိနေမယ်ဆိုရင် မျက်လုံး၊ နှာခေါင်းနဲ့ ပါးစပ်တို့က နေတစ်ဆင့်
-            ရောဂါပိုးတွေ ဝင်ရောက်နိုင်လို့ပါ)
-            </br>
-            • နှာချေ၊ ချောင်းဆိုးတဲ့အခါတိုင်း လိုက်နာရမယ့် ကျင့်ဝတ်တွေကို လိုက်နာပါ။
-            နှာချေ။ချောင်းဆိုးတဲ့အခါ နှာခေါင်းနဲ့ ပါးစပ်ကို တစ်ရှူး (သို့မဟုတ်) တံတောင်ကွေးဖြင့်
-            လုံခြုံအောင် ဖုံးအုပ်ပါ။ သုံးပြီးသားတစ်ရှူးကို အမှိုက်ပုံးထဲသို့ စနစ်တကျ
-            စွန့်ပစ်ပါ။လက်ကို စနစ်တကျပြန်ဆေးပါ။
-            </br>
-            • နေမကောင်းဖြစ်လျှင် အိမ်မှာပဲ အနားယူပါ။ ဖျားနာ၊ ချောင်းဆိုး၊ အသက်ရှူခက်ခဲခြင်း
-            တွေဖြစ်ခဲ့လျှင် ဆေးကုသမှု ချက်ချင်းခံယူပါ။ သက်ဆိုင်ရာ
-            ကျန်းမာရေးဌာနတွေကလမ်းညွှန်ချက်အတိုင်း လိုက်နာပါ။ ။
-            </br>
-            • (COVID-19) ရောဂါ ဘယ်နေရာတွေမှာ ဖြစ်ပွားနေပြီဆိုတဲ့ နောက်ဆုံးရသတင်းတွေကို
-            စောင့်ကြည့်ပါ။ အဲ့ဒီနေရာတွေကို ခရီးသွားခြင်းမှ တတ်နိုင်သမျှ ရှောင်ကြဉ်ပါ။ (အထူးသဖြင့်
-            အသက်ကြီးသူများနှင့် နာတာရှည်ရောဂါရှိသူများ)
-            </br>
-            လွန်ခဲ့သော (၁၄)ရက်အတွင်း (COVID-19) ရောဂါဖြစ်ပွားနေတဲ့ဒေသမှ ပြန်လာသော သူများ
-            လိုက်နာရမယ့်အချက်တွေက ဘာတွေလဲ? –
-            </br>
-            အထက်မှာ ဖော်ပြထားတဲ့ ရောဂါကာကွယ်နိုင်မယ့် နည်းလမ်းတွေကို လိုက်နာပါ။
-            </br>
-            မိမိမှာ ခေါင်းကိုက်ခြင်း၊ အဖျားငွေ့ငွေ့ရှိခြင်း စသည့် ရောဂါလက္ခဏာတွေ ပေါ်ပေါက်ပါက
-            မိသားစုနဲ့အတူ ရောနှောနေထိုင်ခြင်းမပြုဘဲ သီးသန့်ခွဲခြား နေထိုင်ပါ။ အကယ်၍ အစားအစာဝယ်ရန် |
-            အပြင်ထွက်ရန် မဖြစ်မနေလိုအပ် ပါက ပါးစပ်နှင့် နှာခေါင်းစည်း တပ်ဆင်ထားရပါမယ်။ အကယ်၍
-            အဖျားကြီး ခြင်း၊ ချောင်းဆိုးခြင်း၊ အသက်ရှူခက်ခြင်းတို့ ဖြစ်ပေါ်လာလျှင် ဆေးကုသမှု
-            ချက်ချင်းခံယူပါ။ ခရီးသွားရာဇဝင်ကို နီးစပ်ရာ ကျန်းမာရေးဌာနသို့ အမြန်ဆုံး သတင်းပို့ပြီး
-            ကုသမှုခံယူပါ။ ခရီးသွားရာဇဝင်နဲ့ အနီးကပ် ထိတွေ့ဆက်ဆံခဲ့တဲ့ သူတွေစာရင်းကို
-            ကျန်းမာရေးစောင့်ရှောက်သူထံ ပြောပြပါ။ (အထက်ပါအချက် များကို လိုက်နာဆောင်ရွက်ခြင်းဖြင့်
-            (COVID-19) ရောဂါအပါအဝင် အခြား ကူးစက်ရောဂါများ အန္တရာယ်ကနေ ကာကွယ်နိုင်မှာ ဖြစ်ပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19) ရောဂါကူးစက်နိုင်ခြေ ဘယ်လောက်ရှိသလဲ ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp “သင်” ဘယ်နေရာမှာ
-            နေတာလဲရယ်၊ ခရီးသွားခဲ့တဲ့ ဒေသတွေပေါ်မှာ မူတည်ပြီး ကူးစက် နိုင်ချေ ကွာခြားသွားပါတယ်။
-            ရောဂါကူးစက်မှုဖြစ်ပွားနေတဲ့ မြို့ကြီးတွေ၊ ဒေသတွေမှာ နေထိုင် တဲ့သူတွေနဲ့၊ အဲ့ဒီဒေသတွေကို
-            ခရီးသွားလာတဲ့သူတွေမှာ ရောဂါကူးစက်နိုင်ချေ ပိုများပါတယ်။ အစိုးရနဲ့
-            ကျန်းမာရေးနှင့်အားကစားဝန်ကြီးဌာနကလည်း ရောဂါကာကွယ် ထိန်းချုပ်ရေးအတွက် အားသွန်ခွန်စိုက်
-            ဆောင်ရွက်လျက်ရှိပါတယ်။ အစိုးရက ထုတ်ပြန် ထားတဲ့ ခရီးသွားလာခြင်းနဲ့ပတ်သက်တဲ့
-            တားမြစ်ချက်တွေ၊ လူစုလူဝေးနဲ့ပတ်သက်တဲ့ တားမြစ်ချက်တွေကို သေသေချာချာ
-            လိုက်နာဆောင်ရွက်ရပါမယ်။ ရောဂါကာကွယ်ရေး လုပ်ငန်းစဉ်တွေမှာ ပူးပေါင်းပါဝင်ခြင်းဖြင့်
-            မိမိကိုယ်တိုင်ရော၊ သူတစ်ပါးကိုပါ ရောဂါ ကာကွယ်နိုင်မှာ ဖြစ်ပါတယ်။ (COVID-19) ရောဂါ
-            ကူးစက်ပျံ့နှံ့မှုကို ထိန်းချုပ်နိုင်တယ် ဆိုတာ တရုတ်ပြည်သူ့သမ္မတနိုင်ငံနဲ့
-            အချို့နိုင်ငံတွေက လက်တွေ့ ပြသနိုင်ခဲ့ပါတယ်။ ဒါပေမယ့် ရောဂါကူးစက်ပျံ့နှံ့မှုအသစ်
-            ဖြစ်ပွားခြင်းတွေကလည်း အလျင်အမြန် ပေါ်ပေါက်လာနိုင်ပါတယ်။ ဒါကြောင့် ကိုယ်သွားမယ့် ဒေသရဲ့
-            (COVID-19) ရောဂါနဲ့ပတ်သက်တဲ့ အခြေအနေတွေကို သတိပြုဖို့ အလွန်အရေးကြီးပါတယ်။
-            ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးက လည်း နေ့စဉ်နဲ့အမျှ နောက်ဆုံးရ သတင်းအချက်အလက်တွေကို
-            ကမ္ဘာ့အနှံ့ကို ပေးပို့နေပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19)ရောဂါဟာ ဘယ်အတိုင်းအတာအထိ စိုးရိမ်ရမှာလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp ကလေးတွေနဲ့
-            လူငယ်တွေမှာ (COVID-19)ရောဂါဟာ ပြင်းထန်လေ့မရှိဘဲ သာမန်ရောဂါ လက္ခဏာတွေပဲ ဖြစ်ပွားတတ်တာပါ။
-            ရောဂါဖြစ်ပွားသူ (၅)ယောက်မှာ (၁)ယောက်က ရောဂါပြင်းထန်နိုင်ပြီး ဆေးရုံမှာ
-            ကုသဖို့လိုနိုင်ပါတယ်။ ဒါကြောင့်မို့ ကိုယ်ကိုတိုင်နဲ့အတူ ကိုယ်ချစ်ရတဲ့သူတွေနဲ့
-            ကိုယ့်ပတ်ဝန်းကျင်ကိုရော ရောဂါကူးစက်မှာကို လူတိုင်းစိုးရိမ်နေ ကြမှာပါ။
-            စိုးရိမ်ပူပန်နေရုံနဲ့မပြီးပါဘူး။ လက်မကြာခဏ စနစ်တကျဆေးခြင်း၊ ချောင်းဆိုး၊ နှာချေတဲ့အခါ
-            လိုက်နာရမယ့်ကျင့်ဝတ်တွေကို လိုက်နာခြင်းစတဲ့ ရောဂါကာကွယ်ရမယ့် နည်းလမ်းတွေကို
-            တစ်ဦးချင်းစီက လိုက်နာဆောင်ရွက်ရမှာ ဖြစ်ပါတယ်။ ကျန်းမာရေးနဲ့ အားကစားဝန်ကြီးဌာနရဲ့
-            ကျန်းမာရေးဆိုင်ရာ အကြံပြုချက်တွေ၊ အစိုးရက ထုတ်ပြန်တဲ့ တားမြစ်ချက်တွေကို
-            တစ်ဦးတစ်ယောက်ချင်းစီက လိုက်နာမယ်ဆိုရင် ရောဂါကူးစက် ပျံ့နှံ့မှုကို ကာကွယ်နိုင်မှာပဲ
-            ဖြစ်ပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        ဘယ်လိုလူတွေမှာ ရောဂါပြင်းထန်တာလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp ယခုလက်ရှိ
-            တွေ့ရှိချက်များအရတော့ အသက်ကြီးတဲ့သူတွေ၊ နဂိုရောဂါအခံ (သွေးတိုး၊ ဆီးချို၊ နှလုံး၊ ကင်ဆာ၊
-            အဆုတ်ရောဂါ) ရှိတဲ့သူတွေမှာ ပိုပြီးပြင်းထန်တတ်ပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19) ရောဂါဖြစ်ပွားနေတဲ့ ဒေသတွေက ပို့တဲ့ပစ္စည်းတွေ၊ ပါဆယ်ထုပ်တွေကိုလက်ခံတဲ့အခါ
-        ဘေးကင်းရဲ့လား?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp လက်ခံလို့ ရပါတယ်။
-            ကူးစက်နိုင်ချေ အလွန်နည်းပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19) ရောဂါကိုကာကွယ်ကုသဖို့ ဆေးဝါးကုထုံးတွေ ရှိပါသလား?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp (COVID-19)
-            ရောဂါကို ကုသနိုင်တယ်ဆိုပြီး အနောက်တိုင်းဆေးပညာ၊ တိုင်းရင်းဆေး၊အိမ်တွင်း ဆေးအမျိုးမျိုး
-            ပေါ်ထွက်နေပေမယ့် လက်ရှိမှာတော့ ခိုင်မာတဲ့သက်သေ အထောက်အထားမရှိပါဘူး။
-            ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးမှ ပဋိဇီဝဆေးများ အပါအဝင် မည်သည့် ဆေးကိုမျှ မိမိသဘောနဲ့မိမိ
-            မသုံးစွဲရန် အကြံပြုထားပါတယ်။ ယခုလက်ရှိမှာတော့ ရောဂါကုသဖို့အတွက် အနောက်တိုင်းဆေးပညာရော၊
-            တိုင်းရင်းဆေးပညာကပါ ပေါင်းစပ်ပြီး ကြိုးစားဆောင်ရွက်နေကြပါတယ်။
-            ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးမှ အသစ်တွေ့ရှိ တဲ့ ဆေးပညာဆိုင်ရာ အချက်အလက်တွေကို
-            ဆက်လက်ဖြန့်ဝေသွားမှာ ဖြစ်ပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19) ရောဂါအတွက် ကာကွယ်ဆေးနဲ့ ကုသဖို့ဆေး ရှိပြီလား?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp အခုထိတော့
-            ကာကွယ်ဆေး၊ ကုသဆေးပါ မရှိသေးပါဘူး။ (COVID-19) ရောဂါအတွက် ကာကွယ်ဆေးနဲ့ကုသဖို့
-            ဆေးရရှိဖို့အတွက် ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးက ဦးဆောင်ပြီးတော့ ကြိုးစားနေကြပါတယ်။
-            (COVID-19) ရောဂါကူးစက်ခံထားရတဲ့ လူနာများရဲ့ ရောဂါလက္ခဏာတွေ သက်သာဖို့အတွက်သာ
-            အသင့်တော်ဆုံး ကုထုံးတွေနဲ့ ကုသနေကြရပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19) ရောဂါက SARS ရောဂါနဲ့တူပါသလား?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp မတူပါဘူး။
-            ကိုရိုနာဗိုင်းရပ်စ်အုပ်စုဝင် ဗိုင်းရပ်စ်များကြောင့် ဖြစ်ပွားတာချင်းတူပေမယ့်
-            ရောဂါတစ်ခုနဲ့တစ်ခု မတူပါဘူး။ SARS ရောဂါက (CoVID-19) နဲ့ နှိုင်းယှဉ်ရင် သေဆုံး
-            နှုန်းပိုများပြီး ကူးစက်နှုန်းက ပိုနည်းပါတယ်။ (၂၀၀၃) ခုနှစ်ကစပြီး ကမ္ဘာပေါ်မှာ SARS
-            ရောဂါဖြစ်ပွားခြင်း မတွေ့ရတော့ပါဘူး။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        ကိုယ့်ကိုယ်ကို ကာကွယ်ဖို့အတွက် ပါးစပ်နဲ့ နှာခေါင်းစည်း တပ်သင့်သလား?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style=" margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp
-            </br>
-            • နှာစေး၊ ချောင်းဆိုးစတဲ့ အသက်ရှူ လမ်းကြောင်းဆိုင်ရာ ရောဂါလက္ခဏာရှိတဲ့လူတွေ၊ရောဂါလက္ခဏာ
-            ရှိတဲ့သူတွေကို အနီးကပ်ပြုစုပေးရသူတွေ၊ ကျန်းမာရေးဝန်ထမ်းတွေပဲ ပါးစပ်နှင့် နှာခေါင်းစည်း
-            (Surgical Mask) တွေကို သုံးရမှာဖြစ်ပါတယ်။
-            </br>
-            • ဒီလိုအခြေအနေကလွဲပြီး သာမန် ပြည်သူတွေအနေနဲ့ ပါးစပ်နဲ့ နှာခေါင်းစည်းကို အသုံးပြုဖို့
-            မလိုပါကြောင်း ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးက အကြံပြုထားပါတယ်။
-            </br>
-            • ယခုအချိန်တွင် ကမ္ဘာတစ်ဝန်းလုံး ပါးစပ်နဲ့ နှာခေါင်းစည်းရှားပါးခြင်းနှင့်
-            ကြုံတွေ့နေရသောကြောင့် ချင့်ချိန်ပြီး မလိုအပ်ဘဲ မသုံးစွဲကြပါရန်
-            ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးက အကြံ ပြုထားပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        ပါးစပ်နှင့် နှာခေါင်းစည်း (Surgical Mask) ကို ဘယ်လိုတပ်ရမလဲ၊ ချွတ်ရမလဲ။ဘယ်လို စွန့်ပစ်ရမလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp
-            </br>
-            • ပါးစပ်နှင့် နှာခေါင်းစည်းကို မဝတ်ခင် လက်ကိုဆပ်ပြာနှင့် စနစ်တကျ သေချာစွာဆေးပါ။
-            (သို့မဟုတ်) Alcohol ပါဝင်သော လက်သန့်စင်ဆေးရည်ကို အသုံးပြုပါ။
-            </br>
-            • ပါးစပ်နှင့် နှာခေါင်းစည်းတွင် အပေါက်အပြဲများ ရှိ/မရှိ စစ်ဆေးပါ။
-            </br>
-            • အရောင်ပိုရင့်သည့် မျက်နှာပြင်ကို အပြင်ဘက်တွင် ထားရှိပါ။
-            </br>
-            • ကော်ချောင်း (သို့မဟုတ်) သတ္ထုချောင်းရှိသည့်ဘက်သည် အပေါ်ဘက်ဖြစ်သည်။
-            </br>
-            • ပါးစပ်နှင့် နှာခေါင်းနှစ်ခုလုံးကို လုံခြုံအောင် ဖုံးအုပ်ပါ။
-            </br>
-            • Mask ၏ ဘေးအနားစွန်းများနှင့် မိမိ၏ မျက်နှာကြားတွင် လစ်ဟာမှု(gap)မရှိစေရပါ။
-            </br>
-            • Mask အသုံးပြုနေစဉ် Mask ကို လက်ဖြင့် ထိတွေ့ကိုင်တွယ်ခြင်း မပြုရပါ။
-            </br>
-            • Mask ကို ဖယ်ရှားမည်ဆိုပါက Mask အနောက်ဘက်ရှိ ကြိုးကိုသာကိုင်တွယ်ဖယ်ရှားပါ။
-            </br>
-            • Mask ကို ဖယ်ရှားပြီးပါက မိမိ၏လက်ကို စနစ်တကျပြန်လည် ဆေးကြောပါ။
-            </br>
-            • မိမိအသုံးပြုနေသော Mask သည် စိုစွတ်လာပါက အသစ်တစ်ခုနှင့် လဲလှယ် အသုံးပြုပါ။
-            </br>
-            • အသုံးပြုပြီးသား Mask ကို ပြန်လည်၍ အသုံးမပြုရပါ။
-            </br>
-            • အသုံးပြုပြီးသား Mask ကို အမှိုက်ပုံးထဲသို့ စနစ်တကျ လွှင့်ပစ်ပါ။
-            </br>
-            • ချည်ထည်၊ ပိတ်စအဝတ်တို့ဖြင့် ပြုလုပ်ထားတဲ့ Mask များကို အသုံးမပြုရပါ။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19) ရောဂါပျိုးချိန်က ဘယ်လောက်ကြာတာလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp
-            ရောဂါပျိုးချိန်ဆိုတာက ဗိုင်းရပ်စ်ပိုး ခန္ဓာကိုယ်ထဲကို ဝင်ရောက်တဲ့အချိန်ကနေ ရောဂါ လက္ခဏာ
-            ပေါ်ပေါက်တဲ့အချိန် ကြားကာလကို ခေါ်တာပါ။ အကြမ်းအားဖြင့်(COVID-19)ရောဂါရဲ့
-            ရောဂါပျိုးချိန်ကို (၁)ရက်မှ (၁၄)ရက်အတွင်း၊ များသောအားဖြင့် (၅)ရက် ပတ်ဝန်းကျင်ဟု
-            ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးက သတ်မှတ်ထားပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19) ရောဂါက တိရစ္ဆာန်ကတစ်ဆင့် လူကို ကူးစက်နိုင်ပါသလား?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp (COVID-19)
-            ရောဂါဖြစ်စေတဲ့ ကိုရိုနာဗိုင်းရပ်စ်အပါအဝင် ကိုရိုနာဗိုင်းရပ်စ်အများစုကတော့
-            တိရစ္ဆာန်များရဲ့ ခန္ဓာကိုယ်ထဲမှာနေထိုင်ပြီး ရံဖန်ရံခါမှသာ လူတွေဆီကို ကူးစက်ခြင်း
-            ဖြစ်ပွား ပါတယ်။ (၂၀၁၂) ခုနှစ် အရှေ့အလယ်ပိုင်းမှာ ဖြစ်ပွားခဲ့တဲ့ MERS ရောဂါဟာ ကုလားအုတ်
-            ကနေတစ်ဆင့် လူကို ကူးစက်ခဲ့တာဖြစ်ပြီး၊ (၂၀၀၂) ခုနှစ်က တရုတ်ပြည်သူ့သမ္မတနိုင်ငံမှာ
-            စတင်ဖြစ်ပွားခဲ့တဲ့ SARS ရောဂါကတော့ ကြောင်ကတိုးကနေတစ်ဆင့် လူကိုကူးစက်ခဲ့တာ ဖြစ်ပါတယ်။ ယခု
-            လက်ရှိဖြစ်ပွားနေတဲ့ (COVID-19)ရောဂါကတော့ ဘယ်တိရစ္ဆာန်ကနေ လူကို ကူးစက်တယ်ဆိုတာ
-            မသိရှိရသေးပါဘူး။ ဒါကြောင့် ကိုယ့်ကိုယ်ကို ကာကွယ်ဖို့အတွက်တောရိုင်းတိရစ္ဆာန် အပါအဝင်
-            ဖျားနာနေတဲ့ ခြံမွေးတိရစ္ဆာန်တွေကို အကာအကွယ်မပါဘဲ မကိုင်တွယ် မထိတွေ့ပါနဲ့။ အသားတွေကို
-            သေချာစွာ ကျက်အောင်ချက်ပြုတ်ပြီး စားသောက် ရပါမယ်။ အသားစိမ်းတွေ၊ ကလီစာတွေ
-            တိရစ္ဆာန်ကထွက်တဲ့ နို့တွေကို သန့်သန့်ရှင်းရှင်းနဲ့ စနစ်တကျ ကိုင်တွယ်ရမှာဖြစ်ပြီး
-            ကိုင်တွယ်ပြီးရင် စနစ်တကျ လက်ပြန်ဆေးရမှာ ဖြစ်ပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19) ရောဂါဖြစ်စေတဲ့ဗိုင်းရပ်စ်ဟာ ကိုယ့်ရဲ့
-        အိမ်မွေးတိရစ္ဆာန်တွေကတစ်ဆင့်ကူးစက်နိုင်ပါသလား?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp ဟောင်ကောင်မှာ
-            ရောဂါရှိတဲ့ခွေးတစ်ကောင် တွေ့ရတဲ့ဖြစ်စဉ်တစ်ခု ရှိခဲ့ပေမယ့် (COVID19) ရောဂါဖြစ်စေတဲ့
-            ဗိုင်းရပ်စ်ဟာ ခွေး၊ ကြောင်စတဲ့ အိမ်မွေးတိရစ္ဆာန်တွေကတစ်ဆင့် ကူးစက်ပျံ့နှံ့ကြောင်း
-            ယခုအချိန်အထိ အထောက်အထား မတွေ့ရှိရသေးပါဘူး။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        ပဋိဇီဝဆေး(Antibiotics)တွေက (CoVID-19)ရောဂါကို ကာကွယ်ကုသတဲ့နေရာမှာ ထိရောက်ပါသလား?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp မထိရောက်ပါဘူး။
-            ပဋိဇီဝဆေးတွေက ဘတ်တီးရီးယားကြောင့် ဖြစ်တဲ့ရောဂါတွေကိုပဲကုနိုင်တာပါ။
-            ဗိုင်းရပ်စ်ကြောင့်ဖြစ်တဲ့ရောဂါတွေကို ကုသရာမှာ မသုံးသင့်ပါဘူး။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (COVID-19) ရောဂါကိုဖြစ်စေတဲ့ ကိုရိုနာဗိုင်းရပ်စ်က အရာဝတ္ထုမျက်နှာပြင်တွေပေါ်မှာ
-        ဘယ်လောက်ကြာကြာ အသက်ရှင်နိုင်တာလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp
-            </br>
-            • အတိအကျ မသိရသေးပေမယ့် တခြား ကိုရိုနာဗိုင်းရပ်စ်တွေလိုပဲ ဖြစ်မယ်လို့ ယူဆရပါတယ်။
-            တွေ့ရှိချက်တွေအရ အရာဝတ္ထုတွေရဲ့ မျက်နှာပြင် အမျိုးအစား၊ ပတ်ဝန်းကျင်၊ အပူချိန်၊
-            စိုထိုင်းဆတို့အပေါ်မူတည်ပြီး မျက်နှာပြင်တွေပေါ်မှာ နာရီအနည်းငယ်မှ ရက်ပေါင်း များစွာအထိ
-            ရှိနေနိုင်ပါတယ်။
-            </br>
-            • မျက်နှာပြင် ညစ်ပတ်နေကာ ကူးစက်နိုင်မယ်လို့ထင်ပါက ရိုးရိုးပိုးသတ်ဆေးရည်နဲ့သန့်ရှင်းပါ။
-            မိမိရဲ့ လက်ကို ဆပ်ပြာဖြင့် စနစ်တကျဆေးကြောခြင်း (သို့မဟုတ်) Alcohol အရက်ပြန်ပါဝင်တဲ့
-            လက်သန့်စင်ဆေးရည်နဲ့ ဆေးကြောခြင်းကို ပြုလုပ်ရမှာ ဖြစ်ပါတယ်။ ဒါ့ပြင် မျက်လုံး၊
-            နှာခေါင်းနဲ့ ပါးစပ်တို့ကို လက်ဖြင့်ကိုင်တွယ်ခြင်းတွေကို ရှောင်ကြဉ်ရမှာ ဖြစ်ပါတယ်။
-        </p>
-    </div>
-</div>
-<div class="dropdown col-lg-12 col-md-12 col-sm-12"
-     style="    text-align: left; padding-top: 10px; padding-bottom: 10px;">
-    <button type="button" class="btn  dropdown-toggle bold col-lg-12 col-md-12 col-sm-12"
-            data-toggle="dropdown"
-            style=" padding-top: 15px; padding-bottom: 15px; background: #dee0e3;  text-align: left;">
-        (CoVID-19) ရောဂါကာကွယ်ရေးမှာ လွဲမှားနေတဲ့ အယူအဆတွေက ဘာတွေလဲ?
-        <span class="glyphicon glyphicon-chevron-down"
-              style="float: right; padding-right: 20px;"></span>
-    </button>
-    <div class="dropdown-menu "
-         style="  margin-left: 20px; margin-right: 20px; padding-left: 20px; padding-right: 20px; text-align: justify; background: #f0eded; padding-top: 20px; padding-bottom: 10px;">
-        <p class="dropdown-item" href="#" style="color:  #121212;">&nbsp&nbsp&nbsp
-            </br>
-            • ဆေးလိပ်သောက်ခြင်း၊ အရက်သောက်ခြင်း၊ ရေနွေးကြမ်းသောက်ခြင်း
-            </br>
-            • Mask များကို နှစ်ခုသုံးခုထပ်၍ သုံးခြင်း
-            </br>
-            • ပဋိဇီဝဆေးများကို မိမိသဘောဖြင့် သုံးစွဲခြင်းတို့ပဲ ဖြစ်ပါတယ်။
-            </br>
-            ဒီနည်းတွေက (COVID-19) ရောဂါကူးစက်ခြင်းကို မကာကွယ်နိုင်တဲ့အပြင် (COVID19)ရောဂါဖြစ်ပွားပါက
-            ဆေးလိပ်သောက်ခြင်း၊ အရက်သောက်ခြင်းတို့ကြောင့် ပိုမိုပြင်းထန်စွာ ခံစားရနိုင်ပါတယ်။
-        </p>
+<div class="container">
+    <div class="accordion">
+        <div class="accordion-item">
+            <a>ကိုရိုနာဗိုင်းရပ်စ် (Coronavirus) ဆိုတာ ဘာလဲ?</a>
+            <div class="content">
+                <p>ကိုရိုနာဗိုင်းရပ်စ် (Coronavirus) ဆိုတာ တိရစ္ဆာန်တွေမှာသာမက
+                    လူတွေမှာပါတွေ့နိုင်တဲ့ ကြီးမားတဲ့ ဗိုင်းရပ်စ် အုပ်စုတစ်မျိုးပါ။ လူတွေကို
+                    ကူးစက်တဲ့အခါ သာမန်တုပ်ကွေးရောဂါလက္ခဏာကနေ ပြင်းထန်တဲ့ အသက်ရှူလမ်းကြောင်းဆိုင်ရာ
+                    ရောဂါတွေအထိ ဖြစ်တတ်ပါတယ်။
+                    (၂၀၀၂) ခုနှစ်က တရုတ်ပြည်သူ့သမ္မတနိုင်ငံမှာ ဖြစ်ပွားခဲ့တဲ့ SARS ရောဂါ၊ (၂၀၁၂)​
+                    ခုနှစ်က အရှေ့အလည်ပိုင်းဒေသမှာ ဖြစ်ပွားခဲ့တဲ့ MERS ရောဂါတွေလိုမျိုး
+                    ပြင်းထန်အဆုတ်ရောင် ရောဂါတွေဟာ ကိုရိုနာဗိုင်းရပ်စ် ရောဂါပိုးတွေကြောင့်
+                    ဖြစ်ပွားရခြင်း ဖြစ်ပါတယ်။ မကြာသေးခင်ကမှ အသစ်တွေ့ရှိရတဲ့ ကိုရိုနာဗိုင်းရပ်စ်ကတော့
+                    (COVID-19) လက်တလော အသက်ရှူလမ်းကြောင်းဆိုင်ရာ ရောဂါကိုဖြစ်ပွားစေခဲ့ပါတယ်။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>ကိုရိုနာဗိုင်းရပ်စ်ရောဂါ (COVID-19) ဆိုတာဘာလဲ?</a>
+            <div class="content">
+                <p>ကိုရိုနာဗိုင်းရပ်စ်ရောဂါ (COVID-19) ဆိုတာ (၂၀၁၉) ခုနှစ်၊ ဒီဇင်ဘာလက
+                    တရုတ်ပြည်သူ့သမ္မတနိုင်ငံ၊ ဝူဟန်မြို့မှာ စတင်တွေ့ရှိခဲ့တဲ့ Coronavirus မျိုးစိတ်
+                    အသစ်တစ်ခုကြောင့် ဖြစ်ပွားခဲ့တဲ့ ကူးစက်ရောဂါပဲ ဖြစ်ပါတယ်။ ဒီဗိုင်းရပ်စပ်ကို
+                    အရင်တုန်းက လူတွေမှာ မတွေ့ရှိခဲ့ ကြဖူးပါဘူး။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>ကိုရိုနာဗိုင်းရပ်စ်ရောဂါ (COVID-19) ရဲ့ရောဂါလက္ခဏာတွေက ဘာတွေလဲ?</a>
+            <div class="content">
+                <p>အဖြစ်များဆုံး ရောဂါလက္ခဏာတွေကတော့ အဖျားကြီးခြင်း၊
+                    အားအင်ကုန်ခမ်းခြင်း၊​ပင်ပန်းနွမ်းနယ်ခြင်း၊ ချောင်းခြောက်ဆိုးခြင်းတို့ ဖြစ်ပါတယ်။
+                    တစ်ချို့လူနာတွေမှာ သလိပ်ထွက်ခြင်း၊ မောခြင်း၊ လည်ချောင်းနာခြင်း၊
+                    ခေါင်းကိုက်ခြင်းတို့ ဖြစ်တတ်ပါတယ်။ ရောဂါပိုးကူးစက်ခံရသူတစ်ချို့မှာ
+                    မည်သည့်ရောဂါလက္ခဏာမှ ဖြစ်ပေါ်ခြင်းမရှိပါ။ ရောဂါ ဖြစ်ပွားသူတွေထဲမှာမှ ၈၀% က
+                    အထူးကုသမှု ခံယူစရာမလိုပဲ​ ပြန်လည်သက်သာသွားလေ့ရှိပါတယ်။ ရောဒါဖြစ်သွားသူ ၉
+                    ယောက်ရှိလျှင် ၁ ယောက်က အသက်ရှူခက်ခဲခြင်း စတဲ့ ပြင်းထန်ရောဂါလက္ခဏာတွေ
+                    ခံစားရတတ်ပါတယ်။ အထူးသဖြင့် အသက်ကြီးတဲ့သူတွေ၊​ နာတာရှည်ရောဂါ (သွေးတိုး၊ ဆီးချို၊
+                    နှလုံးရောဂါ)ရှိတဲ့လူတွေမှာ ရောဂါလက္ခဏာတွေ ခံစားရပြီဆိုလျှင်
+                    ဆေးကုသမှုချက်ခြင်းခံယူသင့်ပါတယ်။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>ကိုရိုနာဗိုင်းရပ်စ်ရောဂါ ဘယ်လိုကူးစက်ခံရနိုင်တာလဲ?</a>
+            <div class="content">
+                <p>ရောဂါရှိတဲ့သူနဲ့ အနီးကပ် ထိတွေ့ရာကတစ်ဆင့် ရောဂါကူးစက်ခံရနိုင်ပါတယ်။ (COVID-19)
+                    ရောဂါခံစားနေရတဲ့သူ နှာချေ၊ ချောင်းဆိုးရာမှ ထွက်လာတဲ့ ရောဂါပိုး အစက်အမှုန် တွေ
+                    အသက်ရှူလမ်းကြောင်းကို ဝင်ရောက်ရာမှတစ်ဆင့် ရောဂါကူးစက်ခံရနိုင်ပါတယ်။ ရောဂါပိုး
+                    အစက်အမှုန်တွေက အနီးပတ်ဝန်းကျင်မှာရှိတဲ့ အရာဝတ္ထုတွေ၊ မျက်နှာပြင်တွေ ပေါ်ကို
+                    ကျရောက်တတ်ပါတယ်။ ဒီရောဂါပိုးတင်ကျန်နေတဲ့ မျက်နှာပြင်၊ အရာဝတ္ထုတွေ ကို
+                    ကိုင်တွယ်ထားတဲ့ လက်နဲ့ မိမိမျက်လုံး၊ နှာခေါင်း၊ ပါးစပ်တို့ကို ကိုင်တွယ်မိရာက
+                    တစ်ဆင့်လည်း ကူးစက်နိုင်ပါတယ်။ ဒါကြောင့်မို့လို့ လူတစ်ဦးနှင့်တစ်ဦး (၁) မီတာ
+                    ((၃)ပေ) အကွာမှာနေဖို့က အလွန်အရေးကြီးပါတယ်။
+                    ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီး (WHO)အနေဖြင့်
+                    (COVID-19)ကူးစက်ပြန့်ပွားပုံနှင့်ပတ်သက်သော သုတေသနလုပ်ငန်းများ
+                    ဆောင်ရွက်လျက်ရှိပြီး တွေ့ရှိချက်များကို ဆက်လက် ဖြန့်ဝေသွားမှာ ဖြစ်ပါတယ်။
+                    (COVID-19) ရောဂါဖြစ်စေတဲ့ ဗိုင်းရပ်စ်က လေမှတစ်ဆင့် ကူးစက်နိုင်ပါသလား?
+                    ယခုလက်ရှိတွေ့ရှိချက်များအရ (COVID-19) ဖြစ်ပွားစေတဲ့ ရောဂါပိုးအစက်အမှုန်တွေကို
+                    ထိတွေ့ရာကတစ်ဆင့် အဓိကကူးစက်တာပဲ ဖြစ်ပါတယ်။ (ကမ္ဘာ့ကျန်းမာ ရေးအဖွဲ့ကြီး
+                    (WHO)အနေဖြင့် (COVID-19) ကူးစက်ပြန့်ပွားပုံနှင့် ပတ်သတ်သော သုတေသနလုပ်ငန်းများ
+                    ဆောင်ရွက်လျက်ရှိပြီး တွေ့ရှိချက်များကို ဆက်လက်ဖြန့်ဝေသွားမှာ ဖြစ်ပါတယ်)
+                    ရောဂါရှိသူရဲ့ မစင်ကတစ်ဆင့် ကူးစက်နိုင်ပါသလား?
+                    ရောဂါရှိသူရဲ့ မစင်ကတစ်ဆင့် ကူးစက်နိုင်ခြေနည်းပါတယ်။ ကနဦးတွေ့ရှိချက်တွေအရ
+                    တစ်ချို့လူနာတွေရဲ့ မစင်ထဲမှာ ရောဂါပိုးရှိနေနိုင်ပေမယ့် အစာအိမ်အူ
+                    လမ်းကြောင်းကတစ်ဆင့် အဓိက ကူးစက်ခြင်းမဟုတ်တာကို တွေ့ရပါတယ်။ မည်သို့ပင်ဖြစ်စေ
+                    ကူးစက်နိုင်ခြင်းကို ကာကွယ်ဖို့အတွက် အစာမစားမီတိုင်း၊ အိမ်သာမှ ဆင်းပြီးတိုင်း၊
+                    လက်ကိုစနစ်တကျ စင်ကြယ်အောင် ဆေးကြောပါ။ (ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီး (WHO) အနေဖြင့်
+                    (COVID-19) ကူးစက်ပြန့်ပွားပုံနှင့် ပတ်သက်သော သုတေသနလုပ်ငန်းများ
+                    ဆောင်ရွက်လျက်ရှိပြီး တွေ့ရှိချက်များကို ဆက်လက်ဖြန့်ဝေသွားမှာ ဖြစ်ပါတယ်)</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>ရောဂါကာကွယ်ဖို့ နည်းလမ်းတွေက ဘာတွေလဲ?</a>
+            <div class="content">
+                <p>ကျန်းမာရေးနဲ့ အားကစားဝန်ကြီးဌာနက အချိန်နဲ့တစ်ပြေးညီ
+                    ထုတ်ပြန်တဲ့ရောဂါကာကွယ်နိုင်မယ့် ကျန်းမာရေးအသိပညာပေး သတင်းအချက်အလက်တွေကို သတိပြု
+                    ဖတ်ရှုကြဖို့ တိုက်တွန်းလိုပါတယ်။ ယခုအခါ ကမ္ဘာ့နိုင်ငံအများစုမှာ ရောဂါကူးစက်
+                    ပျံ့နှံ့ နေပြီ ဖြစ်ပါတယ်။ တရုတ်ပြည်သူ့သမ္မတနိုင်ငံအပါအဝင် တချို့နိုင်ငံတွေမှာ
+                    ရောဂါ ထိန်းချုပ်မှုတွေ အောင်မြင်နေပြီဖြစ်ပေမယ့် အခြေအနေတွေက ခန့်မှန်းလို့
+                    မရနိုင်သေး ပါဘူး။ နောက်ဆုံးရ သတင်းတွေကို ပုံမှန်စောင့်ကြည့်ဖို့ အရေးကြီးပါတယ်။
+                    ကိုယ့်ကိုယ်ကို ကာကွယ်ဖို့အတွက် </p>
+                <ul>
+                    <li>ရေနဲ့ ဆပ်ပြာအသုံးပြုပြီး အနည်းဆုံးစက္ကန့် (၂၀)ကြာအောင် လက်ကို မကြာခဏစနစ်တကျ
+                        ဆေးကြောပါ။ (သို့မဟုတ်) Alcohol (အနည်းဆုံး ၆၀%)ပါတဲ့ လက် သန့်စင် ဆေးရည်ကို
+                        အသုံးပြုပါ။ (လက်ကို စနစ်တကျ မကြာခဏ ဆေးခြင်းအားဖြင့်လက်မှာကပ်ငြိနေတဲ့
+                        ရောဂါပိုးတွေကို သေစေနိုင်ပါတယ်)
+                    </li>
+                    <li>
+                        နှာချေ၊ ချောင်းဆိုးနေတဲ့သူတွေနဲ့ တွေ့ဆုံတဲ့အခါ အနည်းဆုံး (၁)မီတာ ((၃)ပေ)
+                        အကွာမှာနေပါ။ (ရောဂါပိုးရှိသူတွေ နှာချေ၊ ချောင်းဆိုးတဲ့အခါ ထွက်လာတဲ့
+                        သေးငယ်သော အမှုန်အမွှားတွေမှာ ရောဂါပိုးတွေ ပါရှိတတ်လို့ပါ)
+                    </li>
+                    <li>
+                        မိမိရဲ့ မျက်လုံး၊ နှာခေါင်းနဲ့ ပါးစပ်တို့ကို မကြာခဏ ကိုင်တွယ်ခြင်း
+                        မပြုပါနဲ့။ (လက်မှာရောဂါပိုးတွေ ကပ်ငြိနေမယ်ဆိုရင် မျက်လုံး၊ နှာခေါင်းနဲ့
+                        ပါးစပ်တို့က နေတစ်ဆင့် ရောဂါပိုးတွေ ဝင်ရောက်နိုင်လို့ပါ)
+                    </li>
+                    <li>
+                        နှာချေ၊ ချောင်းဆိုးတဲ့အခါတိုင်း လိုက်နာရမယ့် ကျင့်ဝတ်တွေကို လိုက်နာပါ။
+                        နှာချေ။ချောင်းဆိုးတဲ့အခါ နှာခေါင်းနဲ့ ပါးစပ်ကို တစ်ရှူး (သို့မဟုတ်)
+                        တံတောင်ကွေးဖြင့် လုံခြုံအောင် ဖုံးအုပ်ပါ။ သုံးပြီးသားတစ်ရှူးကို
+                        အမှိုက်ပုံးထဲသို့ စနစ်တကျ စွန့်ပစ်ပါ။လက်ကို စနစ်တကျပြန်ဆေးပါ။
+                    </li>
+                    <li>
+                        နေမကောင်းဖြစ်လျှင် အိမ်မှာပဲ အနားယူပါ။ ဖျားနာ၊ ချောင်းဆိုး၊
+                        အသက်ရှူခက်ခဲခြင်း တွေဖြစ်ခဲ့လျှင် ဆေးကုသမှု ချက်ချင်းခံယူပါ။ သက်ဆိုင်ရာ
+                        ကျန်းမာရေးဌာနတွေကလမ်းညွှန်ချက်အတိုင်း လိုက်နာပါ။ ။
+                    </li>
+                    <li>
+                        (COVID-19) ရောဂါ ဘယ်နေရာတွေမှာ ဖြစ်ပွားနေပြီဆိုတဲ့ နောက်ဆုံးရသတင်းတွေကို
+                        စောင့်ကြည့်ပါ။ အဲ့ဒီနေရာတွေကို ခရီးသွားခြင်းမှ တတ်နိုင်သမျှ ရှောင်ကြဉ်ပါ။
+                        (အထူးသဖြင့် အသက်ကြီးသူများနှင့် နာတာရှည်ရောဂါရှိသူများ)
+                    </li>
+                </ul>
+                လွန်ခဲ့သော (၁၄)ရက်အတွင်း (COVID-19) ရောဂါဖြစ်ပွားနေတဲ့ဒေသမှ ပြန်လာသော သူများ
+                လိုက်နာရမယ့်အချက်တွေက ဘာတွေလဲ? –
+                </br>
+                အထက်မှာ ဖော်ပြထားတဲ့ ရောဂါကာကွယ်နိုင်မယ့် နည်းလမ်းတွေကို လိုက်နာပါ။
+                </br>
+                မိမိမှာ ခေါင်းကိုက်ခြင်း၊ အဖျားငွေ့ငွေ့ရှိခြင်း စသည့် ရောဂါလက္ခဏာတွေ ပေါ်ပေါက်ပါက
+                မိသားစုနဲ့အတူ ရောနှောနေထိုင်ခြင်းမပြုဘဲ သီးသန့်ခွဲခြား နေထိုင်ပါ။ အကယ်၍
+                အစားအစာဝယ်ရန် | အပြင်ထွက်ရန် မဖြစ်မနေလိုအပ် ပါက ပါးစပ်နှင့် နှာခေါင်းစည်း
+                တပ်ဆင်ထားရပါမယ်။ အကယ်၍ အဖျားကြီး ခြင်း၊ ချောင်းဆိုးခြင်း၊ အသက်ရှူခက်ခြင်းတို့
+                ဖြစ်ပေါ်လာလျှင် ဆေးကုသမှု ချက်ချင်းခံယူပါ။ ခရီးသွားရာဇဝင်ကို နီးစပ်ရာ
+                ကျန်းမာရေးဌာနသို့ အမြန်ဆုံး သတင်းပို့ပြီး ကုသမှုခံယူပါ။ ခရီးသွားရာဇဝင်နဲ့ အနီးကပ်
+                ထိတွေ့ဆက်ဆံခဲ့တဲ့ သူတွေစာရင်းကို ကျန်းမာရေးစောင့်ရှောက်သူထံ ပြောပြပါ။ (အထက်ပါအချက်
+                များကို လိုက်နာဆောင်ရွက်ခြင်းဖြင့် (COVID-19) ရောဂါအပါအဝင် အခြား ကူးစက်ရောဂါများ
+                အန္တရာယ်ကနေ ကာကွယ်နိုင်မှာ ဖြစ်ပါတယ်။
+                </p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>(COVID-19) ရောဂါကူးစက်နိုင်ခြေ ဘယ်လောက်ရှိသလဲ ? </a>
+            <div class="content">
+                <p>“သင်” ဘယ်နေရာမှာ နေတာလဲရယ်၊ ခရီးသွားခဲ့တဲ့ ဒေသတွေပေါ်မှာ မူတည်ပြီး ကူးစက်
+                    နိုင်ချေ ကွာခြားသွားပါတယ်။ ရောဂါကူးစက်မှုဖြစ်ပွားနေတဲ့ မြို့ကြီးတွေ၊ ဒေသတွေမှာ
+                    နေထိုင် တဲ့သူတွေနဲ့၊ အဲ့ဒီဒေသတွေကို ခရီးသွားလာတဲ့သူတွေမှာ ရောဂါကူးစက်နိုင်ချေ
+                    ပိုများပါတယ်။ အစိုးရနဲ့ ကျန်းမာရေးနှင့်အားကစားဝန်ကြီးဌာနကလည်း ရောဂါကာကွယ်
+                    ထိန်းချုပ်ရေးအတွက် အားသွန်ခွန်စိုက် ဆောင်ရွက်လျက်ရှိပါတယ်။ အစိုးရက ထုတ်ပြန်
+                    ထားတဲ့ ခရီးသွားလာခြင်းနဲ့ပတ်သက်တဲ့ တားမြစ်ချက်တွေ၊ လူစုလူဝေးနဲ့ပတ်သက်တဲ့
+                    တားမြစ်ချက်တွေကို သေသေချာချာ လိုက်နာဆောင်ရွက်ရပါမယ်။ ရောဂါကာကွယ်ရေး
+                    လုပ်ငန်းစဉ်တွေမှာ ပူးပေါင်းပါဝင်ခြင်းဖြင့် မိမိကိုယ်တိုင်ရော၊ သူတစ်ပါးကိုပါ
+                    ရောဂါ ကာကွယ်နိုင်မှာ ဖြစ်ပါတယ်။ (COVID-19) ရောဂါ ကူးစက်ပျံ့နှံ့မှုကို
+                    ထိန်းချုပ်နိုင်တယ် ဆိုတာ တရုတ်ပြည်သူ့သမ္မတနိုင်ငံနဲ့ အချို့နိုင်ငံတွေက လက်တွေ့
+                    ပြသနိုင်ခဲ့ပါတယ်။ ဒါပေမယ့် ရောဂါကူးစက်ပျံ့နှံ့မှုအသစ် ဖြစ်ပွားခြင်းတွေကလည်း
+                    အလျင်အမြန် ပေါ်ပေါက်လာနိုင်ပါတယ်။ ဒါကြောင့် ကိုယ်သွားမယ့် ဒေသရဲ့ (COVID-19)
+                    ရောဂါနဲ့ပတ်သက်တဲ့ အခြေအနေတွေကို သတိပြုဖို့ အလွန်အရေးကြီးပါတယ်။
+                    ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးက လည်း နေ့စဉ်နဲ့အမျှ နောက်ဆုံးရ သတင်းအချက်အလက်တွေကို
+                    ကမ္ဘာ့အနှံ့ကို ပေးပို့နေပါတယ်။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>(COVID-19)ရောဂါဟာ ဘယ်အတိုင်းအတာအထိ စိုးရိမ်ရမှာလဲ?</a>
+            <div class="content">
+                <p>ကလေးတွေနဲ့ လူငယ်တွေမှာ (COVID-19)ရောဂါဟာ ပြင်းထန်လေ့မရှိဘဲ သာမန်ရောဂါ လက္ခဏာတွေပဲ
+                    ဖြစ်ပွားတတ်တာပါ။ ရောဂါဖြစ်ပွားသူ (၅)ယောက်မှာ (၁)ယောက်က ရောဂါပြင်းထန်နိုင်ပြီး
+                    ဆေးရုံမှာ ကုသဖို့လိုနိုင်ပါတယ်။ ဒါကြောင့်မို့ ကိုယ်ကိုတိုင်နဲ့အတူ
+                    ကိုယ်ချစ်ရတဲ့သူတွေနဲ့ ကိုယ့်ပတ်ဝန်းကျင်ကိုရော ရောဂါကူးစက်မှာကို
+                    လူတိုင်းစိုးရိမ်နေ ကြမှာပါ။ စိုးရိမ်ပူပန်နေရုံနဲ့မပြီးပါဘူး။ လက်မကြာခဏ
+                    စနစ်တကျဆေးခြင်း၊ ချောင်းဆိုး၊ နှာချေတဲ့အခါ လိုက်နာရမယ့်ကျင့်ဝတ်တွေကို
+                    လိုက်နာခြင်းစတဲ့ ရောဂါကာကွယ်ရမယ့် နည်းလမ်းတွေကို တစ်ဦးချင်းစီက
+                    လိုက်နာဆောင်ရွက်ရမှာ ဖြစ်ပါတယ်။ ကျန်းမာရေးနဲ့ အားကစားဝန်ကြီးဌာနရဲ့
+                    ကျန်းမာရေးဆိုင်ရာ အကြံပြုချက်တွေ၊ အစိုးရက ထုတ်ပြန်တဲ့ တားမြစ်ချက်တွေကို
+                    တစ်ဦးတစ်ယောက်ချင်းစီက လိုက်နာမယ်ဆိုရင် ရောဂါကူးစက် ပျံ့နှံ့မှုကို
+                    ကာကွယ်နိုင်မှာပဲ ဖြစ်ပါတယ်။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>ဘယ်လိုလူတွေမှာ ရောဂါပြင်းထန်တာလဲ?</a>
+            <div class="content">
+                <p>ယခုလက်ရှိ တွေ့ရှိချက်များအရတော့ အသက်ကြီးတဲ့သူတွေ၊ နဂိုရောဂါအခံ (သွေးတိုး၊
+                    ဆီးချို၊ နှလုံး၊ ကင်ဆာ၊ အဆုတ်ရောဂါ) ရှိတဲ့သူတွေမှာ ပိုပြီးပြင်းထန်တတ်ပါတယ်။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>(COVID-19) ရောဂါဖြစ်ပွားနေတဲ့ ဒေသတွေက ပို့တဲ့ပစ္စည်းတွေ၊ ပါဆယ်ထုပ်တွေကိုလက်ခံတဲ့အခါ
+                ဘေးကင်းရဲ့လား?</a>
+            <div class="content">
+                <p>လက်ခံလို့ ရပါတယ်။ ကူးစက်နိုင်ချေ အလွန်နည်းပါတယ်။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>(COVID-19) ရောဂါကိုကာကွယ်ကုသဖို့ ဆေးဝါးကုထုံးတွေ ရှိပါသလား?</a>
+            <div class="content">
+                <p>(COVID-19) ရောဂါကို ကုသနိုင်တယ်ဆိုပြီး အနောက်တိုင်းဆေးပညာ၊
+                    တိုင်းရင်းဆေး၊အိမ်တွင်း ဆေးအမျိုးမျိုး ပေါ်ထွက်နေပေမယ့် လက်ရှိမှာတော့
+                    ခိုင်မာတဲ့သက်သေ အထောက်အထားမရှိပါဘူး။ ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးမှ ပဋိဇီဝဆေးများ
+                    အပါအဝင် မည်သည့် ဆေးကိုမျှ မိမိသဘောနဲ့မိမိ မသုံးစွဲရန် အကြံပြုထားပါတယ်။
+                    ယခုလက်ရှိမှာတော့ ရောဂါကုသဖို့အတွက် အနောက်တိုင်းဆေးပညာရော၊ တိုင်းရင်းဆေးပညာကပါ
+                    ပေါင်းစပ်ပြီး ကြိုးစားဆောင်ရွက်နေကြပါတယ်။ ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးမှ
+                    အသစ်တွေ့ရှိ တဲ့ ဆေးပညာဆိုင်ရာ အချက်အလက်တွေကို ဆက်လက်ဖြန့်ဝေသွားမှာ
+                    ဖြစ်ပါတယ်။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>(COVID-19) ရောဂါက SARS ရောဂါနဲ့တူပါသလား?</a>
+            <div class="content">
+                <p>မတူပါဘူး။ ကိုရိုနာဗိုင်းရပ်စ်အုပ်စုဝင် ဗိုင်းရပ်စ်များကြောင့်
+                    ဖြစ်ပွားတာချင်းတူပေမယ့် ရောဂါတစ်ခုနဲ့တစ်ခု မတူပါဘူး။ SARS ရောဂါက (CoVID-19) နဲ့
+                    နှိုင်းယှဉ်ရင် သေဆုံး နှုန်းပိုများပြီး ကူးစက်နှုန်းက ပိုနည်းပါတယ်။ (၂၀၀၃)
+                    ခုနှစ်ကစပြီး ကမ္ဘာပေါ်မှာ SARS ရောဂါဖြစ်ပွားခြင်း မတွေ့ရတော့ပါဘူး။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>ကိုယ့်ကိုယ်ကို ကာကွယ်ဖို့အတွက် ပါးစပ်နဲ့ နှာခေါင်းစည်း တပ်သင့်သလား?</a>
+            <div class="content">
+                <p>
+                <ul>
+                    <li>
+                        နှာစေး၊ ချောင်းဆိုးစတဲ့ အသက်ရှူ လမ်းကြောင်းဆိုင်ရာ
+                        ရောဂါလက္ခဏာရှိတဲ့လူတွေ၊ရောဂါလက္ခဏာ ရှိတဲ့သူတွေကို အနီးကပ်ပြုစုပေးရသူတွေ၊
+                        ကျန်းမာရေးဝန်ထမ်းတွေပဲ ပါးစပ်နှင့် နှာခေါင်းစည်း (Surgical Mask) တွေကို
+                        သုံးရမှာဖြစ်ပါတယ်။
+                    </li>
+                    <li>
+                        ဒီလိုအခြေအနေကလွဲပြီး သာမန် ပြည်သူတွေအနေနဲ့ ပါးစပ်နဲ့ နှာခေါင်းစည်းကို
+                        အသုံးပြုဖို့ မလိုပါကြောင်း ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးက အကြံပြုထားပါတယ်။
+                    </li>
+                    <li>
+                        ယခုအချိန်တွင် ကမ္ဘာတစ်ဝန်းလုံး ပါးစပ်နဲ့ နှာခေါင်းစည်းရှားပါးခြင်းနှင့်
+                        ကြုံတွေ့နေရသောကြောင့် ချင့်ချိန်ပြီး မလိုအပ်ဘဲ မသုံးစွဲကြပါရန်
+                        ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးက အကြံ ပြုထားပါတယ်။
+                    </li>
+                </ul>
+                </p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>ပါးစပ်နှင့် နှာခေါင်းစည်း (Surgical Mask) ကို ဘယ်လိုတပ်ရမလဲ၊ ချွတ်ရမလဲ။ဘယ်လို
+                စွန့်ပစ်ရမလဲ?</a>
+            <div class="content">
+                <p>
+                <ul>
+                    <li>
+                        ပါးစပ်နှင့် နှာခေါင်းစည်းကို မဝတ်ခင် လက်ကိုဆပ်ပြာနှင့် စနစ်တကျ
+                        သေချာစွာဆေးပါ။ (သို့မဟုတ်) Alcohol ပါဝင်သော လက်သန့်စင်ဆေးရည်ကို အသုံးပြုပါ။
+                    </li>
+                    <li>
+                        ပါးစပ်နှင့် နှာခေါင်းစည်းတွင် အပေါက်အပြဲများ ရှိ/မရှိ စစ်ဆေးပါ။
+                    </li>
+                    <li>
+                        အရောင်ပိုရင့်သည့် မျက်နှာပြင်ကို အပြင်ဘက်တွင် ထားရှိပါ။
+                    </li>
+                    <li>
+                        ကော်ချောင်း (သို့မဟုတ်) သတ္ထုချောင်းရှိသည့်ဘက်သည် အပေါ်ဘက်ဖြစ်သည်။
+                    </li>
+                    <li>
+                        ပါးစပ်နှင့် နှာခေါင်းနှစ်ခုလုံးကို လုံခြုံအောင် ဖုံးအုပ်ပါ။
+                    </li>
+                    <li>
+                        Mask ၏ ဘေးအနားစွန်းများနှင့် မိမိ၏ မျက်နှာကြားတွင် လစ်ဟာမှု(gap)မရှိစေရပါ။
+                    </li>
+                    <li>
+                        Mask အသုံးပြုနေစဉ် Mask ကို လက်ဖြင့် ထိတွေ့ကိုင်တွယ်ခြင်း မပြုရပါ။
+                    </li>
+                    <li>
+                        Mask ကို ဖယ်ရှားမည်ဆိုပါက Mask အနောက်ဘက်ရှိ ကြိုးကိုသာကိုင်တွယ်ဖယ်ရှားပါ။
+                    </li>
+                    <li>
+                        Mask ကို ဖယ်ရှားပြီးပါက မိမိ၏လက်ကို စနစ်တကျပြန်လည် ဆေးကြောပါ။
+                    </li>
+                    <li>
+                        မိမိအသုံးပြုနေသော Mask သည် စိုစွတ်လာပါက အသစ်တစ်ခုနှင့် လဲလှယ် အသုံးပြုပါ။
+                    </li>
+                    <li>
+                        အသုံးပြုပြီးသား Mask ကို ပြန်လည်၍ အသုံးမပြုရပါ။
+                    </li>
+                    <li>
+                        အသုံးပြုပြီးသား Mask ကို အမှိုက်ပုံးထဲသို့ စနစ်တကျ လွှင့်ပစ်ပါ။
+                    </li>
+                    <li>
+                        ချည်ထည်၊ ပိတ်စအဝတ်တို့ဖြင့် ပြုလုပ်ထားတဲ့ Mask များကို အသုံးမပြုရပါ။
+                    </li>
+                </ul>
+                </p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>(COVID-19) ရောဂါပျိုးချိန်က ဘယ်လောက်ကြာတာလဲ?</a>
+            <div class="content">
+                <p>ရောဂါပျိုးချိန်ဆိုတာက ဗိုင်းရပ်စ်ပိုး ခန္ဓာကိုယ်ထဲကို ဝင်ရောက်တဲ့အချိန်ကနေ ရောဂါ
+                    လက္ခဏာ ပေါ်ပေါက်တဲ့အချိန် ကြားကာလကို ခေါ်တာပါ။ အကြမ်းအားဖြင့်(COVID-19)ရောဂါရဲ့
+                    ရောဂါပျိုးချိန်ကို (၁)ရက်မှ (၁၄)ရက်အတွင်း၊ များသောအားဖြင့် (၅)ရက် ပတ်ဝန်းကျင်ဟု
+                    ကမ္ဘာ့ကျန်းမာရေးအဖွဲ့ကြီးက သတ်မှတ်ထားပါတယ်။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>(COVID-19) ရောဂါက တိရစ္ဆာန်ကတစ်ဆင့် လူကို ကူးစက်နိုင်ပါသလား?</a>
+            <div class="content">
+                <p>(COVID-19) ရောဂါဖြစ်စေတဲ့ ကိုရိုနာဗိုင်းရပ်စ်အပါအဝင်
+                    ကိုရိုနာဗိုင်းရပ်စ်အများစုကတော့ တိရစ္ဆာန်များရဲ့ ခန္ဓာကိုယ်ထဲမှာနေထိုင်ပြီး
+                    ရံဖန်ရံခါမှသာ လူတွေဆီကို ကူးစက်ခြင်း ဖြစ်ပွား ပါတယ်။ (၂၀၁၂) ခုနှစ်
+                    အရှေ့အလယ်ပိုင်းမှာ ဖြစ်ပွားခဲ့တဲ့ MERS ရောဂါဟာ ကုလားအုတ် ကနေတစ်ဆင့် လူကို
+                    ကူးစက်ခဲ့တာဖြစ်ပြီး၊ (၂၀၀၂) ခုနှစ်က တရုတ်ပြည်သူ့သမ္မတနိုင်ငံမှာ
+                    စတင်ဖြစ်ပွားခဲ့တဲ့ SARS ရောဂါကတော့ ကြောင်ကတိုးကနေတစ်ဆင့် လူကိုကူးစက်ခဲ့တာ
+                    ဖြစ်ပါတယ်။ ယခု လက်ရှိဖြစ်ပွားနေတဲ့ (COVID-19)ရောဂါကတော့ ဘယ်တိရစ္ဆာန်ကနေ လူကို
+                    ကူးစက်တယ်ဆိုတာ မသိရှိရသေးပါဘူး။ ဒါကြောင့် ကိုယ့်ကိုယ်ကို
+                    ကာကွယ်ဖို့အတွက်တောရိုင်းတိရစ္ဆာန် အပါအဝင် ဖျားနာနေတဲ့ ခြံမွေးတိရစ္ဆာန်တွေကို
+                    အကာအကွယ်မပါဘဲ မကိုင်တွယ် မထိတွေ့ပါနဲ့။ အသားတွေကို သေချာစွာ
+                    ကျက်အောင်ချက်ပြုတ်ပြီး စားသောက် ရပါမယ်။ အသားစိမ်းတွေ၊ ကလီစာတွေ တိရစ္ဆာန်ကထွက်တဲ့
+                    နို့တွေကို သန့်သန့်ရှင်းရှင်းနဲ့ စနစ်တကျ ကိုင်တွယ်ရမှာဖြစ်ပြီး ကိုင်တွယ်ပြီးရင်
+                    စနစ်တကျ လက်ပြန်ဆေးရမှာ ဖြစ်ပါတယ်။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>(COVID-19) ရောဂါဖြစ်စေတဲ့ဗိုင်းရပ်စ်ဟာ ကိုယ့်ရဲ့ အိမ်မွေးတိရစ္ဆာန်တွေက
+                တစ်ဆင့်ကူးစက်နိုင်ပါသလား?</a>
+            <div class="content">
+                <p>ဟောင်ကောင်မှာ ရောဂါရှိတဲ့ခွေးတစ်ကောင် တွေ့ရတဲ့ဖြစ်စဉ်တစ်ခု ရှိခဲ့ပေမယ့် (COVID19)
+                    ရောဂါဖြစ်စေတဲ့ ဗိုင်းရပ်စ်ဟာ ခွေး၊ ကြောင်စတဲ့ အိမ်မွေးတိရစ္ဆာန်တွေကတစ်ဆင့်
+                    ကူးစက်ပျံ့နှံ့ကြောင်း ယခုအချိန်အထိ အထောက်အထား မတွေ့ရှိရသေးပါဘူး။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>ပဋိဇီဝဆေး(Antibiotics) တွေက (CoVID-19)ရောဂါကို ကာကွယ်ကုသတဲ့နေရာမှာ ထိရောက်ပါသလား?</a>
+            <div class="content">
+                <p>မထိရောက်ပါဘူး။ ပဋိဇီဝဆေးတွေက ဘတ်တီးရီးယားကြောင့် ဖြစ်တဲ့ရောဂါတွေကိုပဲကုနိုင်တာပါ။
+                    ဗိုင်းရပ်စ်ကြောင့်ဖြစ်တဲ့ရောဂါတွေကို ကုသရာမှာ မသုံးသင့်ပါဘူး။</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a>(COVID-19) ရောဂါကိုဖြစ်စေတဲ့ ကိုရိုနာဗိုင်းရပ်စ်က အရာဝတ္ထုမျက်နှာပြင်တွေပေါ်မှာ
+                ဘယ်လောက်ကြာကြာ အသက်ရှင်နိုင်တာလဲ?</a>
+            <div class="content">
+                <p>
+                <li>
+                    အတိအကျ မသိရသေးပေမယ့် တခြား ကိုရိုနာဗိုင်းရပ်စ်တွေလိုပဲ ဖြစ်မယ်လို့ ယူဆရပါတယ်။
+                    တွေ့ရှိချက်တွေအရ အရာဝတ္ထုတွေရဲ့ မျက်နှာပြင် အမျိုးအစား၊ ပတ်ဝန်းကျင်၊ အပူချိန်၊
+                    စိုထိုင်းဆတို့အပေါ်မူတည်ပြီး မျက်နှာပြင်တွေပေါ်မှာ နာရီအနည်းငယ်မှ ရက်ပေါင်း
+                    များစွာအထိ ရှိနေနိုင်ပါတယ်။
+                </li>
+                <li>
+                    မျက်နှာပြင် ညစ်ပတ်နေကာ ကူးစက်နိုင်မယ်လို့ထင်ပါက
+                    ရိုးရိုးပိုးသတ်ဆေးရည်နဲ့သန့်ရှင်းပါ။ မိမိရဲ့ လက်ကို ဆပ်ပြာဖြင့်
+                    စနစ်တကျဆေးကြောခြင်း (သို့မဟုတ်) Alcohol အရက်ပြန်ပါဝင်တဲ့ လက်သန့်စင်ဆေးရည်နဲ့
+                    ဆေးကြောခြင်းကို ပြုလုပ်ရမှာ ဖြစ်ပါတယ်။ ဒါ့ပြင် မျက်လုံး၊ နှာခေါင်းနဲ့
+                    ပါးစပ်တို့ကို လက်ဖြင့်ကိုင်တွယ်ခြင်းတွေကို ရှောင်ကြဉ်ရမှာ ဖြစ်ပါတယ်။
+                </li>
+                </ul>
+                </p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <a> (COVID-19) ရောဂါကာကွယ်ရေးမှာ လွဲမှားနေတဲ့ အယူအဆတွေက ဘာတွေလဲ?</a>
+            <div class="content">
+                <p>
+                <ul>
+                    <li>
+                        ဆေးလိပ်သောက်ခြင်း၊ အရက်သောက်ခြင်း၊ ရေနွေးကြမ်းသောက်ခြင်း
+                    </li>
+                    <li>
+                        Mask များကို နှစ်ခုသုံးခုထပ်၍ သုံးခြင်း
+                    </li>
+                    <li>
+                        ပဋိဇီဝဆေးများကို မိမိသဘောဖြင့် သုံးစွဲခြင်းတို့ပဲ ဖြစ်ပါတယ်။
+                    </li>
+                    <li>
+                        ဒီနည်းတွေက (COVID-19) ရောဂါကူးစက်ခြင်းကို မကာကွယ်နိုင်တဲ့အပြင်
+                        (COVID19)ရောဂါဖြစ်ပွားပါက ဆေးလိပ်သောက်ခြင်း၊ အရက်သောက်ခြင်းတို့ကြောင့်
+                        ပိုမိုပြင်းထန်စွာ ခံစားရနိုင်ပါတယ်။
+                    </li>
+                </ul>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 </body>
+<script>
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+}, false);
+
+var items = document.querySelectorAll(".accordion a");
+
+function toggleAccordion() {
+    this.classList.toggle('active');
+    this.nextElementSibling.classList.toggle('active');
+}
+items.forEach(function(item) {
+    item.addEventListener('click', toggleAccordion)
+})
+
+// items.forEach(item => item.addEventListener('click', toggleAccordion));
+</script>
 
 </html>

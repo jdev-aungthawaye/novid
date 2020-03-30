@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,14 +22,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.jetbrains.annotations.Nullable;
 
 import software.techbase.novid.R;
+import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
 import software.techbase.novid.component.service.Constants;
-import software.techbase.novid.component.service.DataSenderService;
+import software.techbase.novid.component.service.LocationUpdaterService;
+import software.techbase.novid.component.service.NearDevicesUpdaterService;
 import software.techbase.novid.component.service.ServiceUtils;
 import software.techbase.novid.component.ui.base.BaseActivity;
 import software.techbase.novid.component.ui.reusable.XAlertDialog;
-import software.techbase.novid.util.CurrentLocation;
-import software.techbase.novid.util.LocationUtils;
+import software.techbase.novid.domain.location.CurrentLocation;
+import software.techbase.novid.domain.location.LocationUtils;
 
 /**
  * Created by Wai Yan on 3/28/20.
@@ -55,12 +58,20 @@ public class MainActivity extends BaseActivity {
     private void requestRequiredPermissions() {
 
         RuntimePermissions.with(this)
-                .permissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .permissions(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
                 .onAccepted(permissionResult -> {
-
-                    this.startCurrentLocationSenderService();
-                    this.showMapOnUI();
-
+                    if (GPSStatusBroadcastReceiver.isLocationEnabled(this)) {
+                        this.startLocationUpdaterService();
+                        this.startNearDevicesUpdaterService();
+                        this.showMapOnUI();
+                    } else {
+                        XAlertDialog.show(this,
+                                XAlertDialog.Type.ERROR,
+                                getString(R.string.MESSAGE_LOCAL__ENABLE_LOCATION_REQUEST),
+                                getString(R.string.OK), v -> this.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
+                    }
                 })
                 .onDenied(permissionResult -> {
                     XAlertDialog.show(this, XAlertDialog.Type.INFO, "Need to allow location permission.", null, v -> this.requestRequiredPermissions());
@@ -68,6 +79,7 @@ public class MainActivity extends BaseActivity {
                 .ask();
     }
 
+    //MAP
     private void showMapOnUI() {
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -91,14 +103,14 @@ public class MainActivity extends BaseActivity {
             if (mMap != null) {
                 //Current
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 10));
-                this.addMaker(mLocation.getLatitude(), mLocation.getLongitude());
+                addMaker(mLocation.getLatitude(), mLocation.getLongitude());
 
                 mMap.setOnCameraMoveListener(() -> mMap.clear());
 
                 mMap.setOnCameraIdleListener(() -> {
 
                     LatLng midLatLng = mMap.getCameraPosition().target;
-                    this.addMaker(midLatLng.latitude, midLatLng.longitude);
+                    addMaker(midLatLng.latitude, midLatLng.longitude);
                 });
             }
         });
@@ -111,20 +123,7 @@ public class MainActivity extends BaseActivity {
                 .title(LocationUtils.getAddressName(this, latitude, longitude)));
         marker.showInfoWindow();
     }
-
-    private void startCurrentLocationSenderService() {
-
-        if (ServiceUtils.isServiceRunning(DataSenderService.class, this)) return;
-
-        Intent startIntent = new Intent(MainActivity.this, DataSenderService.class);
-        startIntent.setAction(Constants.ACTION.START_ACTION);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(startIntent);
-        } else {
-            startService(startIntent);
-        }
-    }
+    //MAP
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,5 +138,35 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startLocationUpdaterService() {
+
+        if (!ServiceUtils.isServiceRunning(LocationUpdaterService.class, this)) {
+
+            Intent startIntent = new Intent(this, LocationUpdaterService.class);
+            startIntent.setAction(Constants.ACTION.START_ACTION);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(startIntent);
+            } else {
+                startService(startIntent);
+            }
+        }
+    }
+
+    private void startNearDevicesUpdaterService() {
+
+        if (!ServiceUtils.isServiceRunning(NearDevicesUpdaterService.class, this)) {
+
+            Intent startIntent = new Intent(this, NearDevicesUpdaterService.class);
+            startIntent.setAction(Constants.ACTION.START_ACTION);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(startIntent);
+            } else {
+                startService(startIntent);
+            }
+        }
     }
 }

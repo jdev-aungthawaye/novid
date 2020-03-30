@@ -18,7 +18,7 @@ import java.io.File;
 import java.text.MessageFormat;
 
 import software.techbase.novid.R;
-import software.techbase.novid.component.android.xlogger.XLoggerKt;
+import software.techbase.novid.component.android.xlogger.XLogger;
 
 /**
  * Created by Wai Yan on 3/19/20.
@@ -59,7 +59,7 @@ public class ApkInstaller {
                 if (downloadedFilePath != null) {
                     ApkInstaller.openNewVersion(mContext, downloadedFilePath);
                 } else {
-                    XLoggerKt.debug("Download error.");
+                    XLogger.debug(this.getClass(), "Download error.");
                 }
             }
         }).execute(url);
