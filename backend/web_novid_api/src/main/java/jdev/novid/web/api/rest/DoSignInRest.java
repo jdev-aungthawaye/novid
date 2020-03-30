@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.amazonaws.auth.policy.Principal;
-
 import jdev.novid.common.value.Mobile;
 import jdev.novid.component.ddd.Result;
 import jdev.novid.model.domain.exception.MobileNotFoundException;
@@ -56,10 +54,10 @@ public class DoSignInRest {
     @Autowired
     private DoSignIn doSignIn;
 
-    @RequestMapping(value = "/private/do-sign-in", method = { RequestMethod.POST })
-    public ResponseEntity<DoSignInRest.Response> execute(@Valid @RequestBody DoSignInRest.Request request,
-            Principal principal) throws VerificationNotFoundException, TooManyAttemptsException,
-            CodeAlreadyExpiredException, MobileNotFoundException {
+    @RequestMapping(value = "/public/do-sign-in", method = { RequestMethod.POST })
+    public ResponseEntity<DoSignInRest.Response> execute(@Valid @RequestBody DoSignInRest.Request request)
+            throws VerificationNotFoundException, TooManyAttemptsException, CodeAlreadyExpiredException,
+            MobileNotFoundException {
 
         DoSignIn.Input input = new DoSignIn.Input(new Mobile(request.mobile), request.code);
 

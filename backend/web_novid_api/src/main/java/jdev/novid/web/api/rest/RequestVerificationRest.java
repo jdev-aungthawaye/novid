@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.amazonaws.auth.policy.Principal;
-
 import jdev.novid.common.value.Mobile;
 import jdev.novid.component.ddd.Result;
+import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
+import jdev.novid.model.usecase.RequestVerification;
+import jdev.novid.support.verification.exception.CodeRequestRejectedException;
+import jdev.novid.support.verification.exception.TooManyRequestsException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,10 +55,19 @@ public class RequestVerificationRest {
 
     }
 
-    @RequestMapping(value = "/private/purchase-main-balance", method = { RequestMethod.POST })
-    public ResponseEntity<Response> execute(@Valid @RequestBody Request request, Principal principal) {
+    @Autowired
+    private RequestVerification requestVerification;
 
-        return new ResponseEntity<RequestVerificationRest.Response>(new Response(Result.SUCCESS), HttpStatus.OK);
+    @RequestMapping(value = "/public/request-verification", method = { RequestMethod.POST })
+    public ResponseEntity<RequestVerificationRest.Response> execute(
+            @Valid @RequestBody RequestVerificationRest.Request request)
+            throws TooManyRequestsException, CodeRequestRejectedException, MobileAlreadyTakenException {
+
+        RequestVerification.Input input = new RequestVerification.Input(new Mobile(request.mobile));
+
+        RequestVerification.Output output = this.requestVerification.execute(input);
+
+        return new ResponseEntity<RequestVerificationRest.Response>(new Response(output.getResult()), HttpStatus.OK);
 
     }
 

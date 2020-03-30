@@ -1,7 +1,8 @@
 package jdev.novid.model.domain.exception;
 
+import jdev.novid.component.ddd.DomainException;
 
-public class MobileNotFoundException extends Exception {
+public class MobileNotFoundException extends DomainException {
 
     /**
      * 
