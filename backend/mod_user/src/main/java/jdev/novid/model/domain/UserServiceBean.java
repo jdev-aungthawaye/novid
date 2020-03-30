@@ -18,7 +18,7 @@ import jdev.novid.model.infrastructure.UserRepository;
 public class UserServiceBean implements UserService {
 
     @Autowired
-    @Qualifier(PersistenceQualifiers.JPA)
+    @Qualifier(PersistenceQualifiers.PROXIED)
     private UserRepository userRepository;
 
     @Autowired
@@ -62,9 +62,9 @@ public class UserServiceBean implements UserService {
     public Account renew(UserId userId) {
 
         Account account = this.accountRepository.get(userId);
-        
+
         account.renew();
-        
+
         this.accountRepository.save(account);
 
         return account;

@@ -26,6 +26,10 @@
 			<groupId>jdev.novid</groupId>
 			<artifactId>mod_foundation</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>jdev.novid</groupId>
+			<artifactId>mod_user</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>

@@ -65,7 +65,7 @@ public class AerospikeConfiguration {
     @Bean
     public AerospikeTemplate aerospikeTemplate(AerospikeClient aerospikeClient) {
 
-        return new AerospikeTemplate(aerospikeClient, "platform");
+        return new AerospikeTemplate(aerospikeClient, "novid");
 
     }
 

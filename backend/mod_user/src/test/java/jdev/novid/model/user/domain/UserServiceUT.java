@@ -19,13 +19,21 @@ import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserServiceUT extends EnvAwareUnitTest {
 
-    
     @Autowired
     private UserService userService;
-    
+
     @Test
     public void test_createUser() throws MobileAlreadyTakenException {
-        
-        this.userService.createUser(new Mobile("09777773363"), "Aung Thaw Aye", "763714");
+
+        Long ph = 1000000000L;
+        Long count = 100000L;
+
+        for (int i = 0; i < count; i++) {
+
+            this.userService.createUser(new Mobile("09" + (ph++)), "Aung Thaw Aye", "763714");
+
+        }
+
     }
+
 }

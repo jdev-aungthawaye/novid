@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import jdev.novid.common.identity.UserId;
 import jdev.novid.common.value.Mobile;
 import jdev.novid.component.ddd.Snowflake;
+import jdev.novid.model.infrastructure.aerospike.UserRecord;
 import jdev.novid.model.infrastructure.jpa.UserEntity;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,20 @@ public class User {
         }
 
         public static User fromState(UserEntity state) {
+
+            User domain = new User();
+
+            domain.userId = state.getUserId();
+            domain.mobile = state.getMobile();
+            domain.name = state.getName();
+            domain.nric = state.getNric();
+            domain.registeredDate = state.getRegisteredDate();
+
+            return domain;
+
+        }
+
+        public static User fromState(UserRecord state) {
 
             User domain = new User();
 

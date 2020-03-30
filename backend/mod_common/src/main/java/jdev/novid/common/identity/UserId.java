@@ -62,7 +62,7 @@ public class UserId implements Serializable {
 
             }
 
-            throw new IllegalArgumentException("Source is not LocationId.");
+            throw new IllegalArgumentException("Source is not UserId.");
 
         }
 
