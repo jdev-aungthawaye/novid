@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import jdev.novid.common.identity.LocationId;
 import jdev.novid.common.identity.UserId;
+import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.ddd.Snowflake;
 import jdev.novid.model.domain.User;
 import jdev.novid.model.radar.infrastructure.aerospike.LocationRecord;
@@ -31,6 +32,14 @@ public class Location {
 
             Location domain = new Location();
 
+            domain.locationId = state.getLocationId();
+            domain.userId = state.getUserId();
+            domain.lat = state.getLat();
+            domain.lng = state.getLng();
+            domain.mac = state.getMac();
+            domain.submittedAt = state.getSubmittedAt();
+            domain.collectedAt = state.getCollectedAt();
+
             return domain;
 
         }
@@ -38,6 +47,14 @@ public class Location {
         public static Location fromState(LocationRecord state) {
 
             Location domain = new Location();
+
+            domain.locationId = state.getLocationId();
+            domain.userId = state.getUserId();
+            domain.lat = state.getLat();
+            domain.lng = state.getLng();
+            domain.mac = state.getMac();
+            domain.submittedAt = state.getSubmittedAt();
+            domain.collectedAt = state.getCollectedAt();
 
             return domain;
 
@@ -52,6 +69,8 @@ public class Location {
     protected BigDecimal lat;
 
     protected BigDecimal lng;
+
+    protected MacAddress mac;
 
     protected LocalDateTime submittedAt;
 

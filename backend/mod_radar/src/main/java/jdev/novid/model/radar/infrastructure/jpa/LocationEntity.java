@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import jdev.novid.common.identity.LocationId;
 import jdev.novid.common.identity.UserId;
+import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.persistence.jpa.JpaEntity;
 import jdev.novid.component.persistence.jpa.TimestampConverter;
 import jdev.novid.model.radar.domain.Location;
@@ -56,6 +57,10 @@ public class LocationEntity extends JpaEntity {
 
     @Column(name = "lng")
     protected BigDecimal lng;
+
+    @Column(name = "mac")
+    @Convert(converter = MacAddress.JpaConverter.class)
+    protected MacAddress mac;
 
     @Column(name = "submitted_at")
     @Convert(converter = TimestampConverter.class)
