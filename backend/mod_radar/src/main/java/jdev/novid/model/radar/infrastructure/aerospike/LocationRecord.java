@@ -8,12 +8,22 @@ import com.github.filosganga.geogson.model.Point;
 
 import jdev.novid.common.identity.LocationId;
 import jdev.novid.common.identity.UserId;
+import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.asmapper.annotation.AerospikeBin;
 import jdev.novid.component.asmapper.annotation.AerospikeRecord;
 import jdev.novid.component.persistence.jpa.TimestampConverter;
 import jdev.novid.model.radar.domain.Location;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AerospikeRecord
+@Data
+@Setter(value = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(callSuper = false)
 public class LocationRecord implements Serializable {
 
     public static void map(Location domain, LocationRecord state) {
@@ -22,6 +32,7 @@ public class LocationRecord implements Serializable {
         state.locationId = domain.getLocationId();
         state.lat = domain.getLat();
         state.lng = domain.getLng();
+        state.mac = domain.getMac();
         state.submittedAt = domain.getSubmittedAt();
         state.collectedAt = domain.getCollectedAt();
 
@@ -46,6 +57,9 @@ public class LocationRecord implements Serializable {
 
     @AerospikeBin(name = "lng")
     protected BigDecimal lng;
+
+    @AerospikeBin(name = "mac", converter = MacAddress.AerospikeConverter.class)
+    protected MacAddress mac;
 
     @AerospikeBin(name = "sub_at", converter = TimestampConverter.class)
     protected LocalDateTime submittedAt;

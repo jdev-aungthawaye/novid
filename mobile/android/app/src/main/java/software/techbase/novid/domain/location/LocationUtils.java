@@ -1,4 +1,4 @@
-package software.techbase.novid.util;
+package software.techbase.novid.domain.location;
 
 import android.content.Context;
 import android.location.Address;
