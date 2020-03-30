@@ -32,12 +32,13 @@ public class AccountProxiedRepository implements AccountRepository {
     @Override
     public void delete(UserId id) {
 
+        this.accountAerospikeRepository.delete(id);
     }
 
     @Override
     public Account get(UserId id) {
 
-        return null;
+        return this.accountAerospikeRepository.get(id);
 
     }
 

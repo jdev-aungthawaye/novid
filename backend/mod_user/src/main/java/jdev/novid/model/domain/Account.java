@@ -1,12 +1,10 @@
 package jdev.novid.model.domain;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.UUID;
 
 import jdev.novid.common.identity.UserId;
-import jdev.novid.component.security.JwtTokenUtil;
 import jdev.novid.model.infrastructure.jpa.AccountEntity;
 import lombok.AccessLevel;
 import lombok.Getter;

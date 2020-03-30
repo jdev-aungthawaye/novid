@@ -15,7 +15,7 @@ public class AccountAerospikeRepository implements AccountRepository {
 
     @Autowired
     private AccountRecordRepository accountRecordRepository;
-    
+
     @Override
     public void save(Account domain) {
 
@@ -24,6 +24,7 @@ public class AccountAerospikeRepository implements AccountRepository {
         AccountRecord.map(domain, state);
 
         this.accountRecordRepository.save(state);
+
     }
 
     @Override

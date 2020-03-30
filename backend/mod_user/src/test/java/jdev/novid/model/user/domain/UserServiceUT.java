@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import jdev.novid.common.identity.UserId;
 import jdev.novid.common.value.Mobile;
 import jdev.novid.common.value.Nric;
 import jdev.novid.component.util.EnvAwareUnitTest;
 import jdev.novid.foundation.config.ApplicationConfiguration;
+import jdev.novid.model.domain.User;
 import jdev.novid.model.domain.UserService;
 import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
+import jdev.novid.model.query.UserQuery;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfiguration.class })
@@ -22,6 +25,9 @@ public class UserServiceUT extends EnvAwareUnitTest {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserQuery userQuery;
 
     @Test
     public void test_createUser() throws MobileAlreadyTakenException {
@@ -34,8 +40,12 @@ public class UserServiceUT extends EnvAwareUnitTest {
             this.userService.createUser(new Mobile("09" + (ph++)), "Aung Thaw Aye", new Nric("763714"));
         
         }*/
-        
-        this.userService.createUser(new Mobile("09111111111"), "Aung Thaw Aye", new Nric("763714"));
+
+        /*  this.userService.createUser(new Mobile("09111111117"), "Aung Thaw Aye", new Nric("763714"));*/
+
+        User user = this.userQuery.getUser(new UserId(679973313400832L));
+
+        this.userService.createAccount(user);
 
     }
 

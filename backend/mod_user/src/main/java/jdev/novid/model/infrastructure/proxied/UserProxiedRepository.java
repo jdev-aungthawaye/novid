@@ -35,15 +35,14 @@ public class UserProxiedRepository implements UserRepository {
     @Override
     public void delete(UserId id) {
 
-        // TODO Auto-generated method stub
+        this.userAerospikeRepository.delete(id);
 
     }
 
     @Override
     public User get(UserId id) {
 
-        // TODO Auto-generated method stub
-        return null;
+        return this.userAerospikeRepository.get(id);
 
     }
 

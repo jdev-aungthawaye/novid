@@ -23,7 +23,7 @@ public class UserServiceBean implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    @Qualifier(PersistenceQualifiers.JPA)
+    @Qualifier(PersistenceQualifiers.PROXIED)
     private AccountRepository accountRepository;
 
     @Override
@@ -51,7 +51,6 @@ public class UserServiceBean implements UserService {
     public Account createAccount(User user) {
 
         Account account = Account.Builder.newInstance(user);
-
         this.accountRepository.save(account);
 
         return account;
