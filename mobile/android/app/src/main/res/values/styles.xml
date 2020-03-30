@@ -20,7 +20,6 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="FullScreenTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
@@ -49,7 +48,7 @@
     <!--Button Styles-->
     <style name="BtnPrimary">
         <item name="android:background">@drawable/shape_btn_bg_primary</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/text_size_regular</item>
     </style>

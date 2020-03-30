@@ -30,6 +30,8 @@
     <!--corner-->
     <dimen name="vew_corner_small">4dp</dimen>
     <dimen name="vew_corner_regular">8dp</dimen>
+    <dimen name="vew_corner_large">16dp</dimen>
+    <dimen name="vew_corner_large_x">22dp</dimen>
 
     <!--view-->
     <dimen name="toolbar_menu_size">28dp</dimen>
@@ -39,6 +41,7 @@
     <!--card view-->
     <dimen name="card_view_corner_radius_tiny_x">1dp</dimen>
     <dimen name="card_view_corner_radius_tiny">2dp</dimen>
+    <dimen name="card_view_corner_radius_normal">8dp</dimen>
     <dimen name="card_view_elevation_tiny_x">1dp</dimen>
     <dimen name="card_view_elevation_tiny">2dp</dimen>
 </resources>

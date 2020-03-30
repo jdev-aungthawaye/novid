@@ -4,8 +4,8 @@
     <color name="colorShimmer">#E0E0E0</color>
     <color name="colorShimmerHighlight">#FAFAFA</color>
 
-    <color name="circle_button_normal">#7FFFFFFF</color>
-    <color name="circle_button_pressed">#E3C5C5C5</color>
+    <color name="circle_button_normal">#B3FFFFFF</color>
+    <color name="circle_button_pressed">#E5BEBEBE</color>
 
     <!-- customize colors -->
     <color name="transparent_grey_800_15_percent">#26424242</color>

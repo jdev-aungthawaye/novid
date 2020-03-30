@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_regular"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_regular"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/LabelRegularBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/margin_small"
+            android:text="Myanmar State" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <software.techbase.novid.component.ui.reusable.XReusableViewDashboard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_smallest"
+                android:layout_weight="1"
+                android:background="@drawable/shape_orange_corners_bg"
+                app:labelCounter="5"
+                app:labelDescription="Found" />
+
+            <software.techbase.novid.component.ui.reusable.XReusableViewDashboard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_smallest"
+                android:layout_weight="1"
+                android:background="@drawable/shape_red_corners_bg"
+                app:labelCounter="0"
+                app:labelDescription="Death" />
+
+            <software.techbase.novid.component.ui.reusable.XReusableViewDashboard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_smallest"
+                android:layout_weight="1"
+                android:background="@drawable/shape_green_corners_bg"
+                app:labelCounter="0"
+                app:labelDescription="Recover" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/LabelRegularBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_medium_x"
+            android:padding="@dimen/margin_small"
+            android:text="Global" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <software.techbase.novid.component.ui.reusable.XReusableViewDashboard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_smallest"
+                android:layout_weight="1"
+                android:background="@drawable/shape_orange_corners_bg"
+                app:labelCounter="5"
+                app:labelDescription="Found" />
+
+            <software.techbase.novid.component.ui.reusable.XReusableViewDashboard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_smallest"
+                android:layout_weight="1"
+                android:background="@drawable/shape_red_corners_bg"
+                app:labelCounter="0"
+                app:labelDescription="Death" />
+
+            <software.techbase.novid.component.ui.reusable.XReusableViewDashboard
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_smallest"
+                android:layout_weight="1"
+                android:background="@drawable/shape_green_corners_bg"
+                app:labelCounter="0"
+                app:labelDescription="Recover" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

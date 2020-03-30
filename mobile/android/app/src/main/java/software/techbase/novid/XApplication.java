@@ -5,6 +5,8 @@ import androidx.multidex.MultiDexApplication;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
+
 /**
  * Created by Wai Yan on 2019-09-05.
  */
@@ -26,5 +28,6 @@ public class XApplication extends MultiDexApplication {
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         FirebaseAnalytics.getInstance(this);
+        UserInfoStorage.initialize(this);
     }
 }

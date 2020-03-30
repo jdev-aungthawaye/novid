@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="MESSAGE_LOCAL__ERROR">Error</string>
+    <string name="MESSAGE_LOCAL__SUCCESS">Success</string>
     <string name="MESSAGE_LOCAL__TRY_AGAIN">Try again</string>
     <string name="MESSAGE_LOCAL__INTERNET_CONNECTION_ERROR">No internet connection.</string>
     <string name="MESSAGE_LOCAL__SOMETHING_WRONG">Something went wrong.</string>
     <string name="MESSAGE_LOCAL__PERMISSION_REQUIRE">Need to allow permissions.</string>
     <string name="MESSAGE_LOCAL__ENABLE_LOCATION_REQUEST">Please enable location.</string>
     <string name="MESSAGE_LOCAL__DOWNLOAD_SUCCESS">Successfully downloaded.</string>
+    <string name="MESSAGE_LOCAL__NO_CONTENTS">No contents.</string>
+    <string name="MESSAGE_LOCAL__UN_AUTHORIZE">Un authorize.</string>
+    <string name="MESSAGE_LOCAL__CONNECT_EXCEPTION">Unable to connect to servers.</string>
 </resources>

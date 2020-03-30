@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.jetbrains.annotations.Nullable;
 
+import butterknife.OnClick;
 import software.techbase.novid.R;
 import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
@@ -32,6 +33,7 @@ import software.techbase.novid.component.ui.base.BaseActivity;
 import software.techbase.novid.component.ui.reusable.XAlertDialog;
 import software.techbase.novid.domain.location.CurrentLocation;
 import software.techbase.novid.domain.location.LocationUtils;
+import software.techbase.novid.ui.fragment.DashboardFragment;
 
 /**
  * Created by Wai Yan on 3/28/20.
@@ -51,7 +53,11 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         this.requestRequiredPermissions();
     }
 
@@ -168,5 +174,10 @@ public class MainActivity extends BaseActivity {
                 startService(startIntent);
             }
         }
+    }
+
+    @OnClick(R.id.iBtnShowDashboard)
+    public void onClickShowDashboard() {
+        new DashboardFragment().show(getSupportFragmentManager(), "Dashboard");
     }
 }

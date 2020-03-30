@@ -32,16 +32,21 @@ public class BluetoothDevices {
             mContext.startActivity(intent);
         } else {
 
-            new Handler().postDelayed(() ->
-
-                    new BluetoothController(mContext, BluetoothAdapter.getDefaultAdapter(), new BroadcastReceiverDelegator.BluetoothDiscoveryDeviceListener() {
-                        @Override
-                        public void onDeviceDiscovered(BluetoothDevice device) {
-                            listener.onDeviceFound(device);
-                            XLogger.debug(this.getClass(), "Near by device : MAC " + device.getAddress() + ", Name " + device.getName());
-                        }
-
-                    }).startDiscovery(), SCAN_PERIOD);
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    handler.postDelayed(() ->
+                            new BluetoothController(mContext, BluetoothAdapter.getDefaultAdapter(), new BroadcastReceiverDelegator.BluetoothDiscoveryDeviceListener() {
+                                @Override
+                                public void onDeviceDiscovered(BluetoothDevice device) {
+                                    listener.onDeviceFound(device);
+                                    XLogger.debug(this.getClass(), "Near by device : MAC " + device.getAddress() + ", Name " + device.getName());
+                                }
+                            }).startDiscovery(), SCAN_PERIOD);
+                }
+            };
+            handler.post(runnable);
         }
     }
 
