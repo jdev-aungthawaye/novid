@@ -3,7 +3,9 @@ package jdev.novid.model.domain;
 import java.time.LocalDateTime;
 
 import jdev.novid.common.identity.UserId;
+import jdev.novid.common.value.MacAddress;
 import jdev.novid.common.value.Mobile;
+import jdev.novid.common.value.Nric;
 import jdev.novid.component.ddd.Snowflake;
 import jdev.novid.model.infrastructure.aerospike.UserRecord;
 import jdev.novid.model.infrastructure.jpa.UserEntity;
@@ -19,7 +21,7 @@ public class User {
 
     public static class Builder {
 
-        protected static User newInstance(Mobile mobile, String name, String nric) {
+        protected static User newInstance(Mobile mobile, String name, Nric nric) {
 
             return new User(mobile, name, nric);
 
@@ -61,11 +63,13 @@ public class User {
 
     protected String name;
 
-    protected String nric;
+    protected Nric nric;
+
+    protected MacAddress mac;
 
     protected LocalDateTime registeredDate;
 
-    public User(Mobile mobile, String name, String nric) {
+    public User(Mobile mobile, String name, Nric nric) {
 
         super();
 

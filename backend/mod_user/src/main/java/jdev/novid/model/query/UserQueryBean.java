@@ -20,11 +20,11 @@ import jdev.novid.model.infrastructure.UserRepository;
 public class UserQueryBean implements UserQuery {
 
     @Autowired
-    @Qualifier(PersistenceQualifiers.JPA)
+    @Qualifier(PersistenceQualifiers.PROXIED)
     private UserRepository userRepository;
 
     @Autowired
-    @Qualifier(PersistenceQualifiers.JPA)
+    @Qualifier(PersistenceQualifiers.PROXIED)
     private AccountRepository accountRepository;
 
     @Override

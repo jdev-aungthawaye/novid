@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import jdev.novid.common.identity.UserId;
 import jdev.novid.common.value.Mobile;
+import jdev.novid.common.value.Nric;
 import jdev.novid.component.persistence.jpa.JpaEntity;
 import jdev.novid.component.persistence.jpa.TimestampConverter;
 import jdev.novid.model.domain.User;
@@ -53,7 +54,8 @@ public class UserEntity extends JpaEntity {
     protected String name;
 
     @Column(name = "nric")
-    protected String nric;
+    @Convert(converter = Nric.JpaConverter.class)
+    protected Nric nric;
 
     @Column(name = "registered_date")
     @Convert(converter = TimestampConverter.class)

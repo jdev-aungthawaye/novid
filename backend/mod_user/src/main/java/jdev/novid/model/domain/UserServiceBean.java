@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jdev.novid.common.identity.UserId;
 import jdev.novid.common.value.Mobile;
+import jdev.novid.common.value.Nric;
 import jdev.novid.component.persistence.PersistenceQualifiers;
 import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
 import jdev.novid.model.infrastructure.AccountRepository;
@@ -27,7 +28,7 @@ public class UserServiceBean implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public User createUser(Mobile mobile, String name, String nric) throws MobileAlreadyTakenException {
+    public User createUser(Mobile mobile, String name, Nric nric) throws MobileAlreadyTakenException {
 
         Optional<User> optUser = this.userRepository.find(mobile);
 

@@ -17,6 +17,14 @@
 			<groupId>jdev.novid</groupId>
 			<artifactId>mod_component</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>jdev.novid</groupId>
+			<artifactId>mod_common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jdev.novid</groupId>
+			<artifactId>mod_user</artifactId>
+		</dependency>
 	</dependencies>
 
 </project>

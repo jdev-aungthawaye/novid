@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import jdev.novid.common.value.Mobile;
+import jdev.novid.common.value.Nric;
 import jdev.novid.component.util.EnvAwareUnitTest;
 import jdev.novid.foundation.config.ApplicationConfiguration;
 import jdev.novid.model.domain.UserService;
@@ -30,7 +31,7 @@ public class UserServiceUT extends EnvAwareUnitTest {
 
         for (int i = 0; i < count; i++) {
 
-            this.userService.createUser(new Mobile("09" + (ph++)), "Aung Thaw Aye", "763714");
+            this.userService.createUser(new Mobile("09" + (ph++)), "Aung Thaw Aye", new Nric("763714"));
 
         }
 

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import jdev.novid.common.identity.UserId;
 import jdev.novid.common.value.Mobile;
+import jdev.novid.common.value.Nric;
 import jdev.novid.component.asmapper.annotation.AerospikeBin;
 import jdev.novid.component.asmapper.annotation.AerospikeRecord;
 import jdev.novid.component.persistence.jpa.TimestampConverter;
@@ -41,8 +42,8 @@ public class UserRecord implements Serializable {
     @AerospikeBin(name = "name")
     protected String name;
 
-    @AerospikeBin(name = "nric")
-    protected String nric;
+    @AerospikeBin(name = "nric", converter = Nric.AerospikeConverter.class)
+    protected Nric nric;
 
     @AerospikeBin(name = "reg_dt", converter = TimestampConverter.class)
     protected LocalDateTime registeredDate;

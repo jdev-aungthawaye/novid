@@ -3,6 +3,7 @@ package jdev.novid.model.usecase;
 import java.io.Serializable;
 
 import jdev.novid.common.value.Mobile;
+import jdev.novid.common.value.Nric;
 import jdev.novid.component.ddd.Result;
 import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
 import jdev.novid.support.verification.exception.CodeAlreadyExpiredException;
@@ -26,7 +27,7 @@ public interface SignUp {
 
         protected String name;
 
-        protected String nric;
+        protected Nric nric;
 
         protected String code;
 
