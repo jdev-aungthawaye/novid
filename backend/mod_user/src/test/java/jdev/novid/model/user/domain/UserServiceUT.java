@@ -26,14 +26,16 @@ public class UserServiceUT extends EnvAwareUnitTest {
     @Test
     public void test_createUser() throws MobileAlreadyTakenException {
 
-        Long ph = 1000000000L;
+        /*  Long ph = 1000000000L;
         Long count = 100000L;
-
+        
         for (int i = 0; i < count; i++) {
-
+        
             this.userService.createUser(new Mobile("09" + (ph++)), "Aung Thaw Aye", new Nric("763714"));
-
-        }
+        
+        }*/
+        
+        this.userService.createUser(new Mobile("09111111111"), "Aung Thaw Aye", new Nric("763714"));
 
     }
 
