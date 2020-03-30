@@ -14,7 +14,7 @@ import jdev.novid.model.domain.User;
 import jdev.novid.model.radar.infrastructure.LocationRepository;
 
 @Service
-public class LocationServiceBean implements LocationService {
+public class RadarServiceBean implements RadarService {
 
     @Autowired
     @Qualifier(PersistenceQualifiers.PROXIED)
