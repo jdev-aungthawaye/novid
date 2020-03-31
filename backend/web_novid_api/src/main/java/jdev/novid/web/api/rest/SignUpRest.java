@@ -72,6 +72,8 @@ public class SignUpRest {
 
         protected String token;
 
+        protected String userId;
+
     }
 
     @Autowired
@@ -87,7 +89,8 @@ public class SignUpRest {
 
         SignUp.Output output = this.signUp.execute(input);
 
-        return new ResponseEntity<SignUpRest.Response>(new SignUpRest.Response(output.getResult(), output.getToken()),
+        return new ResponseEntity<SignUpRest.Response>(
+                new SignUpRest.Response(output.getResult(), output.getToken(), output.getUserId().getId().toString()),
                 HttpStatus.OK);
 
     }

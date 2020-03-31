@@ -17,26 +17,32 @@ public class GeoGsonUtil {
     }
 
     public static String fromMultiPolygon(MultiPolygon multiPolygon) {
+
         return GEO_GSON.toJson(multiPolygon);
     }
 
     public static String fromPoint(Point point) {
+
         return GEO_GSON.toJson(point);
     }
 
     public static String fromPolygon(Polygon polygon) {
+
         return GEO_GSON.toJson(polygon);
     }
 
     public static MultiPolygon toMultiPolygon(String json) {
+
         return GEO_GSON.fromJson(json, MultiPolygon.class);
     }
 
     public static Point toPoint(String json) {
+
         return GEO_GSON.fromJson(json, Point.class);
     }
 
     public static Polygon toPolygon(String json) {
+
         return GEO_GSON.fromJson(json, Polygon.class);
     }
 }

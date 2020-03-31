@@ -77,22 +77,15 @@ public class Account {
 
     public boolean isValidToken(String token) {
 
-        String SECRET_KEY;
-        String userIdFromToken = null;
-
-        boolean ok = false;
-
-        SECRET_KEY = this.secretKey;
-
-        userIdFromToken = JwtTokenUtil.getUsernameFromToken(token, SECRET_KEY);
+        String userIdFromToken = JwtTokenUtil.getUsernameFromToken(token, this.secretKey);
 
         if (userIdFromToken != null && userIdFromToken.equals(Long.toString(this.userId.getId()))) {
 
-            ok = true;
+            return true;
 
         }
 
-        return ok;
+        return false;
 
     }
 

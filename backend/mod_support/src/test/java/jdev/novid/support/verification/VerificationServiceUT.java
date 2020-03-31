@@ -10,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import jdev.novid.common.value.Mobile;
-import jdev.novid.component.util.EnvAwareUnitTest;
 import jdev.novid.foundation.config.ApplicationConfiguration;
 import jdev.novid.support.verification.exception.CodeAlreadyExpiredException;
 import jdev.novid.support.verification.exception.CodeRequestRejectedException;
@@ -21,7 +20,7 @@ import jdev.novid.support.verification.exception.VerificationNotFoundException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfiguration.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class VerificationServiceUT extends EnvAwareUnitTest {
+public class VerificationServiceUT {
 
     @Autowired
     private VerificationService verificationService;
@@ -39,7 +38,7 @@ public class VerificationServiceUT extends EnvAwareUnitTest {
             throws VerificationNotFoundException, TooManyAttemptsException, CodeAlreadyExpiredException {
 
         boolean valid = this.verificationService.verify(new Mobile("09777773363"), "622808");
-        
+
         System.out.print(valid);
 
     }

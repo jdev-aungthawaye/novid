@@ -22,9 +22,10 @@ public class Location {
 
     public static class Builder {
 
-        protected static Location newInstance(User user, BigDecimal lat, BigDecimal lng, LocalDateTime collectedAt) {
+        protected static Location newInstance(User user, BigDecimal lat, BigDecimal lng, MacAddress mac,
+                LocalDateTime collectedAt) {
 
-            return new Location(user.getUserId(), lat, lng, collectedAt);
+            return new Location(user.getUserId(), lat, lng, mac, collectedAt);
 
         }
 
@@ -76,7 +77,7 @@ public class Location {
 
     protected LocalDateTime collectedAt;
 
-    public Location(UserId userId, BigDecimal lat, BigDecimal lng, LocalDateTime collectedAt) {
+    public Location(UserId userId, BigDecimal lat, BigDecimal lng, MacAddress mac, LocalDateTime collectedAt) {
 
         super();
 
@@ -84,6 +85,7 @@ public class Location {
         this.userId = userId;
         this.lat = lat;
         this.lng = lng;
+        this.mac = mac;
         this.collectedAt = collectedAt;
         this.submittedAt = LocalDateTime.now();
 

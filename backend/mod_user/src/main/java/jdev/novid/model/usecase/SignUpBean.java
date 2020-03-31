@@ -45,7 +45,7 @@ public class SignUpBean implements SignUp {
 
         if (!valid) {
 
-            return new Output(Result.FAIL, null);
+            return new Output(Result.FAIL, null, null);
 
         }
 
@@ -55,7 +55,7 @@ public class SignUpBean implements SignUp {
 
         AccessToken token = AccessToken.generate(account);
 
-        return new Output(Result.SUCCESS, token.getToken());
+        return new Output(Result.SUCCESS, token.getToken(), user.getUserId());
 
     }
 

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import jdev.novid.common.identity.UserId;
 
 @Repository
-public interface AccountEntityRepository extends JpaRepository<AccountEntity, UserId>{
+public interface AccountEntityRepository extends JpaRepository<AccountEntity, UserId> {
 
 }

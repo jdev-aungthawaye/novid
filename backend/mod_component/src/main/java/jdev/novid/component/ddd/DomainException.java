@@ -11,15 +11,18 @@ public class DomainException extends Exception {
     private static final long serialVersionUID = 1L;
 
     public DomainException() {
+
         super();
     }
 
     public DomainException(Throwable cause) {
+
         super(cause);
     }
 
     @Override
     public String toString() {
+
         String exceptionName = this.getCause() == null ? this.getClass().getSimpleName()
                 : this.getCause().getClass().getSimpleName();
 

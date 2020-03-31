@@ -23,7 +23,7 @@ public interface DoSignIn {
         private static final long serialVersionUID = 1L;
 
         protected Mobile mobile;
-        
+
         protected String code;
 
     }
@@ -38,10 +38,13 @@ public interface DoSignIn {
         private static final long serialVersionUID = 1L;
 
         protected Result result;
-        
+
         protected String token;
 
+        protected Long userId;
+
     }
-    
-    public Output execute(Input input) throws MobileNotFoundException, VerificationNotFoundException, TooManyAttemptsException, CodeAlreadyExpiredException;
+
+    public Output execute(Input input) throws MobileNotFoundException, VerificationNotFoundException,
+            TooManyAttemptsException, CodeAlreadyExpiredException;
 }

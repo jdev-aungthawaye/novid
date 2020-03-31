@@ -97,7 +97,7 @@ public class Verification {
             if (LocalDateTime.now().isAfter(this.lockedUntil)) {
 
                 this.requestCount = 1;
-                
+
                 this.lockedUntil = null;
 
             } else {
@@ -111,7 +111,7 @@ public class Verification {
         this.code = Integer.toString(this.generateCode(MIN, MAX));
 
         this.expiredAt = LocalDateTime.now().plusMinutes(15);
-        
+
         this.attempt = 0;
 
         return this.code;

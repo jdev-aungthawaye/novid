@@ -49,6 +49,8 @@ public class DoSignInRest {
 
         public String token;
 
+        public Long userId;
+
     }
 
     @Autowired
@@ -64,7 +66,7 @@ public class DoSignInRest {
         DoSignIn.Output output = this.doSignIn.execute(input);
 
         return new ResponseEntity<DoSignInRest.Response>(
-                new DoSignInRest.Response(output.getResult(), output.getToken()), HttpStatus.OK);
+                new DoSignInRest.Response(output.getResult(), output.getToken(), output.getUserId()), HttpStatus.OK);
 
     }
 

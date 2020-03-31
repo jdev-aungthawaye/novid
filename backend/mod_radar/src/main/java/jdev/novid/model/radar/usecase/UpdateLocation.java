@@ -23,8 +23,6 @@ public interface UpdateLocation {
 
         protected MacAddress mac;
 
-        protected LocalDateTime submittedAt;
-
         protected LocalDateTime collectedAt;
 
     }

@@ -29,7 +29,7 @@ public class RadarServiceBean implements RadarService {
     @Transactional
     public Location addLocation(User user, BigDecimal lat, BigDecimal lng, MacAddress mac, LocalDateTime collectedAt) {
 
-        Location location = Location.Builder.newInstance(user, lat, lng, collectedAt);
+        Location location = Location.Builder.newInstance(user, lat, lng, mac, collectedAt);
 
         this.locationRepository.save(location);
 

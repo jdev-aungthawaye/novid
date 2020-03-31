@@ -49,13 +49,13 @@ public class DoSignInBean implements DoSignIn {
 
         if (!valid) {
 
-            return new Output(Result.FAIL, null);
+            return new Output(Result.FAIL, null, null);
 
         }
 
         Account account = this.userService.renew(optUser.get().getUserId());
 
-        return new Output(Result.SUCCESS, AccessToken.generate(account).getToken());
+        return new Output(Result.SUCCESS, AccessToken.generate(account).getToken(), optUser.get().getUserId().getId());
 
     }
 

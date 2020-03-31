@@ -10,9 +10,11 @@ import jdev.novid.component.asmapper.annotation.AerospikeRecord;
 public class AerospikeMapper {
 
     private ClassSerializer classSerializer;
+
     private ClassDeserializer classDeserializer;
 
     public AerospikeMapper() {
+
         this.classSerializer = new DefaultClassSerializer();
         this.classDeserializer = new DefaultClassDeserializer();
     }

@@ -27,8 +27,6 @@ public interface UpdateNearByDevice {
 
         protected BigDecimal lng;
 
-        protected LocalDateTime submittedAt;
-
         protected LocalDateTime collectedAt;
 
     }

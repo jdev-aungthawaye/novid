@@ -16,6 +16,7 @@ public class DefaultClassDeserializer implements ClassDeserializer {
     private FieldDeserializer fieldDeserializer;
 
     public DefaultClassDeserializer() {
+
         this.fieldDeserializer = new DefaultFieldDeserializer();
     }
 

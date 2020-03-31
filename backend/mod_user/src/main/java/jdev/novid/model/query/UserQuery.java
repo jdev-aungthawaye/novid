@@ -12,7 +12,7 @@ public interface UserQuery {
     Optional<User> findUser(Mobile mobile);
 
     User getUser(UserId userId);
-    
+
     Account getAccount(UserId userId);
 
 }
