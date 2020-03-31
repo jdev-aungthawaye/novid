@@ -20,13 +20,15 @@
         android:layout_height="1dp"
         android:layout_margin="1dp" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextSwitcher
         android:id="@+id/lblCounter"
         style="@style/LabelMediumBlackBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="@dimen/margin_small"
+        android:inAnimation="@android:anim/slide_in_left"
+        android:outAnimation="@android:anim/slide_out_right"
         tools:text="0" />
 
 </LinearLayout>

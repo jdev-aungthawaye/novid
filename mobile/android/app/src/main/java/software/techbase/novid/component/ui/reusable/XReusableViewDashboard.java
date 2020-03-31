@@ -3,10 +3,13 @@ package software.techbase.novid.component.ui.reusable;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -19,6 +22,9 @@ import software.techbase.novid.R;
  * Created by Wai Yan on 2019-07-17.
  */
 public class XReusableViewDashboard extends LinearLayoutCompat {
+
+    private AppCompatTextView lblDescription;
+    private TextSwitcher lblCounter;
 
     public XReusableViewDashboard(Context context) {
         super(context);
@@ -40,10 +46,22 @@ public class XReusableViewDashboard extends LinearLayoutCompat {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Objects.requireNonNull(inflater).inflate(R.layout.reusable_view_dashboard, this, true);
 
-        AppCompatTextView lblDescription = findViewById(R.id.lblDescription);
-        AppCompatTextView lblCounter = findViewById(R.id.lblCounter);
+        lblDescription = findViewById(R.id.lblDescription);
+        lblCounter = findViewById(R.id.lblCounter);
 
         lblDescription.setText(description);
+
+        lblCounter.setFactory(() -> {
+            TextView textView = new TextView(context);
+            textView.setTextColor(Color.BLACK);
+            textView.setTextSize(16);
+            textView.setGravity(Gravity.CENTER_HORIZONTAL);
+            return textView;
+        });
+        lblCounter.setText(counter);
+    }
+
+    public void setCounter(String counter) {
         lblCounter.setText(counter);
     }
 

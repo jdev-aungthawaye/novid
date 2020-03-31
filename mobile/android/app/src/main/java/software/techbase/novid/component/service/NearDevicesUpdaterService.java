@@ -58,5 +58,5 @@ public class NearDevicesUpdaterService extends Service {
             super.stopSelf();
         }
         return Service.START_STICKY;
-    }
+        }
 }

@@ -32,7 +32,7 @@
             android:layout_marginTop="@dimen/margin_regular"
             android:layout_marginEnd="@dimen/margin_largest"
             android:layout_marginBottom="@dimen/margin_regular"
-            android:hint="Phone Number"
+            android:hint="@string/string_activity_sign_in__phone_number"
             android:inputType="phone" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -43,7 +43,7 @@
             android:layout_marginStart="@dimen/margin_largest"
             android:layout_marginEnd="@dimen/margin_largest"
             android:layout_marginBottom="@dimen/margin_regular"
-            android:text="SignIn" />
+            android:text="၀င်မည်" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

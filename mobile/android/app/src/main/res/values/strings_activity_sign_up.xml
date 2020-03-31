@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string_activity_sign_up__title">စာရင်းသွင်းခြင်း</string>
+    <string name="string_activity_sign_up__full_name">အမည်</string>
+    <string name="string_activity_sign_up__nrc">မှတ်ပုံတင်နံပါတ်</string>
+    <string name="string_activity_sign_up__phone_number">ဖုန်းနံပါတ်</string>
+    <string name="string_activity_sign_up__sign_up">ဆက်လုပ်မည်</string>
+</resources>

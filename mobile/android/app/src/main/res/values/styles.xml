@@ -7,7 +7,6 @@
     </style>
 
     <style name="BaseTheme" parent="AppTheme">
-        <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
@@ -31,7 +30,7 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
-        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/myanmar_angoun</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/font_family</item>
     </style>
 
     <style name="LabelBrand">
@@ -69,6 +68,12 @@
     <style name="LabelRegularBlack">
         <item name="android:textSize">@dimen/text_size_regular</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="LabelRegularBlackBold">
+        <item name="android:textSize">@dimen/text_size_regular</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="LabelMediumBlackBold">

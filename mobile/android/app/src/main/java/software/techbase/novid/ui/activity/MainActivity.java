@@ -53,6 +53,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        this.requestRequiredPermissions();
     }
 
     @Override
@@ -73,14 +74,13 @@ public class MainActivity extends BaseActivity {
                         this.startNearDevicesUpdaterService();
                         this.showMapOnUI();
                     } else {
-                        XAlertDialog.show(this,
-                                XAlertDialog.Type.ERROR,
-                                getString(R.string.MESSAGE_LOCAL__ENABLE_LOCATION_REQUEST),
-                                getString(R.string.OK), v -> this.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
+//                        XAlertDialog.show(this,
+//                                XAlertDialog.Type.ERROR,
+//                                getString(R.string.MESSAGE_LOCAL__ENABLE_LOCATION_REQUEST),
+//                                getString(R.string.OK), v -> this.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
                     }
                 })
                 .onDenied(permissionResult -> {
-                    XAlertDialog.show(this, XAlertDialog.Type.INFO, "Need to allow location permission.", null, v -> this.requestRequiredPermissions());
                 })
                 .ask();
     }

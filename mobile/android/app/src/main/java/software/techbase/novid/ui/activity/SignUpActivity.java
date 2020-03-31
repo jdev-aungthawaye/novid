@@ -19,7 +19,7 @@ public class SignUpActivity extends BaseActivityWithNavigation {
     @NonNull
     @Override
     public String setScreenTitle() {
-        return "SignUp";
+        return getString(R.string.string_activity_sign_up__title);
     }
 
     @Override

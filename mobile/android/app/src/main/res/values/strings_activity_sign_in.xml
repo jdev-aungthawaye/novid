@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string_activity_sign_in__title">အကောင့် ဝင်မည်</string>
+    <string name="string_activity_sign_in__phone_number">ဖုန်းနံပါတ်</string>
+    <string name="string_activity_sign_in__sign_in">ဝင်မည်</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="string_activity_confirm__title">ဖုန်းနံပါတ် အတည်ပြုမည်</string>
+    <string name="string_activity_confirm__hint">သင်၏ဖုန်းနံပါတ်သို့ ပို့ထားသော စီစစ်ကုဒ် ၆လုံး ကိုထည့်ပါ။ မှတ်ပုံတင်ခြင်းပြီးမြောက်ရန် သင်၏ဖုန်းနံပါတ်အား အတည်ပြုရန် လိုအပ်သည်။</string>
+    <string name="string_activity_confirm__otp_code">စီစစ်ကုဒ်</string>
+    <string name="string_activity_confirm__confirm">အတည်ပြုမည်</string>
+</resources>

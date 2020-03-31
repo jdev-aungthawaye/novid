@@ -19,7 +19,7 @@ public class OTPConfirmActivity extends BaseActivityWithNavigation {
     @NonNull
     @Override
     public String setScreenTitle() {
-        return "OTP Confirm";
+        return getString(R.string.string_activity_confirm__title);
     }
 
     @Override
