@@ -591,11 +591,13 @@
 	<modules>
 
 		<module>../mod_aerospike_mapper</module>
-		<module>../mod_client_smspoh</module>
 
 		<module>../mod_component</module>
 		<module>../mod_common</module>
 		<module>../mod_foundation</module>
+
+
+		<module>../mod_client_smspoh</module>
 
 		<module>../mod_support</module>
 

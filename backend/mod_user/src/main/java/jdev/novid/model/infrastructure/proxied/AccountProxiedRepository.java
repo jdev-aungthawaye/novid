@@ -1,5 +1,7 @@
 package jdev.novid.model.infrastructure.proxied;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -32,12 +34,50 @@ public class AccountProxiedRepository implements AccountRepository {
     @Override
     public void delete(UserId id) {
 
+        this.accountJpaRepository.delete(id);
+        this.accountAerospikeRepository.delete(id);
+
     }
 
     @Override
     public Account get(UserId id) {
 
-        return null;
+        Optional<Account> optAccount = this.accountAerospikeRepository.findById(id);
+
+        if (optAccount.isPresent()) {
+
+            return optAccount.get();
+
+        }
+
+        Account account = this.accountJpaRepository.get(id);
+
+        this.accountAerospikeRepository.save(account);
+
+        return account;
+
+    }
+
+    @Override
+    public Optional<Account> findById(UserId id) {
+
+        Optional<Account> optAccount = this.accountAerospikeRepository.findById(id);
+
+        if (optAccount.isPresent()) {
+
+            return optAccount;
+
+        }
+
+        optAccount = this.accountJpaRepository.findById(id);
+
+        if (optAccount.isPresent()) {
+
+            this.accountAerospikeRepository.save(optAccount.get());
+
+        }
+
+        return optAccount;
 
     }
 

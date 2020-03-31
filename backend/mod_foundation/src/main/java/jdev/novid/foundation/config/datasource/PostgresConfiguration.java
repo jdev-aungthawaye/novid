@@ -52,6 +52,7 @@ public class PostgresConfiguration {
         config.addDataSourceProperty("cacheServerConfiguration", true);
         config.addDataSourceProperty("elideSetAutoCommits", true);
         config.addDataSourceProperty("maintainTimeStats", false);
+        config.addDataSourceProperty("maximumPoolSize", 5);
 
         HikariDataSource dataSource = new HikariDataSource(config);
 

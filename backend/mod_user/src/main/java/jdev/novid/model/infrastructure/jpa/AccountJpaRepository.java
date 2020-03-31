@@ -49,4 +49,19 @@ public class AccountJpaRepository implements AccountRepository {
 
     }
 
+    @Override
+    public Optional<Account> findById(UserId id) {
+
+        Optional<AccountEntity> optAccountEntity = this.accountEntityRepository.findById(id);
+
+        if (optAccountEntity.isPresent()) {
+
+            return Optional.of(Account.Builder.fromState(optAccountEntity.get()));
+
+        }
+
+        return Optional.empty();
+
+    }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.persistence.PersistenceQualifiers;
 import jdev.novid.model.domain.User;
+import jdev.novid.model.radar.infrastructure.BluetoothDeviceRepository;
 import jdev.novid.model.radar.infrastructure.LocationRepository;
 
 @Service
@@ -19,6 +20,10 @@ public class RadarServiceBean implements RadarService {
     @Autowired
     @Qualifier(PersistenceQualifiers.PROXIED)
     private LocationRepository locationRepository;
+
+    @Autowired
+    @Qualifier(PersistenceQualifiers.PROXIED)
+    private BluetoothDeviceRepository bluetoothDeviceRepository;
 
     @Override
     @Transactional
@@ -29,6 +34,20 @@ public class RadarServiceBean implements RadarService {
         this.locationRepository.save(location);
 
         return location;
+
+    }
+
+    @Override
+    @Transactional
+    public BluetoothDevice addDevice(User user, MacAddress self, MacAddress nearBy, String deviceName, BigDecimal lat,
+            BigDecimal lng, LocalDateTime collectedAt) {
+
+        BluetoothDevice device = BluetoothDevice.Builder.newInstance(user, self, nearBy, deviceName, lat, lng,
+                collectedAt);
+
+        this.bluetoothDeviceRepository.save(device);
+
+        return device;
 
     }
 

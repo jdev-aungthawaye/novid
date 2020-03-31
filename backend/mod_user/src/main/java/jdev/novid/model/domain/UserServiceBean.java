@@ -23,7 +23,7 @@ public class UserServiceBean implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    @Qualifier(PersistenceQualifiers.JPA)
+    @Qualifier(PersistenceQualifiers.PROXIED)
     private AccountRepository accountRepository;
 
     @Override

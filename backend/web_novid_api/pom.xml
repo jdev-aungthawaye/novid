@@ -151,4 +151,7 @@
 			<artifactId>converter-scalars</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+		<finalName>novid-api</finalName>
+	</build>
 </project>

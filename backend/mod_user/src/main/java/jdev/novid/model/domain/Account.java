@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import jdev.novid.common.identity.UserId;
 import jdev.novid.component.security.JwtTokenUtil;
+import jdev.novid.model.infrastructure.aerospike.AccountRecord;
 import jdev.novid.model.infrastructure.jpa.AccountEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,6 +26,18 @@ public class Account {
         }
 
         public static Account fromState(AccountEntity state) {
+
+            Account domain = new Account();
+
+            domain.userId = state.getUserId();
+            domain.secretKey = state.getSecretKey();
+            domain.keygenDate = state.getKeygenDate();
+
+            return domain;
+
+        }
+
+        public static Account fromState(AccountRecord state) {
 
             Account domain = new Account();
 
@@ -59,6 +72,27 @@ public class Account {
         this.secretKey = UUID.randomUUID().toString();
 
         this.keygenDate = LocalDateTime.now(ZoneId.systemDefault());
+
+    }
+
+    public boolean isValidToken(String token) {
+
+        String SECRET_KEY;
+        String userIdFromToken = null;
+
+        boolean ok = false;
+
+        SECRET_KEY = this.secretKey;
+
+        userIdFromToken = JwtTokenUtil.getUsernameFromToken(token, SECRET_KEY);
+
+        if (userIdFromToken != null && userIdFromToken.equals(Long.toString(this.userId.getId()))) {
+
+            ok = true;
+
+        }
+
+        return ok;
 
     }
 

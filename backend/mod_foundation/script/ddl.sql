@@ -5,7 +5,7 @@
 -- Dumped from database version 12.1
 -- Dumped by pg_dump version 12.1
 
--- Started on 2020-03-30 11:55:14 +0630
+-- Started on 2020-03-31 12:03:11 +0630
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -39,7 +39,7 @@ SET default_table_access_method = heap;
 
 CREATE TABLE novid.bis_account (
     user_id bigint NOT NULL,
-    secret_key bigint NOT NULL,
+    secret_key character varying NOT NULL,
     keygen_date bigint NOT NULL,
     created_date bigint,
     updated_date bigint,
@@ -48,6 +48,28 @@ CREATE TABLE novid.bis_account (
 
 
 ALTER TABLE novid.bis_account OWNER TO jdev_sysdba;
+
+--
+-- TOC entry 239 (class 1259 OID 18412)
+-- Name: bis_device; Type: TABLE; Schema: novid; Owner: jdev_sysdba
+--
+
+CREATE TABLE novid.bis_device (
+    location_id bigint NOT NULL,
+    self_device character varying NOT NULL,
+    near_by_device character varying NOT NULL,
+    device_name character varying NOT NULL,
+    lat numeric(17,0) NOT NULL,
+    lng numeric(17,0) NOT NULL,
+    submitted_at bigint NOT NULL,
+    collected_at bigint NOT NULL,
+    created_date bigint,
+    updated_date bigint,
+    version integer
+);
+
+
+ALTER TABLE novid.bis_device OWNER TO jdev_sysdba;
 
 --
 -- TOC entry 237 (class 1259 OID 18378)
@@ -109,7 +131,7 @@ CREATE TABLE novid.sys_verification (
 ALTER TABLE novid.sys_verification OWNER TO jdev_sysdba;
 
 --
--- TOC entry 3201 (class 2606 OID 18361)
+-- TOC entry 3207 (class 2606 OID 18361)
 -- Name: bis_account bis_account_pk; Type: CONSTRAINT; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -118,7 +140,16 @@ ALTER TABLE ONLY novid.bis_account
 
 
 --
--- TOC entry 3196 (class 2606 OID 18352)
+-- TOC entry 3215 (class 2606 OID 18419)
+-- Name: bis_device bis_device_pk; Type: CONSTRAINT; Schema: novid; Owner: jdev_sysdba
+--
+
+ALTER TABLE ONLY novid.bis_device
+    ADD CONSTRAINT bis_device_pk PRIMARY KEY (location_id);
+
+
+--
+-- TOC entry 3202 (class 2606 OID 18352)
 -- Name: bis_user bis_user_mobile_unq; Type: CONSTRAINT; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -127,7 +158,7 @@ ALTER TABLE ONLY novid.bis_user
 
 
 --
--- TOC entry 3199 (class 2606 OID 18350)
+-- TOC entry 3205 (class 2606 OID 18350)
 -- Name: bis_user bis_user_pk; Type: CONSTRAINT; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -136,7 +167,7 @@ ALTER TABLE ONLY novid.bis_user
 
 
 --
--- TOC entry 3204 (class 2606 OID 18400)
+-- TOC entry 3210 (class 2606 OID 18400)
 -- Name: sys_verification sys_verification_mobile_unq; Type: CONSTRAINT; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -145,7 +176,7 @@ ALTER TABLE ONLY novid.sys_verification
 
 
 --
--- TOC entry 3206 (class 2606 OID 18398)
+-- TOC entry 3212 (class 2606 OID 18398)
 -- Name: sys_verification sys_verification_pk; Type: CONSTRAINT; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -154,7 +185,23 @@ ALTER TABLE ONLY novid.sys_verification
 
 
 --
--- TOC entry 3194 (class 1259 OID 18355)
+-- TOC entry 3213 (class 1259 OID 18421)
+-- Name: bis_device_near_by_device_idx; Type: INDEX; Schema: novid; Owner: jdev_sysdba
+--
+
+CREATE INDEX bis_device_near_by_device_idx ON novid.bis_device USING btree (near_by_device);
+
+
+--
+-- TOC entry 3216 (class 1259 OID 18420)
+-- Name: bis_device_self_device_idx; Type: INDEX; Schema: novid; Owner: jdev_sysdba
+--
+
+CREATE INDEX bis_device_self_device_idx ON novid.bis_device USING btree (self_device);
+
+
+--
+-- TOC entry 3200 (class 1259 OID 18355)
 -- Name: bis_user_mobile_idx; Type: INDEX; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -162,7 +209,7 @@ CREATE INDEX bis_user_mobile_idx ON novid.bis_user USING btree (mobile);
 
 
 --
--- TOC entry 3197 (class 1259 OID 18356)
+-- TOC entry 3203 (class 1259 OID 18356)
 -- Name: bis_user_nric_idx; Type: INDEX; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -170,7 +217,7 @@ CREATE INDEX bis_user_nric_idx ON novid.bis_user USING btree (nric);
 
 
 --
--- TOC entry 3202 (class 1259 OID 18401)
+-- TOC entry 3208 (class 1259 OID 18401)
 -- Name: sys_verification_mobile_idx; Type: INDEX; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -178,7 +225,7 @@ CREATE INDEX sys_verification_mobile_idx ON novid.sys_verification USING btree (
 
 
 --
--- TOC entry 3207 (class 2606 OID 18362)
+-- TOC entry 3217 (class 2606 OID 18362)
 -- Name: bis_account bis_account_fk; Type: FK CONSTRAINT; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -187,7 +234,7 @@ ALTER TABLE ONLY novid.bis_account
 
 
 --
--- TOC entry 3208 (class 2606 OID 18384)
+-- TOC entry 3218 (class 2606 OID 18384)
 -- Name: bis_location bis_location_fk; Type: FK CONSTRAINT; Schema: novid; Owner: jdev_sysdba
 --
 
@@ -196,7 +243,7 @@ ALTER TABLE ONLY novid.bis_location
 
 
 --
--- TOC entry 3340 (class 0 OID 0)
+-- TOC entry 3350 (class 0 OID 0)
 -- Dependencies: 236
 -- Name: TABLE bis_account; Type: ACL; Schema: novid; Owner: jdev_sysdba
 --
@@ -205,7 +252,7 @@ GRANT ALL ON TABLE novid.bis_account TO novid_owner;
 
 
 --
--- TOC entry 3341 (class 0 OID 0)
+-- TOC entry 3351 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: TABLE bis_location; Type: ACL; Schema: novid; Owner: jdev_sysdba
 --
@@ -214,7 +261,7 @@ GRANT ALL ON TABLE novid.bis_location TO novid_owner;
 
 
 --
--- TOC entry 3342 (class 0 OID 0)
+-- TOC entry 3352 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: TABLE bis_user; Type: ACL; Schema: novid; Owner: jdev_sysdba
 --
@@ -223,7 +270,7 @@ GRANT ALL ON TABLE novid.bis_user TO novid_owner;
 
 
 --
--- TOC entry 3343 (class 0 OID 0)
+-- TOC entry 3353 (class 0 OID 0)
 -- Dependencies: 238
 -- Name: TABLE sys_verification; Type: ACL; Schema: novid; Owner: jdev_sysdba
 --
@@ -231,7 +278,7 @@ GRANT ALL ON TABLE novid.bis_user TO novid_owner;
 GRANT ALL ON TABLE novid.sys_verification TO novid_owner;
 
 
--- Completed on 2020-03-30 11:55:15 +0630
+-- Completed on 2020-03-31 12:03:12 +0630
 
 --
 -- PostgreSQL database dump complete

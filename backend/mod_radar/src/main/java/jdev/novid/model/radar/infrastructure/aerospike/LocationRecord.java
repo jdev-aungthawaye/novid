@@ -67,6 +67,7 @@ public class LocationRecord implements Serializable {
     @AerospikeBin(name = "col_at", converter = TimestampConverter.class)
     protected LocalDateTime collectedAt;
 
+    @AerospikeBin(name = "coord")
     protected Point coordinate;
 
 }

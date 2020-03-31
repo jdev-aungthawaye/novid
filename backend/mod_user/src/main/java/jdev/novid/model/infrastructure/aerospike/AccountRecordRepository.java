@@ -12,10 +12,10 @@ import jdev.novid.component.asmapper.AerospikeTemplate;
 import jdev.novid.component.persistence.jpa.BasicRepository;
 
 @Component
-public class AccountRecordRepository implements BasicRepository<AccountRecord, UserId>{
+public class AccountRecordRepository implements BasicRepository<AccountRecord, UserId> {
 
     private static final String SET = "account";
-    
+
     @Autowired
     private AerospikeTemplate aerospikeTemplate;
 
@@ -29,7 +29,7 @@ public class AccountRecordRepository implements BasicRepository<AccountRecord, U
     public void delete(UserId id) {
 
         this.aerospikeTemplate.delete(id.getId(), SET);
-        
+
     }
 
     @Override
@@ -44,7 +44,13 @@ public class AccountRecordRepository implements BasicRepository<AccountRecord, U
         }
 
         throw new EntityNotFoundException("AccountRecord with PK [" + id + "] not found in Aerospike.");
- 
+
+    }
+
+    @Override
+    public Optional<AccountRecord> findById(UserId id) {
+
+        return this.aerospikeTemplate.find(id.getId(), SET, AccountRecord.class);
 
     }
 

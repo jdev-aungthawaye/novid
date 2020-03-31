@@ -55,4 +55,13 @@ public class VerificationJpaRepository implements VerificationRepository {
 
     }
 
+    @Override
+    public Optional<Verification> findById(VerificationId id) {
+
+        Optional<VerificationEntity> optEntity = this.verificationEntityRepository.findById(id);
+
+        return optEntity.isPresent() ? Optional.of(Verification.Builder.fromState(optEntity.get())) : Optional.empty();
+
+    }
+
 }
