@@ -11,11 +11,11 @@ import java.io.Closeable;
 public class BluetoothController implements Closeable {
 
     private final BluetoothAdapter bluetoothAdapter;
-    private final BroadcastReceiverDelegator broadcastReceiverDelegator;
+    private final BluetoothBroadcastReceiver bluetoothBroadcastReceiver;
 
-    public BluetoothController(Context context, BluetoothAdapter adapter, BroadcastReceiverDelegator.BluetoothDiscoveryDeviceListener listener) {
+    public BluetoothController(Context context, BluetoothAdapter adapter, BluetoothBroadcastReceiver.DiscoveryDeviceListener listener) {
         this.bluetoothAdapter = adapter;
-        this.broadcastReceiverDelegator = new BroadcastReceiverDelegator(context, listener);
+        this.bluetoothBroadcastReceiver = new BluetoothBroadcastReceiver(context, listener);
     }
 
     public void startDiscovery() {
@@ -29,6 +29,6 @@ public class BluetoothController implements Closeable {
 
     @Override
     public void close() {
-        this.broadcastReceiverDelegator.close();
+        this.bluetoothBroadcastReceiver.close();
     }
 }

@@ -1,23 +1,26 @@
 package software.techbase.novid.domain.bluetooth;
 
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.io.Closeable;
-import java.util.Objects;
 
 /**
  * Created by Wai Yan on 3/30/20.
  */
-public class BroadcastReceiverDelegator extends BroadcastReceiver implements Closeable {
+public class BluetoothBroadcastReceiver extends BroadcastReceiver implements Closeable {
 
-    private final BluetoothDiscoveryDeviceListener listener;
+    private final DiscoveryDeviceListener listener;
     private final Context context;
 
-    public BroadcastReceiverDelegator(Context context, BluetoothDiscoveryDeviceListener listener) {
+    public BluetoothBroadcastReceiver(Context context, DiscoveryDeviceListener listener) {
         this.listener = listener;
         this.context = context;
 
@@ -27,12 +30,17 @@ public class BroadcastReceiverDelegator extends BroadcastReceiver implements Clo
         context.registerReceiver(this, filter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        if (BluetoothDevice.ACTION_FOUND.equals(Objects.requireNonNull(action))) {
+        if (BluetoothDevice.ACTION_FOUND.equals(action)) {
             BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            listener.onDeviceDiscovered(device);
+            assert device != null;
+            //TODO
+            if (device.getType() == BluetoothClass.Device.PHONE_SMART || device.getType() == BluetoothClass.Device.PHONE_UNCATEGORIZED) {
+                listener.onDeviceDiscovered(device);
+            }
         }
     }
 
@@ -41,7 +49,7 @@ public class BroadcastReceiverDelegator extends BroadcastReceiver implements Clo
         context.unregisterReceiver(this);
     }
 
-    public interface BluetoothDiscoveryDeviceListener {
+    public interface DiscoveryDeviceListener {
 
         void onDeviceDiscovered(BluetoothDevice device);
     }

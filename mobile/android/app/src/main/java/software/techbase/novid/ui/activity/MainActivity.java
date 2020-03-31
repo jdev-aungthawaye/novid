@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,14 +22,12 @@ import org.jetbrains.annotations.Nullable;
 
 import butterknife.OnClick;
 import software.techbase.novid.R;
-import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
 import software.techbase.novid.component.service.Constants;
 import software.techbase.novid.component.service.LocationUpdaterService;
 import software.techbase.novid.component.service.NearDevicesUpdaterService;
 import software.techbase.novid.component.service.ServiceUtils;
 import software.techbase.novid.component.ui.base.BaseActivity;
-import software.techbase.novid.component.ui.reusable.XAlertDialog;
 import software.techbase.novid.domain.location.CurrentLocation;
 import software.techbase.novid.domain.location.LocationUtils;
 import software.techbase.novid.ui.fragment.DashboardFragment;
@@ -69,16 +66,9 @@ public class MainActivity extends BaseActivity {
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION)
                 .onAccepted(permissionResult -> {
-                    if (GPSStatusBroadcastReceiver.isLocationEnabled(this)) {
-                        this.startLocationUpdaterService();
-                        this.startNearDevicesUpdaterService();
-                        this.showMapOnUI();
-                    } else {
-//                        XAlertDialog.show(this,
-//                                XAlertDialog.Type.ERROR,
-//                                getString(R.string.MESSAGE_LOCAL__ENABLE_LOCATION_REQUEST),
-//                                getString(R.string.OK), v -> this.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)));
-                    }
+                    this.startLocationUpdaterService();
+                    this.startNearDevicesUpdaterService();
+                    this.showMapOnUI();
                 })
                 .onDenied(permissionResult -> {
                 })
@@ -108,13 +98,14 @@ public class MainActivity extends BaseActivity {
         CurrentLocation.getCurrentLocation(this, mLocation -> {
             if (mMap != null) {
                 //Current
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 10));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 10F));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 10F));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15F));
                 addMaker(mLocation.getLatitude(), mLocation.getLongitude());
 
                 mMap.setOnCameraMoveListener(() -> mMap.clear());
 
                 mMap.setOnCameraIdleListener(() -> {
-
                     LatLng midLatLng = mMap.getCameraPosition().target;
                     addMaker(midLatLng.latitude, midLatLng.longitude);
                 });

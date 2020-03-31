@@ -16,6 +16,7 @@
         <shape android:shape="oval">
             <solid android:color="@color/circle_button_normal" />
             <size android:width="48dp" android:height="48dp" />
+            <stroke android:width="0.5dp" android:color="@android:color/black" />
         </shape>
     </item>
 </selector>

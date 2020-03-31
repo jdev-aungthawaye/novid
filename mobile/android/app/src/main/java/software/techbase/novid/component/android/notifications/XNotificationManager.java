@@ -1,6 +1,5 @@
 package software.techbase.novid.component.android.notifications;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,7 +19,7 @@ import software.techbase.novid.ui.activity.MainActivity;
  */
 public class XNotificationManager {
 
-    public static final String CHAT_CHANNEL_ID = "software.techbase.novid.notifications";
+    private NotificationCompat.Builder builder;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void createNotificationChannel(Context context,
@@ -46,17 +45,14 @@ public class XNotificationManager {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public static void notify(Context context,
-                              String channelId,
                               String title,
                               String content,
+                              String channelId,
                               int notificationId,
-                              Class<? extends Activity> openingActivity) {
+                              Intent resultIntent) {
 
         Intent backIntent = new Intent(context, MainActivity.class);
         backIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        Intent resultIntent = new Intent(context, openingActivity);
-        resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingIntent = PendingIntent.getActivities(context, notificationId, new Intent[]{backIntent, resultIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
 
