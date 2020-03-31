@@ -2,12 +2,12 @@
 <font-family xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <font
-        android:font="@font/myanmar_angoun"
+        android:font="@font/pyidaungsu"
         android:fontStyle="normal"
         android:fontWeight="180"
         tools:targetApi="o" />
     <font
-        android:font="@font/myanmar_angoun"
+        android:font="@font/pyidaungsu"
         android:fontStyle="italic"
         android:fontWeight="180"
         tools:targetApi="o" />

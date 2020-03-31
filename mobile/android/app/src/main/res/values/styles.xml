@@ -7,7 +7,6 @@
     </style>
 
     <style name="BaseTheme" parent="AppTheme">
-        <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
@@ -20,7 +19,6 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="FullScreenTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
@@ -32,7 +30,7 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
-        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/myanmar_angoun</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/font_family</item>
     </style>
 
     <style name="LabelBrand">
@@ -49,7 +47,7 @@
     <!--Button Styles-->
     <style name="BtnPrimary">
         <item name="android:background">@drawable/shape_btn_bg_primary</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/text_size_regular</item>
     </style>
@@ -70,6 +68,12 @@
     <style name="LabelRegularBlack">
         <item name="android:textSize">@dimen/text_size_regular</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="LabelRegularBlackBold">
+        <item name="android:textSize">@dimen/text_size_regular</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="LabelMediumBlackBold">

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/margin_smallest"
-            android:text="No Corona Virus in Myanmar" />
+            android:text="@string/string_activity_entry__description" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/btn_height_regular"
             android:layout_margin="@dimen/margin_smaller"
-            android:text="Create Account" />
+            android:text="@string/string_activity_entry__sign_up" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSignIn"
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/btn_height_regular"
             android:layout_margin="@dimen/margin_smaller"
-            android:text="Login" />
+            android:text="@string/string_activity_entry__sign_in" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

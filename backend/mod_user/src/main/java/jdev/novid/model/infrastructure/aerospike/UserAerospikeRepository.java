@@ -33,12 +33,14 @@ public class UserAerospikeRepository implements UserRepository {
     @Override
     public void delete(UserId id) {
 
+        this.userRecordRepository.delete(id);
+
     }
 
     @Override
     public User get(UserId id) {
 
-        return null;
+        return User.Builder.fromState(this.userRecordRepository.get(id));
 
     }
 

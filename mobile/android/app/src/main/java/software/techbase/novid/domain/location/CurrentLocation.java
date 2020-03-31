@@ -11,7 +11,10 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import software.techbase.novid.R;
 import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
+import software.techbase.novid.component.android.notifications.XNotificationConstants;
+import software.techbase.novid.component.android.notifications.XNotificationManager;
 import software.techbase.novid.component.android.xlogger.XLogger;
 
 /**
@@ -44,9 +47,17 @@ public class CurrentLocation {
                         } else {
                             XLogger.debug(CurrentLocation.class, "Failed to get location.");
                             if (!GPSStatusBroadcastReceiver.isLocationEnabled(mContext)) {
+
                                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                mContext.startActivity(intent);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                                XNotificationManager.notify(mContext,
+                                        mContext.getString(R.string.app_name),
+                                        "Please open location.",
+                                        XNotificationConstants.SERVICE_CHANNEL_ID,
+                                        XNotificationConstants.LOCATION_REQUEST_NOTIFICATION_ID,
+                                        intent);
                             }
                         }
                     });

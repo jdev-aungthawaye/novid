@@ -51,7 +51,7 @@ public class NetworkStatusBroadcastReceiver extends BroadcastReceiver {
         void onInternetUnavailable();
     }
 
-    private static boolean isInternetAvailable(Context mContext) {
+    public static boolean isInternetAvailable(Context mContext) {
 
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;

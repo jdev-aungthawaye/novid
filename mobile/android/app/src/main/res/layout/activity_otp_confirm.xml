@@ -31,7 +31,7 @@
             android:layout_marginTop="@dimen/margin_regular"
             android:layout_marginEnd="@dimen/margin_largest"
             android:gravity="center"
-            android:text="Enter 4 digits code that we have sent to your mobile." />
+            android:text="@string/string_activity_confirm__hint" />
 
         <software.techbase.novid.component.ui.reusable.XAppCompatEditText
             android:id="@+id/edtOTP"
@@ -42,9 +42,9 @@
             android:layout_marginTop="@dimen/margin_regular"
             android:layout_marginEnd="@dimen/margin_largest"
             android:layout_marginBottom="@dimen/margin_regular"
-            android:hint="OTP Code"
+            android:hint="@string/string_activity_confirm__otp_code"
             android:inputType="number"
-            android:maxLength="4" />
+            android:maxLength="6" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnConfirm"
@@ -54,7 +54,7 @@
             android:layout_marginStart="@dimen/margin_largest"
             android:layout_marginEnd="@dimen/margin_largest"
             android:layout_marginBottom="@dimen/margin_regular"
-            android:text="Confirm" />
+            android:text="@string/string_activity_confirm__confirm" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

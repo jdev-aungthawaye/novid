@@ -67,6 +67,7 @@ abstract class BaseActivity : FirebaseRemoteConfigUpdateCheckerActivity(),
     override fun isLocationEnable() {
 
         XLogger.debug(javaClass, "LocationEnable")
+
     }
 
     override fun isLocationDisable() {

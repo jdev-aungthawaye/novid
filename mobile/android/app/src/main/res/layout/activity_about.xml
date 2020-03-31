@@ -34,7 +34,7 @@
                 android:paddingStart="@dimen/margin_smaller"
                 android:paddingEnd="@dimen/margin_smaller"
                 app:imvIcon="@drawable/ic_question"
-                app:labelDescription="Questions" />
+                app:labelDescription="မေးခွန်းများ" />
 
             <View
                 style="@style/Divider"

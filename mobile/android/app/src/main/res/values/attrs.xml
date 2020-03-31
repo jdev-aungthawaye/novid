@@ -2,10 +2,16 @@
 <resources>
 
     <attr name="labelDescription" format="string" localization="suggested" />
+    <attr name="labelCounter" format="string" localization="suggested" />
 
     <declare-styleable name="XReusableViewActionLabel">
         <attr name="imvIcon" format="reference" />
         <attr name="labelDescription" />
+    </declare-styleable>
+
+    <declare-styleable name="XReusableViewDashboard">
+        <attr name="labelDescription" />
+        <attr name="labelCounter" />
     </declare-styleable>
 
 </resources>

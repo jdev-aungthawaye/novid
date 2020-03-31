@@ -25,7 +25,7 @@ public class AboutActivity extends BaseActivityWithNavigation {
     @NonNull
     @Override
     public String setScreenTitle() {
-        return "About";
+        return "အကြောင်းအရာ";
     }
 
     @OnClick(R.id.xrvGithub)

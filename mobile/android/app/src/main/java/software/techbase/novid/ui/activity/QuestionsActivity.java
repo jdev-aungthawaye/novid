@@ -39,7 +39,7 @@ public class QuestionsActivity extends BaseActivityWithNavigation {
     @NonNull
     @Override
     public String setScreenTitle() {
-        return "Questions";
+        return getString(R.string.string_activity_questions__title);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
