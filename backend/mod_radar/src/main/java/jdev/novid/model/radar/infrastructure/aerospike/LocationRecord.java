@@ -28,8 +28,8 @@ public class LocationRecord implements Serializable {
 
     public static void map(Location domain, LocationRecord state) {
 
-        state.userId = domain.getUserId();
         state.locationId = domain.getLocationId();
+        state.userId = domain.getUserId();
         state.lat = domain.getLat();
         state.lng = domain.getLng();
         state.mac = domain.getMac();
@@ -67,6 +67,7 @@ public class LocationRecord implements Serializable {
     @AerospikeBin(name = "col_at", converter = TimestampConverter.class)
     protected LocalDateTime collectedAt;
 
+    @AerospikeBin(name = "coord")
     protected Point coordinate;
 
 }

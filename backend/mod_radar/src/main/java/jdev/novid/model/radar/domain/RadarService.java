@@ -10,4 +10,7 @@ public interface RadarService {
 
     public Location addLocation(User user, BigDecimal lat, BigDecimal lng, MacAddress mac, LocalDateTime collectedAt);
 
+    public BluetoothDevice addDevice(User user, MacAddress self, MacAddress nearBy, String deviceName, BigDecimal lat,
+            BigDecimal lng, LocalDateTime collectedAt);
+
 }

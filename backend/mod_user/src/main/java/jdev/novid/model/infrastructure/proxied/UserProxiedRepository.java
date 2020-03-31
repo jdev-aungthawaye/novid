@@ -35,6 +35,7 @@ public class UserProxiedRepository implements UserRepository {
     @Override
     public void delete(UserId id) {
 
+        this.userJpaRepository.delete(id);
         this.userAerospikeRepository.delete(id);
 
     }
@@ -42,7 +43,42 @@ public class UserProxiedRepository implements UserRepository {
     @Override
     public User get(UserId id) {
 
-        return this.userAerospikeRepository.get(id);
+        Optional<User> optUser = this.userAerospikeRepository.findById(id);
+
+        if (optUser.isPresent()) {
+
+            return optUser.get();
+
+        }
+
+        User user = this.userJpaRepository.get(id);
+
+        this.userAerospikeRepository.save(user);
+
+        return user;
+
+    }
+
+    @Override
+    public Optional<User> findById(UserId id) {
+
+        Optional<User> optUser = this.userAerospikeRepository.findById(id);
+
+        if (optUser.isPresent()) {
+
+            return optUser;
+
+        }
+
+        optUser = this.userJpaRepository.findById(id);
+
+        if (optUser.isPresent()) {
+
+            this.userAerospikeRepository.save(optUser.get());
+
+        }
+
+        return optUser;
 
     }
 

@@ -28,7 +28,15 @@
 		</dependency>
 		<dependency>
 			<groupId>jdev.novid</groupId>
+			<artifactId>mod_support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jdev.novid</groupId>
 			<artifactId>mod_user</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jdev.novid</groupId>
+			<artifactId>mod_radar</artifactId>
 		</dependency>
 
 		<dependency>
@@ -151,4 +159,7 @@
 			<artifactId>converter-scalars</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+		<finalName>novid-api</finalName>
+	</build>
 </project>

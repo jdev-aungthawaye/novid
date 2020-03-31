@@ -24,7 +24,7 @@ public final class Snowflake {
 
     private static final int maxSequence = (int) (Math.pow(2, SEQUENCE_BITS) - 1);
 
-    private static final long CUSTOM_EPOCH = 1585418138000L;
+    private static final long CUSTOM_EPOCH = 1577813400000L;
 
     private static long timestamp() {
 

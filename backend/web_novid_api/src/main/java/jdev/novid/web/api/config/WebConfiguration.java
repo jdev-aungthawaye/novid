@@ -13,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import jdev.novid.foundation.config.ApplicationConfiguration;
 
-
 @EnableWebMvc
 @Import(value = { ApplicationConfiguration.class })
 public class WebConfiguration implements WebMvcConfigurer {
@@ -24,10 +23,10 @@ public class WebConfiguration implements WebMvcConfigurer {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 
         LOG.info("adding http message converters...");
-        
+
         converters.add(new StringHttpMessageConverter());
         converters.add(new MappingJackson2HttpMessageConverter());
-        
+
         LOG.info("done adding http message converters...");
 
     }

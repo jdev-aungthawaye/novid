@@ -16,6 +16,7 @@ public class DefaultClassSerializer implements ClassSerializer {
     private FieldSerializer fieldSerializer;
 
     public DefaultClassSerializer() {
+
         this.fieldSerializer = new DefaultFieldSerializer();
     }
 

@@ -55,4 +55,19 @@ public class UserJpaRepository implements UserRepository {
 
     }
 
+    @Override
+    public Optional<User> findById(UserId id) {
+
+        Optional<UserEntity> optUserEntity = this.userEntityRepository.findById(id);
+
+        if (optUserEntity.isPresent()) {
+
+            return Optional.of(User.Builder.fromState(optUserEntity.get()));
+
+        }
+
+        return Optional.empty();
+
+    }
+
 }

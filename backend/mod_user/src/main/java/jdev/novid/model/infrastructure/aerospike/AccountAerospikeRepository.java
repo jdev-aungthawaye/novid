@@ -1,5 +1,7 @@
 package jdev.novid.model.infrastructure.aerospike;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -36,6 +38,21 @@ public class AccountAerospikeRepository implements AccountRepository {
     public Account get(UserId id) {
 
         return null;
+
+    }
+
+    @Override
+    public Optional<Account> findById(UserId id) {
+
+        Optional<AccountRecord> optAccountRecord = this.accountRecordRepository.findById(id);
+
+        if (optAccountRecord.isPresent()) {
+
+            return Optional.of(Account.Builder.fromState(optAccountRecord.get()));
+
+        }
+
+        return Optional.empty();
 
     }
 

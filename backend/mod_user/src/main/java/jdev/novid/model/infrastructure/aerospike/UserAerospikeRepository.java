@@ -53,4 +53,19 @@ public class UserAerospikeRepository implements UserRepository {
 
     }
 
+    @Override
+    public Optional<User> findById(UserId id) {
+
+        Optional<UserRecord> optUserRecord = this.userRecordRepository.findById(id);
+
+        if (optUserRecord.isPresent()) {
+
+            return Optional.of(User.Builder.fromState(optUserRecord.get()));
+
+        }
+
+        return Optional.empty();
+
+    }
+
 }

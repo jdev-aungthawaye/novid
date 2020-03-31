@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+	<properties>
+		<property name="log-path">${sys:user.home}/log/novid</property>
+	</properties>
+	<appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<ThresholdFilter level="debug" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} %-8level %t:%class{36}:%L:(%M) REQ_ID: %X{requestId} - %msg%xEx%n" />
+		</Console>
+
+		<RollingFile name="novidLogger"
+			fileName="${log-path}/api_web.log"
+			filePattern="${log-path}/$${date:yyyy-MM}/ktz-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} %-8level %t:%class{36}:%L:(%M) REQ_ID: %X{requestId} - %msg%xEx%n" />
+			<SizeBasedTriggeringPolicy size="10MB" />
+		</RollingFile>
+
+	</appenders>
+	<loggers>
+		<root level="debug">
+			<appender-ref ref="novidLogger" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+
+		<Logger name="org.springframework" level="debug"
+			additivity="false">
+			<appender-ref ref="novidLogger" />
+			<appender-ref ref="CONSOLE" />
+		</Logger>
+
+		<Logger name="es.novid" level="debug" additivity="false">
+			<appender-ref ref="novidLogger" />
+			<appender-ref ref="CONSOLE" />
+		</Logger>
+	</loggers>
+</configuration>

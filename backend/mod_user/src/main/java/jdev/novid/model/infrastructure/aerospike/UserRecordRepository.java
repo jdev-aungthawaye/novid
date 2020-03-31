@@ -3,18 +3,19 @@ package jdev.novid.model.infrastructure.aerospike;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.aerospike.client.query.Filter;
+import com.aerospike.client.query.IndexType;
 
 import jdev.novid.common.identity.UserId;
 import jdev.novid.common.value.Mobile;
 import jdev.novid.component.asmapper.AerospikeTemplate;
 import jdev.novid.component.persistence.jpa.BasicRepository;
-import jdev.novid.model.domain.User;
 
 @Component
 public class UserRecordRepository implements BasicRepository<UserRecord, UserId> {
@@ -57,8 +58,11 @@ public class UserRecordRepository implements BasicRepository<UserRecord, UserId>
         List<UserRecord> records = this.aerospikeTemplate.query(SET, Filter.equal("mobile", mobile.getValue()),
                 UserRecord.class);
 
-        if (records.isEmpty())
+        if (records.isEmpty()) {
+
             return Optional.empty();
+
+        }
 
         if (records.size() > 1) {
 
@@ -67,6 +71,20 @@ public class UserRecordRepository implements BasicRepository<UserRecord, UserId>
         }
 
         return Optional.of(records.get(0));
+
+    }
+
+    @PostConstruct
+    private void postConstruct() {
+
+        this.aerospikeTemplate.createIndex("idx_user_mobile", SET, "mobile", IndexType.STRING);
+
+    }
+
+    @Override
+    public Optional<UserRecord> findById(UserId id) {
+
+        return this.aerospikeTemplate.find(id.getId(), SET, UserRecord.class);
 
     }
 

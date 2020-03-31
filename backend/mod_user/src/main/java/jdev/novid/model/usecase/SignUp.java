@@ -2,6 +2,7 @@ package jdev.novid.model.usecase;
 
 import java.io.Serializable;
 
+import jdev.novid.common.identity.UserId;
 import jdev.novid.common.value.Mobile;
 import jdev.novid.common.value.Nric;
 import jdev.novid.component.ddd.Result;
@@ -45,6 +46,8 @@ public interface SignUp {
         protected Result result;
 
         protected String token;
+
+        protected UserId userId;
 
     }
 

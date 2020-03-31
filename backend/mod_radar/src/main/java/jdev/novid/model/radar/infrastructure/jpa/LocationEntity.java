@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "bis_account")
+@Table(name = "bis_location")
 @Data
 @Setter(value = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,10 +37,11 @@ public class LocationEntity extends JpaEntity {
 
     public static void map(Location domain, LocationEntity state) {
 
-        state.userId = domain.getUserId();
         state.locationId = domain.getLocationId();
+        state.userId = domain.getUserId();
         state.lat = domain.getLat();
         state.lng = domain.getLng();
+        state.mac = domain.getMac();
         state.submittedAt = domain.getSubmittedAt();
         state.collectedAt = domain.getCollectedAt();
 

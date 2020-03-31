@@ -47,4 +47,11 @@ public class AccountRecordRepository implements BasicRepository<AccountRecord, U
 
     }
 
+    @Override
+    public Optional<AccountRecord> findById(UserId id) {
+
+        return this.aerospikeTemplate.find(id.getId(), SET, AccountRecord.class);
+
+    }
+
 }
