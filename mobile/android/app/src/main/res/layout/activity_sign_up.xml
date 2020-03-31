@@ -36,7 +36,7 @@
             android:inputType="text" />
 
         <software.techbase.novid.component.ui.reusable.XAppCompatEditText
-            android:id="@+id/edtNRC"
+            android:id="@+id/edtNRIC"
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edt_height_regular"
@@ -44,7 +44,7 @@
             android:layout_marginTop="@dimen/margin_smaller"
             android:layout_marginEnd="@dimen/margin_largest"
             android:layout_marginBottom="@dimen/margin_smaller"
-            android:hint="@string/string_activity_sign_up__phone_number"
+            android:hint="@string/string_activity_sign_up__nrc"
             android:inputType="text" />
 
         <software.techbase.novid.component.ui.reusable.XAppCompatEditText

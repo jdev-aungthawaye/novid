@@ -13,6 +13,7 @@ public class UserInfoStorage {
 
     private final static String PREFERENCES_NAME = "USER_INFO_STORAGE";
     private final static String KEY_ACCESS_TOKEN = PREFERENCES_NAME + ".KEY_ACCESS_TOKEN";
+    private final static String KEY_USER_ID = PREFERENCES_NAME + ".KEY_USER_ID";
     private final static String KEY_FIREBASE_TOKEN = PREFERENCES_NAME + ".KEY_FIREBASE_TOKEN";
 
     private static UserInfoStorage userInfoStorage;
@@ -53,7 +54,16 @@ public class UserInfoStorage {
         this.editor.commit();
     }
 
-    public boolean isCredentialsAvailable() {
+    public void setUserId(long userId) {
+        this.editor.putLong(KEY_USER_ID, userId);
+        this.editor.commit();
+    }
+
+    public long getUserId() {
+        return this.sharedPreferences.getLong(KEY_USER_ID, 0);
+    }
+
+    public boolean isUserLoggedIn() {
 
         return this.getAccessToken() != null && this.getAccessToken().trim().length() > 0;
     }

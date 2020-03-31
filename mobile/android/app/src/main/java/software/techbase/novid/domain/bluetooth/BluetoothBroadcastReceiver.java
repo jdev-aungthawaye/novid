@@ -1,6 +1,5 @@
 package software.techbase.novid.domain.bluetooth;
 
-import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -37,10 +36,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver implements Clo
         if (BluetoothDevice.ACTION_FOUND.equals(action)) {
             BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             assert device != null;
-            //TODO
-            if (device.getType() == BluetoothClass.Device.PHONE_SMART || device.getType() == BluetoothClass.Device.PHONE_UNCATEGORIZED) {
-                listener.onDeviceDiscovered(device);
-            }
+            listener.onDeviceDiscovered(device);
         }
     }
 

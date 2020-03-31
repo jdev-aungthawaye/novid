@@ -1,7 +1,6 @@
 package software.techbase.novid.component.service;
 
 import android.app.Service;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -11,9 +10,9 @@ import android.provider.Settings;
 
 import androidx.annotation.RequiresApi;
 
-import java.util.HashSet;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
-import java.util.Set;
 
 import software.techbase.novid.R;
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver;
@@ -43,19 +42,22 @@ public class NearDevicesUpdaterService extends Service {
 
             super.startForeground(Constants.NOTIFICATION_ID_FOREGROUND_SERVICE, ServiceNotification.setNotification(getApplicationContext()));
 
-            Set<BluetoothDevice> devices = new HashSet<>();
-
             handler = new Handler();
             runnable = new Runnable() {
                 @Override
                 public void run() {
 
-                    BluetoothDevicesScanner.scan(NearDevicesUpdaterService.this, devices::add);
-                    XLogger.debug(this.getClass(), "Near devices : " + devices);
-                    sendData(getApplicationContext(), devices);
-                    //Clear devices list after send data
-                    devices.clear();
+                    BluetoothDevicesScanner.scan(NearDevicesUpdaterService.this, bluetoothDevice -> {
 
+                        XLogger.debug(this.getClass(), "Found device : " + bluetoothDevice.getName());
+
+                        if (bluetoothDevice.getAddress().startsWith(getPackageName())) {
+
+                            String nearedUserId = StringUtils.substringAfter(bluetoothDevice.getAddress(), getPackageName());
+                            XLogger.debug(this.getClass(), "Neared user id : " + nearedUserId);
+                            sendData(getApplicationContext(), nearedUserId);
+                        }
+                    });
                     handler.postDelayed(this, 5000);
                 }
             };
@@ -68,12 +70,11 @@ public class NearDevicesUpdaterService extends Service {
         return Service.START_STICKY;
         }
 
-    private void sendData(Context mContext, Set<BluetoothDevice> devices) {
+    private void sendData(Context mContext, String nearedUserId) {
 
         if (NetworkStatusBroadcastReceiver.isInternetAvailable(mContext)) {
-            if (!devices.isEmpty()) {
-                //SendData
-            }
+            //SendData
+
         } else {
             Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

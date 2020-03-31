@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import software.techbase.novid.R;
+import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -18,7 +19,12 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void goToNextScreen() {
-        this.startActivity(new Intent(this, EntryActivity.class));
+
+        if (UserInfoStorage.getInstance().isUserLoggedIn()) {
+            this.startActivity(new Intent(this, MainActivity.class));
+        } else {
+            this.startActivity(new Intent(this, EntryActivity.class));
+        }
         this.finish();
     }
 }

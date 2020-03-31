@@ -26,8 +26,10 @@ public class RetrofitService<T> {
             Request original = chain.request();
             Request.Builder requestBuilder;
 
-            if (UserInfoStorage.getInstance().isCredentialsAvailable()) {
-                requestBuilder = original.newBuilder().header("Authorization", "Bearer " + UserInfoStorage.getInstance().getAccessToken());
+            if (UserInfoStorage.getInstance().isUserLoggedIn()) {
+                requestBuilder = original.newBuilder()
+                        .header("X-TOKEN", UserInfoStorage.getInstance().getAccessToken())
+                        .header("X-USER-ID", Long.toString(UserInfoStorage.getInstance().getUserId()));
             } else {
                 requestBuilder = original.newBuilder();
             }

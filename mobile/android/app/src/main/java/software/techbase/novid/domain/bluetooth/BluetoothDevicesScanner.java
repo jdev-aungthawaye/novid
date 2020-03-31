@@ -41,15 +41,10 @@ public class BluetoothDevicesScanner {
 
         } else {
 
-            new BluetoothController(mContext,
-                    BluetoothAdapter.getDefaultAdapter(),
-                    new BluetoothBroadcastReceiver.DiscoveryDeviceListener() {
-                        @Override
-                        public void onDeviceDiscovered(BluetoothDevice device) {
-                            listener.onDeviceFound(device);
-                            XLogger.debug(this.getClass(), "Near by device : MAC " + device.getAddress() + ", Name " + device.getName());
-                        }
-                    }).startDiscovery();
+            new BluetoothController(mContext, BluetoothAdapter.getDefaultAdapter(), device -> {
+                XLogger.debug(mContext.getClass(), "Found device : " + device);
+                listener.onDeviceFound(device);
+            }).startDiscovery();
         }
     }
 

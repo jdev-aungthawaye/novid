@@ -22,12 +22,14 @@ import org.jetbrains.annotations.Nullable;
 
 import butterknife.OnClick;
 import software.techbase.novid.R;
+import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
 import software.techbase.novid.component.service.Constants;
 import software.techbase.novid.component.service.LocationUpdaterService;
 import software.techbase.novid.component.service.NearDevicesUpdaterService;
 import software.techbase.novid.component.service.ServiceUtils;
 import software.techbase.novid.component.ui.base.BaseActivity;
+import software.techbase.novid.domain.bluetooth.BluetoothUtils;
 import software.techbase.novid.domain.location.CurrentLocation;
 import software.techbase.novid.domain.location.LocationUtils;
 import software.techbase.novid.ui.fragment.DashboardFragment;
@@ -35,6 +37,7 @@ import software.techbase.novid.ui.fragment.DashboardFragment;
 /**
  * Created by Wai Yan on 3/28/20.
  */
+@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class MainActivity extends BaseActivity {
 
     private GoogleMap mMap;
@@ -66,6 +69,8 @@ public class MainActivity extends BaseActivity {
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION)
                 .onAccepted(permissionResult -> {
+//                    BluetoothUtils.setDeviceName(this, this.getPackageName() + UserInfoStorage.getInstance().getUserId());
+                    BluetoothUtils.setDeviceName(this, this.getPackageName() + "Test2");
                     this.startLocationUpdaterService();
                     this.startNearDevicesUpdaterService();
                     this.showMapOnUI();
