@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import jdev.novid.common.identity.LocationId;
 
 @Repository
-public interface BluetoothDeviceEntityRepository extends JpaRepository<BluetoothDeviceEntity, LocationId>{
+public interface BluetoothDeviceEntityRepository extends JpaRepository<BluetoothDeviceEntity, LocationId> {
 
 }
