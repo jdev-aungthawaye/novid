@@ -12,7 +12,9 @@ import androidx.annotation.RequiresApi;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver;
 import software.techbase.novid.component.android.xlogger.XLogger;
@@ -28,7 +30,7 @@ public class NearbyUserUpdaterService extends Service {
 
     private Handler handler;
     private Runnable runnable;
-    private final long DATA_SEND_PERIOD = 3000;
+    private final long DATA_SEND_PERIOD = 60 * 1000;
 
     @Override
     public IBinder onBind(Intent intent) {

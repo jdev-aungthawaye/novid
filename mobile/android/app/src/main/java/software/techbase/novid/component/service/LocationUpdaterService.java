@@ -22,7 +22,7 @@ public class LocationUpdaterService extends Service {
 
     private Handler handler;
     private Runnable runnable;
-    private final long DATA_SEND_PERIOD = 3000;
+    private final long DATA_SEND_PERIOD = 60 * 1000;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -56,7 +56,7 @@ public class LocationUpdaterService extends Service {
     private void sendData(Context mContext, Location location) {
 
         if (NetworkStatusBroadcastReceiver.isInternetAvailable(mContext)) {
-            //XApplicationAPIClient.updateLocation(location.getLatitude(), location.getLongitude());
+            XApplicationAPIClient.updateLocation(location.getLatitude(), location.getLongitude());
         }
     }
 }
