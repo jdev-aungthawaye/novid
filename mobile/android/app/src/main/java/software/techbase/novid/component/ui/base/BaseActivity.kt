@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import butterknife.ButterKnife
 import com.google.android.material.snackbar.Snackbar
 import software.techbase.novid.R
+import software.techbase.novid.component.android.broadcast.BluetoothStatusBroadcastReceiver
 import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver
 import software.techbase.novid.component.android.xlogger.XLogger
@@ -20,39 +21,30 @@ import software.techbase.novid.component.ui.reusable.XSnackBar
 
 abstract class BaseActivity : FirebaseRemoteConfigUpdateCheckerActivity(),
     NetworkStatusBroadcastReceiver.NetworkStatusListener,
-    GPSStatusBroadcastReceiver.LocationListener {
-
-    private lateinit var networkStatusBroadcastReceiver: NetworkStatusBroadcastReceiver
-    private lateinit var gpsStatusBroadcastReceiver: GPSStatusBroadcastReceiver
+    GPSStatusBroadcastReceiver.LocationStatusListener,
+    BluetoothStatusBroadcastReceiver.BluetoothStatusListener {
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ButterKnife.bind(this)
         this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        this.networkStatusBroadcastReceiver =
-            NetworkStatusBroadcastReceiver(
-                this,
-                this
-            )
-        this.gpsStatusBroadcastReceiver =
-            GPSStatusBroadcastReceiver(
-                this,
-                this
-            )
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        NetworkStatusBroadcastReceiver(this, this)
+        GPSStatusBroadcastReceiver(this, this)
     }
 
     override fun onInternetAvailable() {
 
-        XLogger.debug(javaClass, "onInternetAvailable")
+        XLogger.debug(javaClass, "InternetAvailable")
 
         XSnackBar.hide()
     }
 
     override fun onInternetUnavailable() {
 
-        XLogger.debug(javaClass, "onInternetUnavailable")
+        XLogger.debug(javaClass, "InternetUnavailable")
 
         XSnackBar.show(
             this.findViewById(android.R.id.content),
@@ -65,26 +57,19 @@ abstract class BaseActivity : FirebaseRemoteConfigUpdateCheckerActivity(),
     }
 
     override fun isLocationEnable() {
-
         XLogger.debug(javaClass, "LocationEnable")
-
     }
 
     override fun isLocationDisable() {
-
         XLogger.debug(javaClass, "LocationDisable")
     }
 
-    override fun onResume() {
-        super.onResume()
-        this.networkStatusBroadcastReceiver.registerToContext()
-        this.gpsStatusBroadcastReceiver.registerToContext()
+    override fun isBluetoothDisable() {
+        XLogger.debug(javaClass, "BluetoothDisable")
     }
 
-    override fun onPause() {
-        super.onPause()
-        this.networkStatusBroadcastReceiver.unregisterFromContext()
-        this.gpsStatusBroadcastReceiver.unregisterFromContext()
+    override fun isBluetoothEnable() {
+        XLogger.debug(javaClass, "BluetoothEnable")
     }
 
     override fun onBackPressed() {

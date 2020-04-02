@@ -6,42 +6,45 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.LocationManager;
 
+import java.io.Closeable;
+
 /**
  * Created by Wai Yan on 3/29/20.
  */
-public class GPSStatusBroadcastReceiver extends BroadcastReceiver {
+public class GPSStatusBroadcastReceiver extends BroadcastReceiver implements Closeable {
 
     private Context mContext;
-    private LocationListener LocationListener;
+    private LocationStatusListener LocationStatusListener;
 
-    public GPSStatusBroadcastReceiver(Context mContext, LocationListener LocationListener) {
+    public GPSStatusBroadcastReceiver(Context mContext, LocationStatusListener LocationStatusListener) {
         this.mContext = mContext;
-        this.LocationListener = LocationListener;
+        this.LocationStatusListener = LocationStatusListener;
+        this.registerToContext();
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         if (isLocationEnabled(this.mContext)) {
-            LocationListener.isLocationEnable();
+            LocationStatusListener.isLocationEnable();
         } else {
-            LocationListener.isLocationDisable();
+            LocationStatusListener.isLocationDisable();
         }
     }
 
-    public void registerToContext() {
+    private void registerToContext() {
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
         this.mContext.registerReceiver(this, intentFilter);
     }
 
-    public void unregisterFromContext() {
-
+    @Override
+    public void close() {
         this.mContext.unregisterReceiver(this);
     }
 
-    public interface LocationListener {
+    public interface LocationStatusListener {
 
         void isLocationEnable();
 

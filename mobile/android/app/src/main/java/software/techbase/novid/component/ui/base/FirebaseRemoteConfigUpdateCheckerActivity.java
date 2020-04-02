@@ -41,7 +41,7 @@ public abstract class FirebaseRemoteConfigUpdateCheckerActivity extends AppCompa
         this.getVersionCodeFromFirebase(versionCode -> {
 
             if (versionCode > getCurrentVersionCode()) {
-                XAlertDialog.show(this, XAlertDialog.Type.INFO, "Update version available.", "Download", v -> this.directDownloadAndInstall());
+                new XAlertDialog(this, XAlertDialog.Type.INFO, "Update version available.", "Download", v -> this.directDownloadAndInstall()).show();
             }
         });
     }
@@ -90,9 +90,7 @@ public abstract class FirebaseRemoteConfigUpdateCheckerActivity extends AppCompa
                     ApkInstaller.install(this, APP_DIRECT_DOWNLOAD_URL, "Novid.apk");
                 })
                 .onDenied(permissionResult -> {
-                    XAlertDialog.show(this, XAlertDialog.Type.WARNING, "Need to allow storage permission.", null, v -> {
-                        this.directDownloadAndInstall();
-                    });
+                    new XAlertDialog(this, XAlertDialog.Type.WARNING, "Need to allow storage permission.", null, v -> this.directDownloadAndInstall()).show();
                 })
                 .ask();
     }

@@ -37,7 +37,10 @@
             android:name=".component.service.LocationUpdaterService"
             android:enabled="true" />
         <service
-            android:name=".component.service.NearDevicesUpdaterService"
+            android:name=".component.service.NearbyUserUpdaterService"
+            android:enabled="true" />
+        <service
+            android:name=".component.service.RequiredAccessObserverService"
             android:enabled="true" />
 
         <meta-data

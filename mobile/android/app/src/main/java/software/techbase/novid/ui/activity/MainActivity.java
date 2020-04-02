@@ -1,9 +1,11 @@
 package software.techbase.novid.ui.activity;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -22,12 +24,17 @@ import org.jetbrains.annotations.Nullable;
 
 import butterknife.OnClick;
 import software.techbase.novid.R;
+import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
+import software.techbase.novid.component.android.broadcast.BluetoothStatusBroadcastReceiver;
+import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
 import software.techbase.novid.component.service.Constants;
 import software.techbase.novid.component.service.LocationUpdaterService;
-import software.techbase.novid.component.service.NearDevicesUpdaterService;
+import software.techbase.novid.component.service.NearbyUserUpdaterService;
+import software.techbase.novid.component.service.RequiredAccessObserverService;
 import software.techbase.novid.component.service.ServiceUtils;
 import software.techbase.novid.component.ui.base.BaseActivity;
+import software.techbase.novid.component.ui.reusable.XAlertDialog;
 import software.techbase.novid.domain.bluetooth.BluetoothUtils;
 import software.techbase.novid.domain.location.CurrentLocation;
 import software.techbase.novid.domain.location.LocationUtils;
@@ -52,31 +59,56 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        this.requestRequiredPermissions();
+        this.launch();
+        this.requestRequiredAccess();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.requestRequiredPermissions();
+        this.launch();
     }
 
-    private void requestRequiredPermissions() {
+    private void launch() {
 
         RuntimePermissions.with(this)
                 .permissions(
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION)
                 .onAccepted(permissionResult -> {
-//                    BluetoothUtils.setDeviceName(this, this.getPackageName() + UserInfoStorage.getInstance().getUserId());
-                    BluetoothUtils.setDeviceName(this, this.getPackageName() + "Test2");
+
+                    BluetoothUtils.setDeviceName(this, this.getPackageName() + UserInfoStorage.getInstance().getUserId());
+
+                    this.startRequiredAccessObserverService();
                     this.startLocationUpdaterService();
                     this.startNearDevicesUpdaterService();
+
                     this.showMapOnUI();
                 })
                 .onDenied(permissionResult -> {
                 })
                 .ask();
+    }
+
+    private void requestRequiredAccess() {
+
+        if (!GPSStatusBroadcastReceiver.isLocationEnabled(this)) {
+
+            new XAlertDialog(this,
+                    XAlertDialog.Type.INFO,
+                    "Please open location.",
+                    null,
+                    v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))).show();
+        }
+
+        if (!BluetoothStatusBroadcastReceiver.isBluetoothEnabled(this)) {
+
+            new XAlertDialog(this,
+                    XAlertDialog.Type.INFO,
+                    "Please to open bluetooth.",
+                    null,
+                    v -> startActivity(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))).show();
+        }
     }
 
     //MAP
@@ -143,7 +175,7 @@ public class MainActivity extends BaseActivity {
 
     private void startLocationUpdaterService() {
 
-        if (!ServiceUtils.isServiceRunning(LocationUpdaterService.class, this)) {
+        if (ServiceUtils.isServiceRunning(LocationUpdaterService.class, this)) {
 
             Intent startIntent = new Intent(this, LocationUpdaterService.class);
             startIntent.setAction(Constants.ACTION.START_ACTION);
@@ -158,9 +190,24 @@ public class MainActivity extends BaseActivity {
 
     private void startNearDevicesUpdaterService() {
 
-        if (!ServiceUtils.isServiceRunning(NearDevicesUpdaterService.class, this)) {
+        if (ServiceUtils.isServiceRunning(NearbyUserUpdaterService.class, this)) {
 
-            Intent startIntent = new Intent(this, NearDevicesUpdaterService.class);
+            Intent startIntent = new Intent(this, NearbyUserUpdaterService.class);
+            startIntent.setAction(Constants.ACTION.START_ACTION);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(startIntent);
+            } else {
+                startService(startIntent);
+            }
+        }
+    }
+
+    private void startRequiredAccessObserverService() {
+
+        if (ServiceUtils.isServiceRunning(RequiredAccessObserverService.class, this)) {
+
+            Intent startIntent = new Intent(this, RequiredAccessObserverService.class);
             startIntent.setAction(Constants.ACTION.START_ACTION);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

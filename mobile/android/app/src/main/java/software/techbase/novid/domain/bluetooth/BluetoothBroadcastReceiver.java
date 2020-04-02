@@ -22,11 +22,7 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver implements Clo
     public BluetoothBroadcastReceiver(Context context, DiscoveryDeviceListener listener) {
         this.listener = listener;
         this.context = context;
-
-        // Register for broadcasts when a device is discovered.
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(BluetoothDevice.ACTION_FOUND);
-        context.registerReceiver(this, filter);
+        this.registerToContext();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -40,9 +36,16 @@ public class BluetoothBroadcastReceiver extends BroadcastReceiver implements Clo
         }
     }
 
+    private void registerToContext() {
+        // Register for broadcasts when a device is discovered.
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
+        this.context.registerReceiver(this, intentFilter);
+    }
+
     @Override
     public void close() {
-        context.unregisterReceiver(this);
+        this.context.unregisterReceiver(this);
     }
 
     public interface DiscoveryDeviceListener {
