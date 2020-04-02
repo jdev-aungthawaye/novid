@@ -23,7 +23,7 @@ public class UpdateNearbyUser extends RestInvoker<XApplicationAPIService, Update
 
     public static class Request implements Serializable {
 
-        public String nearBy;
+        public long nearByUserId;
         public long collectedAt;
     }
 }

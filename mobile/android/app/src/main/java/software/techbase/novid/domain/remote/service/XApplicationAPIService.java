@@ -31,6 +31,6 @@ public interface XApplicationAPIService {
     @POST(value = APIEndPoint.PRIVATE_CONTEXT + "/update-location")
     Call<Void> updateLocation(@Body UpdateLocation.Request request);
 
-    @POST(value = APIEndPoint.PRIVATE_CONTEXT + "/update-near-by-device")
+    @POST(value = APIEndPoint.PRIVATE_CONTEXT + "/update-near-by-user")
     Call<Void> updateNearbyUser(@Body UpdateNearbyUser.Request request);
 }

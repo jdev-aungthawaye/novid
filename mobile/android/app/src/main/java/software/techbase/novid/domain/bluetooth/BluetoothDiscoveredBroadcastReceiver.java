@@ -14,12 +14,12 @@ import java.io.Closeable;
 /**
  * Created by Wai Yan on 3/30/20.
  */
-public class BluetoothBroadcastReceiver extends BroadcastReceiver implements Closeable {
+public class BluetoothDiscoveredBroadcastReceiver extends BroadcastReceiver implements Closeable {
 
     private final DiscoveryDeviceListener listener;
     private final Context context;
 
-    public BluetoothBroadcastReceiver(Context context, DiscoveryDeviceListener listener) {
+    public BluetoothDiscoveredBroadcastReceiver(Context context, DiscoveryDeviceListener listener) {
         this.listener = listener;
         this.context = context;
         this.registerToContext();

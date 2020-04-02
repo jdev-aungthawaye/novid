@@ -30,9 +30,6 @@ abstract class BaseActivity : FirebaseRemoteConfigUpdateCheckerActivity(),
         ButterKnife.bind(this)
         this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-
-        NetworkStatusBroadcastReceiver(this, this)
-        GPSStatusBroadcastReceiver(this, this)
     }
 
     override fun onInternetAvailable() {
