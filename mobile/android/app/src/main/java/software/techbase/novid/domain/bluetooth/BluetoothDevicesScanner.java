@@ -20,10 +20,7 @@ public class BluetoothDevicesScanner {
 
         if (BluetoothStatusBroadcastReceiver.isBluetoothEnabled(mContext)) {
 
-            new BluetoothController(mContext, BluetoothAdapter.getDefaultAdapter(), device -> {
-                XLogger.debug(mContext.getClass(), "Found device : " + device);
-                listener.onDeviceFound(device);
-            }).startDiscovery();
+            new BluetoothController(mContext, BluetoothAdapter.getDefaultAdapter(), listener::onDeviceFound).startDiscovery();
         }
     }
 

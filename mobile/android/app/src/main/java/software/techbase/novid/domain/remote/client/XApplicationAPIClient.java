@@ -32,13 +32,13 @@ public class XApplicationAPIClient {
                     if (httpResponse.isSuccessful()) {
                         XLogger.debug(XApplicationAPIClient.class, "Successfully send current location.");
                     }
-                }, throwable -> XLogger.debug(XApplicationAPIClient.class, "Failed send current location : " + throwable.getMessage()));
+                }, throwable -> XLogger.debug(XApplicationAPIClient.class, "Failed send current location."));
     }
 
-    public static void updateNearbyUser(String userId) {
+    public static void updateNearbyUser(long userId) {
 
         UpdateNearbyUser.Request request = new UpdateNearbyUser.Request();
-        request.nearBy = userId;
+        request.nearByUserId = userId;
         request.collectedAt = TimestampUtil.now();
 
         new UpdateNearbyUser()
@@ -53,6 +53,6 @@ public class XApplicationAPIClient {
                     if (httpResponse.isSuccessful()) {
                         XLogger.debug(XApplicationAPIClient.class, "Successfully send nearby user.");
                     }
-                }, throwable -> XLogger.debug(XApplicationAPIClient.class, "Failed send current nearby user : " + throwable.getMessage()));
+                }, throwable -> XLogger.debug(XApplicationAPIClient.class, "Failed send current nearby user."));
     }
 }

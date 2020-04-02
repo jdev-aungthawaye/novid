@@ -28,6 +28,7 @@ import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
 import software.techbase.novid.component.android.broadcast.BluetoothStatusBroadcastReceiver;
 import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
+import software.techbase.novid.component.android.xlogger.XLogger;
 import software.techbase.novid.component.service.Constants;
 import software.techbase.novid.component.service.LocationUpdaterService;
 import software.techbase.novid.component.service.NearbyUserUpdaterService;
@@ -59,6 +60,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         this.launch();
         this.requestRequiredAccess();
     }

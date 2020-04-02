@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import software.techbase.novid.R;
 import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
+import software.techbase.novid.component.android.xlogger.XLogger;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -21,6 +22,10 @@ public class SplashActivity extends AppCompatActivity {
     private void goToNextScreen() {
 
         if (UserInfoStorage.getInstance().isUserLoggedIn()) {
+
+            XLogger.debug(this.getClass(), "User Id : " + UserInfoStorage.getInstance().getUserId());
+            XLogger.debug(this.getClass(), "Token : " + UserInfoStorage.getInstance().getAccessToken());
+
             this.startActivity(new Intent(this, MainActivity.class));
         } else {
             this.startActivity(new Intent(this, EntryActivity.class));

@@ -1,6 +1,7 @@
 package software.techbase.novid.component.service;
 
 import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -15,7 +16,9 @@ import java.util.Objects;
 
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver;
 import software.techbase.novid.component.android.xlogger.XLogger;
+import software.techbase.novid.domain.bluetooth.BluetoothController;
 import software.techbase.novid.domain.bluetooth.BluetoothDevicesScanner;
+import software.techbase.novid.domain.remote.client.XApplicationAPIClient;
 
 /**
  * Created by Wai Yan on 3/29/20.
@@ -46,13 +49,13 @@ public class NearbyUserUpdaterService extends Service {
 
                     BluetoothDevicesScanner.scan(NearbyUserUpdaterService.this, bluetoothDevice -> {
 
-                        XLogger.debug(this.getClass(), "Found device : " + bluetoothDevice.getName());
+                        String deviceName = bluetoothDevice.getName();
+                        XLogger.debug(this.getClass(), "Found device : " + deviceName);
 
-                        if (bluetoothDevice.getAddress().startsWith(getPackageName())) {
-
-                            String nearedUserId = StringUtils.substringAfter(bluetoothDevice.getAddress(), getPackageName());
-                            XLogger.debug(this.getClass(), "Neared user id : " + nearedUserId);
-                            sendData(getApplicationContext(), nearedUserId);
+                        if (deviceName.startsWith(getPackageName())) {
+                            String userId = StringUtils.substringAfter(deviceName, getPackageName());
+                            XLogger.debug(this.getClass(), "Neared user id : " + userId);
+                            sendData(getApplicationContext(), userId);
                         }
                     });
                     handler.postDelayed(this, DATA_SEND_PERIOD);
@@ -65,12 +68,12 @@ public class NearbyUserUpdaterService extends Service {
             super.stopSelf();
         }
         return Service.START_STICKY;
-        }
+    }
 
-    private void sendData(Context mContext, String nearedUserId) {
+    private void sendData(Context mContext, String userId) {
 
         if (NetworkStatusBroadcastReceiver.isInternetAvailable(mContext)) {
-
+            XApplicationAPIClient.updateNearbyUser(Long.parseLong(userId));
         }
     }
 }

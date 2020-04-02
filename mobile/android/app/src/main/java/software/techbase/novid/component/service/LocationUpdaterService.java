@@ -40,12 +40,7 @@ public class LocationUpdaterService extends Service {
             runnable = new Runnable() {
                 @Override
                 public void run() {
-                    CurrentLocation.getCurrentLocation(getApplicationContext(), location -> {
-
-                        XLogger.debug(this.getClass(), "Your are now in : " + LocationUtils.getAddressName(getApplicationContext(), location.getLatitude(), location.getLongitude()));
-
-                        sendData(getApplicationContext(), location);
-                    });
+                    CurrentLocation.getCurrentLocation(getApplicationContext(), location -> sendData(getApplicationContext(), location));
                     handler.postDelayed(this, DATA_SEND_PERIOD);
                 }
             };
@@ -61,7 +56,7 @@ public class LocationUpdaterService extends Service {
     private void sendData(Context mContext, Location location) {
 
         if (NetworkStatusBroadcastReceiver.isInternetAvailable(mContext)) {
-            XApplicationAPIClient.updateLocation(location.getLatitude(), location.getLongitude());
+            //XApplicationAPIClient.updateLocation(location.getLatitude(), location.getLongitude());
         }
     }
 }
