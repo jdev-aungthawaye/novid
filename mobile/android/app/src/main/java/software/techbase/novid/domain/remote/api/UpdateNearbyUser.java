@@ -10,24 +10,20 @@ import software.techbase.novid.domain.remote.service.XApplicationAPIService;
 /**
  * Created by Wai Yan on 3/31/20.
  */
-public class UpdateNearbyDevice extends RestInvoker<XApplicationAPIService, UpdateNearbyDevice.Request, Void> {
+public class UpdateNearbyUser extends RestInvoker<XApplicationAPIService, UpdateNearbyUser.Request, Void> {
 
-    public UpdateNearbyDevice() {
+    public UpdateNearbyUser() {
         super(XApplicationAPIServiceContext.getAPIService());
     }
 
     @Override
     protected Call<Void> call(Request request) {
-        return null;
+        return this.getService().updateNearbyUser(request);
     }
 
     public static class Request implements Serializable {
 
-        public String self; //MY_MAC_ADDRESS
-        public String nearBy; //THEIR_MAC_ADDRESS
-        public String deviceName; //THEIR DEVICE
-        public long lat;
-        public long lng;
+        public String nearBy;
         public long collectedAt;
     }
 }

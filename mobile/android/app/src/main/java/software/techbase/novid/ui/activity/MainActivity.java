@@ -22,7 +22,6 @@ import org.jetbrains.annotations.Nullable;
 
 import butterknife.OnClick;
 import software.techbase.novid.R;
-import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
 import software.techbase.novid.component.service.Constants;
 import software.techbase.novid.component.service.LocationUpdaterService;

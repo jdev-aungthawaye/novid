@@ -5,7 +5,7 @@ package software.techbase.novid.domain.remote.constant;
  */
 public final class APIEndPoint {
 
-    public final static String X_APPLICATION_API_ENDPOINT = "https://novid.app/novid-api/";
+    public final static String X_APPLICATION_API_ENDPOINT = "https://api.novid.app/novid-api/";
     public final static String STATS_API_ENDPOINT = "https://corona.lmao.ninja/";
 
     public final static String PUBLIC_CONTEXT = "public";

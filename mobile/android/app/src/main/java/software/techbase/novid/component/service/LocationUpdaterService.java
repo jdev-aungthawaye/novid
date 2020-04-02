@@ -17,6 +17,7 @@ import software.techbase.novid.component.android.notifications.XNotificationMana
 import software.techbase.novid.component.android.xlogger.XLogger;
 import software.techbase.novid.domain.location.CurrentLocation;
 import software.techbase.novid.domain.location.LocationUtils;
+import software.techbase.novid.domain.remote.client.XApplicationAPIClient;
 
 /**
  * Created by Wai Yan on 3/29/20.
@@ -65,7 +66,7 @@ public class LocationUpdaterService extends Service {
     private void sendData(Context mContext, Location location) {
 
         if (NetworkStatusBroadcastReceiver.isInternetAvailable(mContext)) {
-            //SendData
+            XApplicationAPIClient.updateLocation(location.getLatitude(), location.getLongitude());
         } else {
             Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

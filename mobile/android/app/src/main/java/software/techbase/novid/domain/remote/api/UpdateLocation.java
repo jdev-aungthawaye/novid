@@ -18,14 +18,13 @@ public class UpdateLocation extends RestInvoker<XApplicationAPIService, UpdateLo
 
     @Override
     protected Call<Void> call(Request request) {
-        return null;
+        return this.getService().updateLocation(request);
     }
 
     public static class Request implements Serializable {
 
-        public long lat;
-        public long lng;
-        public String mac;
+        public double lat;
+        public double lng;
         public long collectedAt;
     }
 }

@@ -42,7 +42,8 @@ public abstract class RestInvoker<SERVICE, REQUEST, RESPONSE> {
 
                     assert response.errorBody() != null;
                     String errorBody = response.errorBody().string();
-                    String errorMessage = new JSONObject(errorBody).getString("message");
+                    XLogger.debug(this.getClass(), "Error Response : " + errorBody);
+                    String errorCode = new JSONObject(errorBody).getString("errorCode");
 
                     switch (response.code()) {
 
@@ -50,25 +51,25 @@ public abstract class RestInvoker<SERVICE, REQUEST, RESPONSE> {
                             throw new NoContentException();
 
                         case 400:
-                            throw new BadRequestException(errorMessage);
+                            throw new BadRequestException(errorCode);
 
                         case 401:
-                            throw new UnauthorizedException(errorMessage);
+                            throw new UnauthorizedException(errorCode);
 
                         case 403:
-                            throw new AuthenticationException(errorMessage);
+                            throw new AuthenticationException(errorCode);
 
                         case 404:
-                            throw new ResourceNotFoundException(errorMessage);
+                            throw new ResourceNotFoundException(errorCode);
 
                         case 422:
-                            throw new UnProcessableException(errorMessage);
+                            throw new UnProcessableException(errorCode);
 
                         case 500:
                             throw new InternalServerException();
 
                         default:
-                            throw new UnknownException(errorMessage);
+                            throw new UnknownException(errorCode);
                     }
                 }
 

@@ -18,7 +18,7 @@ public class RequestVerification extends RestInvoker<XApplicationAPIService, Req
 
     @Override
     protected Call<Void> call(Request request) {
-        return null;
+        return this.getService().requestVerification(request);
     }
 
     public static class Request implements Serializable {

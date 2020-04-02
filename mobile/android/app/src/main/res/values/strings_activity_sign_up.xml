@@ -5,4 +5,5 @@
     <string name="string_activity_sign_up__nrc">မှတ်ပုံတင်နံပါတ်</string>
     <string name="string_activity_sign_up__phone_number">ဖုန်းနံပါတ်</string>
     <string name="string_activity_sign_up__sign_up">ဆက်လုပ်မည်</string>
+    <string name="string_activity_sign_up__invalid_phone_number">Mobile number is invalid.</string>
 </resources>

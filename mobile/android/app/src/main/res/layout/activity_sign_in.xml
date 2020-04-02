@@ -43,7 +43,7 @@
             android:layout_marginStart="@dimen/margin_largest"
             android:layout_marginEnd="@dimen/margin_largest"
             android:layout_marginBottom="@dimen/margin_regular"
-            android:text="၀င်မည်" />
+            android:text="@string/string_activity_sign_in__sign_in" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

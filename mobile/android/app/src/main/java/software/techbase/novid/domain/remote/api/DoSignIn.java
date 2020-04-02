@@ -30,6 +30,6 @@ public class DoSignIn extends RestInvoker<XApplicationAPIService, DoSignIn.Reque
     public static class Response implements Serializable {
 
         public String token;
-        public String userId;
+        public long userId;
     }
 }

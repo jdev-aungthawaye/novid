@@ -8,6 +8,7 @@ import software.techbase.novid.domain.remote.api.RequestSignIn;
 import software.techbase.novid.domain.remote.api.RequestVerification;
 import software.techbase.novid.domain.remote.api.SignUp;
 import software.techbase.novid.domain.remote.api.UpdateLocation;
+import software.techbase.novid.domain.remote.api.UpdateNearbyUser;
 import software.techbase.novid.domain.remote.constant.APIEndPoint;
 
 /**
@@ -30,6 +31,6 @@ public interface XApplicationAPIService {
     @POST(value = APIEndPoint.PRIVATE_CONTEXT + "/update-location")
     Call<Void> updateLocation(@Body UpdateLocation.Request request);
 
-    @POST(value = APIEndPoint.PRIVATE_CONTEXT + "/update-location")
-    Call<Void> updateNearbyDevice(@Body UpdateLocation.Request request);
+    @POST(value = APIEndPoint.PRIVATE_CONTEXT + "/update-near-by-device")
+    Call<Void> updateNearbyUser(@Body UpdateNearbyUser.Request request);
 }

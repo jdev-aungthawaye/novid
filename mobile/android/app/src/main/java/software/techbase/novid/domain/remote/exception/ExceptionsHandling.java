@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import software.techbase.novid.R;
 import software.techbase.novid.component.android.xlogger.XLogger;
+import software.techbase.novid.component.ui.reusable.XProgressDialog;
 import software.techbase.novid.component.ui.reusable.XSnackBar;
 
 /**
@@ -21,6 +22,8 @@ public class ExceptionsHandling {
     public static void handleException(Activity activity, Throwable throwable) {
 
         XLogger.debug(ExceptionsHandling.class, "HandleException Error : " + Log.getStackTraceString(throwable));
+
+        XProgressDialog.getInstance().hide();
 
         String message;
 
