@@ -1,5 +1,7 @@
 package software.techbase.novid.domain.remote.api;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 import retrofit2.Call;
@@ -23,8 +25,13 @@ public class UpdateLocation extends RestInvoker<XApplicationAPIService, UpdateLo
 
     public static class Request implements Serializable {
 
+        @SerializedName("lat")
         public double lat;
+
+        @SerializedName("lng")
         public double lng;
+
+        @SerializedName("collectedAt")
         public long collectedAt;
     }
 }

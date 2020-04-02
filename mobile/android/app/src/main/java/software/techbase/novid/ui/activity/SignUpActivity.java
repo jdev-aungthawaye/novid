@@ -85,8 +85,9 @@ public class SignUpActivity extends BaseActivityWithFormValidation implements Si
         XProgressDialog.getInstance().hide();
         UserInfoStorage.getInstance().setUserId(userId);
         UserInfoStorage.getInstance().setAccessToken(accessToken);
+
         startActivity(new Intent(this, MainActivity.class));
-        this.finish();
+        finishAffinity();
     }
 
     @Override
@@ -99,6 +100,14 @@ public class SignUpActivity extends BaseActivityWithFormValidation implements Si
                 assert data != null;
                 String otp = data.getStringExtra(ParameterKeys.OTP_KEY);
                 assert otp != null;
+
+                if (this.fullName.isEmpty()) {
+                    this.fullName = "UNKNOWN";
+                }
+
+                if (this.nric.isEmpty()) {
+                    this.nric = "UNKNOWN";
+                }
 
                 presenter.signUp(this, this.fullName, this.nric, this.phoneNumber, otp);
                 XProgressDialog.getInstance().show(this);

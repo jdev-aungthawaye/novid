@@ -1,5 +1,7 @@
 package software.techbase.novid.domain.remote.api;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 import retrofit2.Call;
@@ -23,7 +25,10 @@ public class UpdateNearbyUser extends RestInvoker<XApplicationAPIService, Update
 
     public static class Request implements Serializable {
 
+        @SerializedName("nearByUserId")
         public long nearByUserId;
+
+        @SerializedName("collectedAt")
         public long collectedAt;
     }
 }

@@ -1,5 +1,7 @@
 package software.techbase.novid.domain.remote.api;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 import retrofit2.Call;
@@ -21,15 +23,21 @@ public class GetStatsByCountry extends RestInvoker<StatsAPIService, GetStatsByCo
         return this.getService().getStatsByCountry(request.country);
     }
 
-    public static class Request {
+    public static class Request implements Serializable{
 
+        @SerializedName("country")
         public String country;
     }
 
     public static class Response implements Serializable {
 
+        @SerializedName("cases")
         public int cases;
+
+        @SerializedName("deaths")
         public int deaths;
+
+        @SerializedName("recovered")
         public int recovered;
     }
 }

@@ -1,5 +1,7 @@
 package software.techbase.novid.domain.remote.api;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 import retrofit2.Call;
@@ -23,13 +25,19 @@ public class DoSignIn extends RestInvoker<XApplicationAPIService, DoSignIn.Reque
 
     public static class Request implements Serializable {
 
+        @SerializedName("mobile")
         public String mobile;
+
+        @SerializedName("code")
         public String code;
     }
 
     public static class Response implements Serializable {
 
+        @SerializedName("token")
         public String token;
+
+        @SerializedName("userId")
         public long userId;
     }
 }
