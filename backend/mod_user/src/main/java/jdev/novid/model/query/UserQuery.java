@@ -13,6 +13,8 @@ public interface UserQuery {
 
     User getUser(UserId userId);
 
+    Optional<User> findUser(UserId userId);
+
     Account getAccount(UserId userId);
 
 }

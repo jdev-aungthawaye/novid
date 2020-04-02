@@ -1,7 +1,6 @@
 package jdev.novid.web.api.rest;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDateTime;
 
@@ -22,11 +21,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import jdev.novid.common.identity.UserId;
-import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.ddd.Result;
 import jdev.novid.component.rest.LocalDateTimeFromLong;
 import jdev.novid.component.rest.LocalDateTimeToLong;
-import jdev.novid.model.radar.usecase.UpdateNearByDevice;
+import jdev.novid.model.domain.exception.UserNotFoundException;
+import jdev.novid.model.radar.usecase.UpdateNearByUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,19 +45,7 @@ public class UpdateNearByDeviceRest {
 
         @NotNull
         @NotBlank
-        protected String self;
-
-        @NotNull
-        @NotBlank
-        protected String nearBy;
-
-        @NotNull
-        @NotBlank
-        protected String deviceName;
-
-        protected BigDecimal lat;
-
-        protected BigDecimal lng;
+        protected Long nearByUserId;
 
         @NotNull
         @PastOrPresent
@@ -85,19 +72,19 @@ public class UpdateNearByDeviceRest {
     }
 
     @Autowired
-    private UpdateNearByDevice updateNearByDevice;
+    private UpdateNearByUser updateNearByUser;
 
-    @RequestMapping(value = "/private/update-near-by-device", method = { RequestMethod.POST })
+    @RequestMapping(value = "/private/update-near-by-user", method = { RequestMethod.POST })
     public ResponseEntity<UpdateNearByDeviceRest.Response> execute(
-            @Valid @RequestBody UpdateNearByDeviceRest.Request request, Principal principal) {
+            @Valid @RequestBody UpdateNearByDeviceRest.Request request, Principal principal)
+            throws UserNotFoundException {
 
         String userId = principal.getName();
 
-        UpdateNearByDevice.Input input = new UpdateNearByDevice.Input(new UserId(Long.valueOf(userId)),
-                new MacAddress(request.self), new MacAddress(request.nearBy), request.deviceName, request.lat,
-                request.lng, request.collectedAt);
+        UpdateNearByUser.Input input = new UpdateNearByUser.Input(new UserId(Long.valueOf(userId)),
+                new UserId(request.nearByUserId), request.collectedAt);
 
-        UpdateNearByDevice.Output output = this.updateNearByDevice.execute(input);
+        UpdateNearByUser.Output output = this.updateNearByUser.execute(input);
 
         return new ResponseEntity<UpdateNearByDeviceRest.Response>(
                 new UpdateNearByDeviceRest.Response(output.getResult(), LocalDateTime.now()), HttpStatus.OK);

@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import jdev.novid.common.identity.LocationId;
 import jdev.novid.common.identity.UserId;
-import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.ddd.Snowflake;
 import jdev.novid.model.domain.User;
 import jdev.novid.model.radar.infrastructure.aerospike.LocationRecord;
@@ -22,10 +21,9 @@ public class Location {
 
     public static class Builder {
 
-        protected static Location newInstance(User user, BigDecimal lat, BigDecimal lng, MacAddress mac,
-                LocalDateTime collectedAt) {
+        protected static Location newInstance(User user, BigDecimal lat, BigDecimal lng, LocalDateTime collectedAt) {
 
-            return new Location(user.getUserId(), lat, lng, mac, collectedAt);
+            return new Location(user.getUserId(), lat, lng, collectedAt);
 
         }
 
@@ -37,7 +35,6 @@ public class Location {
             domain.userId = state.getUserId();
             domain.lat = state.getLat();
             domain.lng = state.getLng();
-            domain.mac = state.getMac();
             domain.submittedAt = state.getSubmittedAt();
             domain.collectedAt = state.getCollectedAt();
 
@@ -53,7 +50,6 @@ public class Location {
             domain.userId = state.getUserId();
             domain.lat = state.getLat();
             domain.lng = state.getLng();
-            domain.mac = state.getMac();
             domain.submittedAt = state.getSubmittedAt();
             domain.collectedAt = state.getCollectedAt();
 
@@ -71,13 +67,11 @@ public class Location {
 
     protected BigDecimal lng;
 
-    protected MacAddress mac;
-
     protected LocalDateTime submittedAt;
 
     protected LocalDateTime collectedAt;
 
-    public Location(UserId userId, BigDecimal lat, BigDecimal lng, MacAddress mac, LocalDateTime collectedAt) {
+    public Location(UserId userId, BigDecimal lat, BigDecimal lng, LocalDateTime collectedAt) {
 
         super();
 
@@ -85,7 +79,6 @@ public class Location {
         this.userId = userId;
         this.lat = lat;
         this.lng = lng;
-        this.mac = mac;
         this.collectedAt = collectedAt;
         this.submittedAt = LocalDateTime.now();
 

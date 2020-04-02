@@ -48,4 +48,11 @@ public class UserQueryBean implements UserQuery {
 
     }
 
+    @Override
+    public Optional<User> findUser(UserId userId) {
+
+        return this.userRepository.findById(userId);
+
+    }
+
 }

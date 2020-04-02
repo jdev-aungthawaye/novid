@@ -1,6 +1,5 @@
 package jdev.novid.model.radar.domain;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.junit.FixMethodOrder;
@@ -12,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import jdev.novid.common.identity.UserId;
-import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.util.EnvAwareUnitTest;
 import jdev.novid.foundation.config.ApplicationConfiguration;
 import jdev.novid.model.domain.User;
@@ -34,8 +32,7 @@ public class RadarServiceUT extends EnvAwareUnitTest {
 
         User user = this.userQuery.getUser(new UserId(666577688518656L));
 
-        this.radarService.addDevice(user, new MacAddress("SELF"), new MacAddress("NEARBY"), "NearByDevice",
-                new BigDecimal(1), new BigDecimal(1), LocalDateTime.now());
+        this.radarService.addDevice(user, user, LocalDateTime.now());
 
     }
 

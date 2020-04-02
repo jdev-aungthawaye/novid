@@ -1,15 +1,14 @@
 package jdev.novid.model.radar.usecase;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jdev.novid.common.identity.UserId;
-import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.ddd.Result;
+import jdev.novid.model.domain.exception.UserNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-public interface UpdateNearByDevice {
+public interface UpdateNearByUser {
 
     @Getter
     @AllArgsConstructor
@@ -17,15 +16,7 @@ public interface UpdateNearByDevice {
 
         protected UserId sourceId;
 
-        protected MacAddress self;
-
-        protected MacAddress nearBy;
-
-        protected String deviceName;
-
-        protected BigDecimal lat;
-
-        protected BigDecimal lng;
+        protected UserId nearByUserId;
 
         protected LocalDateTime collectedAt;
 
@@ -39,6 +30,6 @@ public interface UpdateNearByDevice {
 
     }
 
-    public Output execute(Input input);
+    public Output execute(Input input) throws UserNotFoundException;
 
 }

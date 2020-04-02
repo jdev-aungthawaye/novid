@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jdev.novid.common.identity.UserId;
-import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.ddd.Result;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,8 +19,6 @@ public interface UpdateLocation {
         protected BigDecimal lat;
 
         protected BigDecimal lng;
-
-        protected MacAddress mac;
 
         protected LocalDateTime collectedAt;
 
