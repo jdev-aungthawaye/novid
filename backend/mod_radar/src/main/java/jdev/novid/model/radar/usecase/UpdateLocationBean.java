@@ -23,7 +23,7 @@ public class UpdateLocationBean implements UpdateLocation {
 
         User user = this.userQuery.getUser(input.getUserId());
 
-        this.radarService.addLocation(user, input.lat, input.lng, input.mac, input.collectedAt);
+        this.radarService.addLocation(user, input.lat, input.lng, input.collectedAt);
 
         return new Output(Result.SUCCESS);
 

@@ -1,11 +1,9 @@
 package jdev.novid.model.radar.domain;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jdev.novid.common.identity.LocationId;
 import jdev.novid.common.identity.UserId;
-import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.ddd.Snowflake;
 import jdev.novid.model.domain.User;
 import jdev.novid.model.radar.infrastructure.aerospike.BluetoothDeviceRecord;
@@ -22,10 +20,9 @@ public class BluetoothDevice {
 
     public static class Builder {
 
-        protected static BluetoothDevice newInstance(User user, MacAddress selfDevice, MacAddress nearByDevice,
-                String deviceName, BigDecimal lat, BigDecimal lng, LocalDateTime collectedAt) {
+        protected static BluetoothDevice newInstance(User user, User nearByUser, LocalDateTime collectedAt) {
 
-            return new BluetoothDevice(user.getUserId(), selfDevice, nearByDevice, deviceName, lat, lng, collectedAt);
+            return new BluetoothDevice(user.getUserId(), nearByUser.getUserId(), collectedAt);
 
         }
 
@@ -35,11 +32,6 @@ public class BluetoothDevice {
 
             domain.locationId = state.getLocationId();
             domain.sourceId = state.getSourceId();
-            domain.selfDevice = state.getSelfDevice();
-            domain.nearByDevice = state.getNearByDevice();
-            domain.deviceName = state.getDeviceName();
-            domain.lat = state.getLat();
-            domain.lng = state.getLng();
             domain.submittedAt = state.getSubmittedAt();
             domain.collectedAt = state.getCollectedAt();
 
@@ -53,11 +45,6 @@ public class BluetoothDevice {
 
             domain.locationId = state.getLocationId();
             domain.sourceId = state.getSourceId();
-            domain.selfDevice = state.getSelfDevice();
-            domain.nearByDevice = state.getNearByDevice();
-            domain.deviceName = state.getDeviceName();
-            domain.lat = state.getLat();
-            domain.lng = state.getLng();
             domain.submittedAt = state.getSubmittedAt();
             domain.collectedAt = state.getCollectedAt();
 
@@ -71,32 +58,19 @@ public class BluetoothDevice {
 
     protected UserId sourceId;
 
-    protected MacAddress selfDevice;
-
-    protected MacAddress nearByDevice;
-
-    protected String deviceName;
-
-    protected BigDecimal lat;
-
-    protected BigDecimal lng;
+    protected UserId nearByUserId;
 
     protected LocalDateTime submittedAt;
 
     protected LocalDateTime collectedAt;
 
-    public BluetoothDevice(UserId sourceId, MacAddress selfDevice, MacAddress nearByDevice, String deviceName,
-            BigDecimal lat, BigDecimal lng, LocalDateTime collectedAt) {
+    public BluetoothDevice(UserId sourceId, UserId nearByUserId, LocalDateTime collectedAt) {
 
         super();
 
         this.locationId = new LocationId(Snowflake.get().nextId());
         this.sourceId = sourceId;
-        this.selfDevice = selfDevice;
-        this.nearByDevice = nearByDevice;
-        this.deviceName = deviceName;
-        this.lat = lat;
-        this.lng = lng;
+        this.nearByUserId = nearByUserId;
         this.submittedAt = LocalDateTime.now();
         this.collectedAt = collectedAt;
 

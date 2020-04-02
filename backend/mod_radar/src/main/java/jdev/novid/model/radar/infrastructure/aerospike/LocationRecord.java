@@ -32,7 +32,6 @@ public class LocationRecord implements Serializable {
         state.userId = domain.getUserId();
         state.lat = domain.getLat();
         state.lng = domain.getLng();
-        state.mac = domain.getMac();
         state.submittedAt = domain.getSubmittedAt();
         state.collectedAt = domain.getCollectedAt();
 
@@ -57,9 +56,6 @@ public class LocationRecord implements Serializable {
 
     @AerospikeBin(name = "lng")
     protected BigDecimal lng;
-
-    @AerospikeBin(name = "mac", converter = MacAddress.AerospikeConverter.class)
-    protected MacAddress mac;
 
     @AerospikeBin(name = "sub_at", converter = TimestampConverter.class)
     protected LocalDateTime submittedAt;

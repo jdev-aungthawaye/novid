@@ -1,6 +1,5 @@
 package jdev.novid.model.radar.infrastructure.jpa;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.AttributeOverride;
@@ -35,11 +34,6 @@ public class BluetoothDeviceEntity extends JpaEntity {
 
         state.locationId = domain.getLocationId();
         state.sourceId = domain.getSourceId();
-        state.selfDevice = domain.getSelfDevice();
-        state.nearByDevice = domain.getNearByDevice();
-        state.deviceName = domain.getDeviceName();
-        state.lat = domain.getLat();
-        state.lng = domain.getLng();
         state.submittedAt = domain.getSubmittedAt();
         state.collectedAt = domain.getCollectedAt();
 
@@ -57,22 +51,9 @@ public class BluetoothDeviceEntity extends JpaEntity {
     @AttributeOverride(column = @Column(name = "source_id"), name = "id")
     protected UserId sourceId;
 
-    @Column(name = "self_device")
-    @Convert(converter = MacAddress.JpaConverter.class)
-    protected MacAddress selfDevice;
-
-    @Column(name = "near_by_device")
-    @Convert(converter = MacAddress.JpaConverter.class)
-    protected MacAddress nearByDevice;
-
-    @Column(name = "device_name")
-    protected String deviceName;
-
-    @Column(name = "lat")
-    protected BigDecimal lat;
-
-    @Column(name = "lng")
-    protected BigDecimal lng;
+    @Embedded
+    @AttributeOverride(column = @Column(name = "near_by_user_id"), name = "id")
+    protected MacAddress nearByUserId;
 
     @Column(name = "submitted_at")
     @Convert(converter = TimestampConverter.class)

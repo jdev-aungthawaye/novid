@@ -41,7 +41,6 @@ public class LocationEntity extends JpaEntity {
         state.userId = domain.getUserId();
         state.lat = domain.getLat();
         state.lng = domain.getLng();
-        state.mac = domain.getMac();
         state.submittedAt = domain.getSubmittedAt();
         state.collectedAt = domain.getCollectedAt();
 
@@ -58,10 +57,6 @@ public class LocationEntity extends JpaEntity {
 
     @Column(name = "lng")
     protected BigDecimal lng;
-
-    @Column(name = "mac")
-    @Convert(converter = MacAddress.JpaConverter.class)
-    protected MacAddress mac;
 
     @Column(name = "submitted_at")
     @Convert(converter = TimestampConverter.class)

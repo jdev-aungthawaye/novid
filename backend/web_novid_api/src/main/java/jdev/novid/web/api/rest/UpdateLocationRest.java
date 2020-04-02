@@ -47,8 +47,6 @@ public class UpdateLocationRest {
 
         protected BigDecimal lng;
 
-        protected String mac;
-
         @NotNull
         @PastOrPresent
         @JsonDeserialize(using = LocalDateTimeFromLong.class)
@@ -83,7 +81,7 @@ public class UpdateLocationRest {
         String userId = principal.getName();
 
         UpdateLocation.Input input = new UpdateLocation.Input(new UserId(Long.valueOf(userId)), request.lat,
-                request.lng, new MacAddress(request.mac), request.collectedAt);
+                request.lng, request.collectedAt);
 
         UpdateLocation.Output output = this.updateLocation.execute(input);
 
