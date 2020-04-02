@@ -27,6 +27,7 @@ public class BluetoothDeviceRecord {
 
         state.locationId = domain.getLocationId();
         state.sourceId = domain.getSourceId();
+        state.nearByUserId = domain.getNearByUserId();
         state.submittedAt = domain.getSubmittedAt();
         state.collectedAt = domain.getCollectedAt();
 
@@ -38,7 +39,7 @@ public class BluetoothDeviceRecord {
     @AerospikeBin(name = "src_id", converter = UserId.AerospikeConverter.class)
     protected UserId sourceId;
 
-    @AerospikeBin(name = "src_id", converter = UserId.AerospikeConverter.class)
+    @AerospikeBin(name = "nby_id", converter = UserId.AerospikeConverter.class)
     protected UserId nearByUserId;
 
     @AerospikeBin(name = "sub_at", converter = TimestampConverter.class)

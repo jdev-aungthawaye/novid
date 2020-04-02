@@ -31,7 +31,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @RestController
-public class UpdateNearByDeviceRest {
+public class UpdateNearByUserRest {
 
     @Getter
     @AllArgsConstructor
@@ -44,7 +44,6 @@ public class UpdateNearByDeviceRest {
         private static final long serialVersionUID = 1L;
 
         @NotNull
-        @NotBlank
         protected Long nearByUserId;
 
         @NotNull
@@ -75,8 +74,8 @@ public class UpdateNearByDeviceRest {
     private UpdateNearByUser updateNearByUser;
 
     @RequestMapping(value = "/private/update-near-by-user", method = { RequestMethod.POST })
-    public ResponseEntity<UpdateNearByDeviceRest.Response> execute(
-            @Valid @RequestBody UpdateNearByDeviceRest.Request request, Principal principal)
+    public ResponseEntity<UpdateNearByUserRest.Response> execute(
+            @Valid @RequestBody UpdateNearByUserRest.Request request, Principal principal)
             throws UserNotFoundException {
 
         String userId = principal.getName();
@@ -86,8 +85,8 @@ public class UpdateNearByDeviceRest {
 
         UpdateNearByUser.Output output = this.updateNearByUser.execute(input);
 
-        return new ResponseEntity<UpdateNearByDeviceRest.Response>(
-                new UpdateNearByDeviceRest.Response(output.getResult(), LocalDateTime.now()), HttpStatus.OK);
+        return new ResponseEntity<UpdateNearByUserRest.Response>(
+                new UpdateNearByUserRest.Response(output.getResult(), LocalDateTime.now()), HttpStatus.OK);
 
     }
 

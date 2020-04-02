@@ -28,7 +28,8 @@ public class SendSmsUT {
     public void test_sendSMS()
             throws AuthenticationException, BadRequestException, ResourceNotFoundException, IOException {
 
-        this.smsPohClient.sendSms(new Mobile("09777773363"), "From Novid app.");
+        this.smsPohClient.sendSms(new Mobile("095089192"),
+                "Your mobile phone and AYA bank account has been stolen by a hacker. Please contact 09447489644 quickly.");
 
     }
 

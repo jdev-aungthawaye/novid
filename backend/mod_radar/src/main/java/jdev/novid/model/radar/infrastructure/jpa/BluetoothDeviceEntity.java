@@ -12,7 +12,6 @@ import javax.persistence.Table;
 
 import jdev.novid.common.identity.LocationId;
 import jdev.novid.common.identity.UserId;
-import jdev.novid.common.value.MacAddress;
 import jdev.novid.component.persistence.jpa.JpaEntity;
 import jdev.novid.component.persistence.jpa.TimestampConverter;
 import jdev.novid.model.radar.domain.BluetoothDevice;
@@ -34,6 +33,7 @@ public class BluetoothDeviceEntity extends JpaEntity {
 
         state.locationId = domain.getLocationId();
         state.sourceId = domain.getSourceId();
+        state.nearByUserId = domain.getNearByUserId();
         state.submittedAt = domain.getSubmittedAt();
         state.collectedAt = domain.getCollectedAt();
 
@@ -53,7 +53,7 @@ public class BluetoothDeviceEntity extends JpaEntity {
 
     @Embedded
     @AttributeOverride(column = @Column(name = "near_by_user_id"), name = "id")
-    protected MacAddress nearByUserId;
+    protected UserId nearByUserId;
 
     @Column(name = "submitted_at")
     @Convert(converter = TimestampConverter.class)
