@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.provider.Settings;
 
 import androidx.annotation.RequiresApi;
 
@@ -14,10 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
-import software.techbase.novid.R;
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver;
-import software.techbase.novid.component.android.notifications.XNotificationConstants;
-import software.techbase.novid.component.android.notifications.XNotificationManager;
 import software.techbase.novid.component.android.xlogger.XLogger;
 import software.techbase.novid.domain.bluetooth.BluetoothDevicesScanner;
 
@@ -25,10 +21,11 @@ import software.techbase.novid.domain.bluetooth.BluetoothDevicesScanner;
  * Created by Wai Yan on 3/29/20.
  */
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class NearDevicesUpdaterService extends Service {
+public class NearbyUserUpdaterService extends Service {
 
     private Handler handler;
     private Runnable runnable;
+    private final long DATA_SEND_PERIOD = 3000;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -47,7 +44,7 @@ public class NearDevicesUpdaterService extends Service {
                 @Override
                 public void run() {
 
-                    BluetoothDevicesScanner.scan(NearDevicesUpdaterService.this, bluetoothDevice -> {
+                    BluetoothDevicesScanner.scan(NearbyUserUpdaterService.this, bluetoothDevice -> {
 
                         XLogger.debug(this.getClass(), "Found device : " + bluetoothDevice.getName());
 
@@ -58,7 +55,7 @@ public class NearDevicesUpdaterService extends Service {
                             sendData(getApplicationContext(), nearedUserId);
                         }
                     });
-                    handler.postDelayed(this, 5000);
+                    handler.postDelayed(this, DATA_SEND_PERIOD);
                 }
             };
             handler.post(runnable);
@@ -73,19 +70,7 @@ public class NearDevicesUpdaterService extends Service {
     private void sendData(Context mContext, String nearedUserId) {
 
         if (NetworkStatusBroadcastReceiver.isInternetAvailable(mContext)) {
-            //SendData
 
-        } else {
-            Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            XNotificationManager.notify(mContext,
-                    mContext.getString(R.string.app_name),
-                    "Please open internet.",
-                    XNotificationConstants.SERVICE_CHANNEL_ID,
-                    XNotificationConstants.LOCATION_REQUEST_NOTIFICATION_ID,
-                    intent);
         }
     }
 }

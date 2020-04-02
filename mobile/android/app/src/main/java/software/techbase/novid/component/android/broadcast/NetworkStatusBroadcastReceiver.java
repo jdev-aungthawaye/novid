@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 
+import java.io.Closeable;
+
 /**
  * Created by Wai Yan on 3/28/20.
  */
-public class NetworkStatusBroadcastReceiver extends BroadcastReceiver {
+public class NetworkStatusBroadcastReceiver extends BroadcastReceiver implements Closeable {
 
     private Context mContext;
     private NetworkStatusBroadcastReceiver.NetworkStatusListener networkStatusListener;
@@ -20,6 +22,7 @@ public class NetworkStatusBroadcastReceiver extends BroadcastReceiver {
 
         this.mContext = mContext;
         this.networkStatusListener = networkStatusListener;
+        this.registerToContext();
     }
 
     @Override
@@ -32,15 +35,15 @@ public class NetworkStatusBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    public void registerToContext() {
+    private void registerToContext() {
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         this.mContext.registerReceiver(this, intentFilter);
     }
 
-    public void unregisterFromContext() {
-
+    @Override
+    public void close() {
         this.mContext.unregisterReceiver(this);
     }
 
