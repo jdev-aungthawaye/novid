@@ -18,7 +18,6 @@ import software.techbase.novid.domain.remote.exception.UnProcessableException;
 import software.techbase.novid.domain.remote.exception.UnauthorizedException;
 import software.techbase.novid.domain.remote.exception.UnknownException;
 
-
 public abstract class RestInvoker<SERVICE, REQUEST, RESPONSE> {
 
     private SERVICE service;

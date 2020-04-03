@@ -54,7 +54,7 @@ public class NearbyUserUpdaterService extends Service {
                         String deviceName = bluetoothDevice.getName();
                         XLogger.debug(this.getClass(), "Found device : " + deviceName);
 
-                        if (deviceName.startsWith(getPackageName())) {
+                        if (deviceName != null && deviceName.startsWith(getPackageName())) {
                             String userId = StringUtils.substringAfter(deviceName, getPackageName());
                             XLogger.debug(this.getClass(), "Neared user id : " + userId);
                             sendData(getApplicationContext(), userId);

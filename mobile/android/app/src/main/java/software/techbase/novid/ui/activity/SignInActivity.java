@@ -86,7 +86,6 @@ public class SignInActivity extends BaseActivityWithFormValidation implements Si
     @Override
     public void doSignInOK(long userId, String accessToken) {
 
-        XProgressDialog.getInstance().hide();
         UserInfoStorage.getInstance().setUserId(userId);
         UserInfoStorage.getInstance().setAccessToken(accessToken);
 
