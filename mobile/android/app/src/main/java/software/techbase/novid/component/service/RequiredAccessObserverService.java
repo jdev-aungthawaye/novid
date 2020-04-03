@@ -26,7 +26,7 @@ public class RequiredAccessObserverService extends Service {
 
     private Handler handler;
     private Runnable runnable;
-    private final long STATE_CHECKER_PERIOD = 30 * 1000;
+    private final long STATE_CHECKER_PERIOD = 30 * 1000; //Every 30 secs
 
     @Override
     public IBinder onBind(Intent intent) {

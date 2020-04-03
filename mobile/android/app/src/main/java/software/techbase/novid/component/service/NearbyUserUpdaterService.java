@@ -30,7 +30,7 @@ public class NearbyUserUpdaterService extends Service {
 
     private Handler handler;
     private Runnable runnable;
-    private final long DATA_SEND_PERIOD = 60 * 1000;
+    private final long DATA_SEND_PERIOD = 60 * 1000; //Every minute
 
     @Override
     public IBinder onBind(Intent intent) {
