@@ -69,7 +69,7 @@ public class DashboardFragment extends SuperBottomSheetFragment implements Dashb
 
     @Override
     public float getCornerRadius() {
-        return this.getResources().getDimension(R.dimen.vew_corner_large_x);
+        return this.getResources().getDimension(R.dimen.vew_corner_large);
     }
 
     @Override

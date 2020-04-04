@@ -22,6 +22,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.OnClick;
 import software.techbase.novid.R;
 import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
@@ -29,25 +32,29 @@ import software.techbase.novid.component.android.broadcast.BluetoothStatusBroadc
 import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
 import software.techbase.novid.component.android.xlogger.XLogger;
-import software.techbase.novid.component.service.Constants;
-import software.techbase.novid.component.service.LocationUpdaterService;
-import software.techbase.novid.component.service.NearbyUserUpdaterService;
-import software.techbase.novid.component.service.RequiredAccessObserverService;
 import software.techbase.novid.component.service.ServiceUtils;
 import software.techbase.novid.component.ui.base.BaseActivity;
+import software.techbase.novid.component.ui.map.ContactClusterItem;
+import software.techbase.novid.component.ui.map.clustering.ClusterManager;
+import software.techbase.novid.component.ui.map.clustering.XCluster;
 import software.techbase.novid.component.ui.reusable.XAlertDialog;
 import software.techbase.novid.domain.bluetooth.BluetoothUtils;
 import software.techbase.novid.domain.location.CurrentLocation;
 import software.techbase.novid.domain.location.LocationUtils;
+import software.techbase.novid.domain.remote.api.GetContacts;
+import software.techbase.novid.ui.contract.MainActivityContract;
+import software.techbase.novid.ui.fragment.ContactFragment;
 import software.techbase.novid.ui.fragment.DashboardFragment;
+import software.techbase.novid.ui.presenter.MainActivityPresenter;
 
 /**
  * Created by Wai Yan on 3/28/20.
  */
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainActivityContract.View {
 
     private GoogleMap mMap;
+    private final MainActivityPresenter presenter = new MainActivityPresenter(this);
 
     @Override
     protected int getLayoutFileId() {
@@ -81,9 +88,9 @@ public class MainActivity extends BaseActivity {
 
                     BluetoothUtils.setDeviceName(this, this.getPackageName() + UserInfoStorage.getInstance().getUserId());
 
-                    this.startRequiredAccessObserverService();
-                    this.startLocationUpdaterService();
-                    this.startNearDevicesUpdaterService();
+                    ServiceUtils.startRequiredAccessObserverService(this);
+                    ServiceUtils.startLocationUpdaterService(this);
+                    ServiceUtils.startNearDevicesUpdaterService(this);
 
                     this.showMapOnUI();
                 })
@@ -126,28 +133,32 @@ public class MainActivity extends BaseActivity {
 
     private void initMapStuff() {
 
-        this.setCurrentLocationOnMap();
+        this.goCurrentLocationOnMap();
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomGesturesEnabled(true);
     }
 
-    private void setCurrentLocationOnMap() {
+    private void goCurrentLocationOnMap() {
 
         if (mMap != null) {
 
             CurrentLocation.getCurrentLocation(this, mLocation -> {
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 10F));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 10F));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(15F));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 8F));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 8F));
                 addMaker(mLocation.getLatitude(), mLocation.getLongitude());
+
+                //After get current location, set contact list to map
+                this.presenter.loadContacts(this);
             });
 
-            mMap.setOnCameraMoveListener(() -> mMap.clear());
-
-            mMap.setOnCameraIdleListener(() -> {
-                LatLng midLatLng = mMap.getCameraPosition().target;
-                addMaker(midLatLng.latitude, midLatLng.longitude);
-            });
+//            mMap.setOnCameraMoveListener(() -> mMap.clear());
+//
+//            mMap.setOnCameraIdleListener(() -> {
+//                LatLng midLatLng = mMap.getCameraPosition().target;
+//                addMaker(midLatLng.latitude, midLatLng.longitude);
+//            });
         }
     }
 
@@ -175,53 +186,45 @@ public class MainActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void startLocationUpdaterService() {
-
-        if (ServiceUtils.isServiceRunning(LocationUpdaterService.class, this)) {
-
-            Intent startIntent = new Intent(this, LocationUpdaterService.class);
-            startIntent.setAction(Constants.ACTION.START_ACTION);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(startIntent);
-            } else {
-                startService(startIntent);
-            }
-        }
-    }
-
-    private void startNearDevicesUpdaterService() {
-
-        if (ServiceUtils.isServiceRunning(NearbyUserUpdaterService.class, this)) {
-
-            Intent startIntent = new Intent(this, NearbyUserUpdaterService.class);
-            startIntent.setAction(Constants.ACTION.START_ACTION);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(startIntent);
-            } else {
-                startService(startIntent);
-            }
-        }
-    }
-
-    private void startRequiredAccessObserverService() {
-
-        if (ServiceUtils.isServiceRunning(RequiredAccessObserverService.class, this)) {
-
-            Intent startIntent = new Intent(this, RequiredAccessObserverService.class);
-            startIntent.setAction(Constants.ACTION.START_ACTION);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startForegroundService(startIntent);
-            } else {
-                startService(startIntent);
-            }
-        }
-    }
-
     @OnClick(R.id.iBtnShowDashboard)
     public void onClickShowDashboard() {
         new DashboardFragment().show(getSupportFragmentManager(), "Dashboard");
+    }
+
+    @Override
+    public void showContacts(List<GetContacts.Response> contacts) {
+
+        ClusterManager<ContactClusterItem> mClusterManager = new ClusterManager<>(this, mMap);
+        mMap.setOnCameraIdleListener(mClusterManager);
+
+        mClusterManager.setCallbacks(new ClusterManager.Callbacks<ContactClusterItem>() {
+            @Override
+            public boolean onClusterClick(@NonNull XCluster<ContactClusterItem> XCluster) {
+                return false;
+            }
+
+            @Override
+            public boolean onClusterItemClick(@NonNull ContactClusterItem clusterItem) {
+                XLogger.debug(this.getClass(), "onClusterItemClick : " + clusterItem.getContact());
+
+                ContactFragment contactFragment = new ContactFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("contact", clusterItem.getContact());
+                contactFragment.setArguments(bundle);
+                contactFragment.show(getSupportFragmentManager(), "Contact");
+
+                return false;
+            }
+        });
+
+        List<ContactClusterItem> clusterItems = new ArrayList<>();
+        for (GetContacts.Response contact : contacts) {
+            clusterItems.add(new ContactClusterItem(
+                    new LatLng(contact.lat, contact.lng),
+                    contact.region + "၊" + contact.township,
+                    contact.department,
+                    contact));
+        }
+        mClusterManager.setItems(clusterItems);
     }
 }

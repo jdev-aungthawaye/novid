@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#c7c7c7</color>
     <color name="colorPrimaryLight">#ffffff</color>
     <color name="colorAccent">#212121</color>
+
+    <color name="cluster_background">#E64A3C</color>
+    <color name="cluster_text">#FFFFFF</color>
+    <color name="cluster_stroke">#FFFFFF</color>
 </resources>

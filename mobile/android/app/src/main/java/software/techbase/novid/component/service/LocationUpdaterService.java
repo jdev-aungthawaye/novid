@@ -10,9 +10,7 @@ import android.os.IBinder;
 import java.util.Objects;
 
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver;
-import software.techbase.novid.component.android.xlogger.XLogger;
 import software.techbase.novid.domain.location.CurrentLocation;
-import software.techbase.novid.domain.location.LocationUtils;
 import software.techbase.novid.domain.remote.client.XApplicationAPIClient;
 
 /**
@@ -22,7 +20,7 @@ public class LocationUpdaterService extends Service {
 
     private Handler handler;
     private Runnable runnable;
-    private final long DATA_SEND_PERIOD = 60 * 1000; //Every minute
+    private final long DATA_SEND_PERIOD = 5 * 60 * 1000; //Every 5 minutes
 
     @Override
     public IBinder onBind(Intent intent) {

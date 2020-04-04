@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import software.techbase.novid.component.android.xlogger.XLogger;
 import software.techbase.novid.domain.remote.api.UpdateLocation;
 import software.techbase.novid.domain.remote.api.UpdateNearbyUser;
-import software.techbase.novid.util.TimestampUtil;
 
 /**
  * Created by Wai Yan on 4/2/20.
@@ -18,7 +17,7 @@ public class XApplicationAPIClient {
         UpdateLocation.Request request = new UpdateLocation.Request();
         request.lat = lat;
         request.lng = lng;
-        request.collectedAt = TimestampUtil.now();
+        request.collectedAt = System.currentTimeMillis();
 
         new UpdateLocation()
                 .invoke(request)
@@ -39,7 +38,7 @@ public class XApplicationAPIClient {
 
         UpdateNearbyUser.Request request = new UpdateNearbyUser.Request();
         request.nearByUserId = userId;
-        request.collectedAt = TimestampUtil.now();
+        request.collectedAt = System.currentTimeMillis();
 
         new UpdateNearbyUser()
                 .invoke(request)

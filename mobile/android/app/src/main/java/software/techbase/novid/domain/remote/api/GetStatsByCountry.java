@@ -23,7 +23,7 @@ public class GetStatsByCountry extends RestInvoker<StatsAPIService, GetStatsByCo
         return this.getService().getStatsByCountry(request.country);
     }
 
-    public static class Request implements Serializable{
+    public static class Request implements Serializable {
 
         @SerializedName("country")
         public String country;

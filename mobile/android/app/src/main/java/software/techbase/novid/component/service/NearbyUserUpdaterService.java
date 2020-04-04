@@ -1,7 +1,6 @@
 package software.techbase.novid.component.service;
 
 import android.app.Service;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -12,13 +11,10 @@ import androidx.annotation.RequiresApi;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver;
 import software.techbase.novid.component.android.xlogger.XLogger;
-import software.techbase.novid.domain.bluetooth.BluetoothController;
 import software.techbase.novid.domain.bluetooth.BluetoothDevicesScanner;
 import software.techbase.novid.domain.remote.client.XApplicationAPIClient;
 
@@ -30,7 +26,7 @@ public class NearbyUserUpdaterService extends Service {
 
     private Handler handler;
     private Runnable runnable;
-    private final long DATA_SEND_PERIOD = 60 * 1000; //Every minute
+    private final long DATA_SEND_PERIOD = 5 * 60 * 1000; //Every 5 minutes
 
     @Override
     public IBinder onBind(Intent intent) {

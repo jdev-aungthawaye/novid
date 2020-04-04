@@ -8,7 +8,6 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import software.techbase.novid.component.android.broadcast.BluetoothStatusBroadcastReceiver;
-import software.techbase.novid.component.android.xlogger.XLogger;
 
 /**
  * Created by Wai Yan on 3/30/20.

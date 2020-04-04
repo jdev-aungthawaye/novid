@@ -42,7 +42,11 @@ class PermissionFragment : Fragment() {
         requestPermissions(perms, REQUEST_CODE)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == REQUEST_CODE && permissions.isNotEmpty() && grantResults.isNotEmpty()) {
 
             val acceptedPermissions = ArrayList<String>()
@@ -62,14 +66,19 @@ class PermissionFragment : Fragment() {
                 }
             }
 
-            listener?.onRequestPermissionsResult(acceptedPermissions, refusedPermissions, askAgainPermissions)
+            listener?.onRequestPermissionsResult(
+                acceptedPermissions,
+                refusedPermissions,
+                askAgainPermissions
+            )
         }
         waitingForReceive = false
     }
 
     private fun removeFragment() {
         try {
-            fragmentManager?.beginTransaction()?.remove(this@PermissionFragment)?.commitAllowingStateLoss()
+            fragmentManager?.beginTransaction()?.remove(this@PermissionFragment)
+                ?.commitAllowingStateLoss()
         } catch (e: Exception) {
             Log.w(TAG, "Error while removing fragment")
         }

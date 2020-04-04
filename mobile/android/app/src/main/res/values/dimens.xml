@@ -45,4 +45,14 @@
     <dimen name="card_view_corner_radius_normal">8dp</dimen>
     <dimen name="card_view_elevation_tiny_x">1dp</dimen>
     <dimen name="card_view_elevation_tiny">2dp</dimen>
+
+    <!--marker-->
+    <dimen name="marker_width">40dp</dimen>
+    <dimen name="marker_height">40dp</dimen>
+
+    <!--XCluster-->
+    <dimen name="cluster_stroke_width">1dp</dimen>
+    <dimen name="cluster_text_size">14sp</dimen>
+    <dimen name="cluster_icon_min_size">32dp</dimen>
+    <dimen name="cluster_icon_padding">8dp</dimen>
 </resources>
