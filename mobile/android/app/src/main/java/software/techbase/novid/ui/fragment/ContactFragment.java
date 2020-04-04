@@ -51,6 +51,20 @@ public class ContactFragment extends SuperBottomSheetFragment {
     @BindView(R.id.lblTSPPcode)
     AppCompatTextView lblTSPPcode;
 
+    private static ContactFragment contactFragment;
+
+    private ContactFragment() {
+    }
+
+
+    public static ContactFragment getInstance() {
+
+        if (contactFragment == null) {
+            contactFragment = new ContactFragment();
+        }
+        return contactFragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

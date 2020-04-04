@@ -76,7 +76,8 @@ public class ExceptionsHandling {
                 Snackbar.LENGTH_INDEFINITE,
                 R.drawable.ic_solid_white_info,
                 R.color.x_error,
-                R.string.DISMISS
+                R.string.DISMISS, v -> {
+                }
         );
     }
 }

@@ -50,7 +50,7 @@ abstract class BaseActivity : FirebaseRemoteConfigUpdateCheckerActivity(),
             R.drawable.ic_no_internet_white,
             R.color.x_error,
             R.string.DISMISS
-        )
+        ) { }
     }
 
     override fun isLocationEnable() {

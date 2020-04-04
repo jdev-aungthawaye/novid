@@ -52,6 +52,20 @@ public class DashboardFragment extends SuperBottomSheetFragment implements Dashb
     @BindView(R.id.pbLoading)
     ProgressBar pbLoading;
 
+
+    private static DashboardFragment dashboardFragment;
+
+    private DashboardFragment() {
+    }
+
+    public static DashboardFragment getInstance() {
+
+        if (dashboardFragment == null) {
+            dashboardFragment = new DashboardFragment();
+        }
+        return dashboardFragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -88,7 +88,7 @@ public class DefaultIconGenerator<T extends XClusterItem> implements IconGenerat
     private BitmapDescriptor createClusterIcon(int clusterBucket) {
         @SuppressLint("InflateParams")
         TextView clusterIconView = (TextView) LayoutInflater.from(mContext)
-                .inflate(R.layout.map_cluster_icon, null);
+                .inflate(R.layout.view_map_cluster_icon, null);
         clusterIconView.setBackground(createClusterBackground());
         clusterIconView.setTextColor(mIconStyle.getClusterTextColor());
         clusterIconView.setTextSize(TypedValue.COMPLEX_UNIT_PX,

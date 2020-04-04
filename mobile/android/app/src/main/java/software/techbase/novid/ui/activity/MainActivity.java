@@ -19,12 +19,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 import software.techbase.novid.R;
 import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
@@ -45,6 +47,7 @@ import software.techbase.novid.domain.remote.api.GetContacts;
 import software.techbase.novid.ui.contract.MainActivityContract;
 import software.techbase.novid.ui.fragment.ContactFragment;
 import software.techbase.novid.ui.fragment.DashboardFragment;
+import software.techbase.novid.ui.fragment.EntryFragment;
 import software.techbase.novid.ui.presenter.MainActivityPresenter;
 
 /**
@@ -52,6 +55,9 @@ import software.techbase.novid.ui.presenter.MainActivityPresenter;
  */
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class MainActivity extends BaseActivity implements MainActivityContract.View {
+
+    @BindView(R.id.fabVerify)
+    FloatingActionButton fabVerify;
 
     private GoogleMap mMap;
     private final MainActivityPresenter presenter = new MainActivityPresenter(this);
@@ -70,12 +76,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
 
         this.launch();
         this.requestRequiredAccess();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        this.launch();
+        this.checkLoggedIn();
     }
 
     private void launch() {
@@ -87,16 +88,52 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
                 .onAccepted(permissionResult -> {
 
                     BluetoothUtils.setDeviceName(this, this.getPackageName() + UserInfoStorage.getInstance().getUserId());
-
-                    ServiceUtils.startRequiredAccessObserverService(this);
-                    ServiceUtils.startLocationUpdaterService(this);
-                    ServiceUtils.startNearDevicesUpdaterService(this);
-
                     this.showMapOnUI();
                 })
                 .onDenied(permissionResult -> {
                 })
                 .ask();
+    }
+
+    private void showMapOnUI() {
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
+        mapFragment.getMapAsync(googleMap -> {
+            mMap = googleMap;
+            mMap.setOnMapLoadedCallback(() -> {
+                mMap.setMyLocationEnabled(true);
+                mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+                mMap.getUiSettings().setZoomGesturesEnabled(true);
+                //After get current location, when map is ready
+                this.presenter.loadContacts(this);
+                //InitMapStuff
+                CurrentLocation.getCurrentLocation(this, mLocation -> {
+
+                    double lat = mLocation.getLatitude();
+                    double lng = mLocation.getLongitude();
+
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
+                    Marker marker = mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(lat, lng))
+                            .title(LocationUtils.getAddressName(this, lat, lng)));
+                    marker.showInfoWindow();
+                });
+            });
+        });
+    }
+
+    private void checkLoggedIn() {
+
+        if (UserInfoStorage.getInstance().isUserLoggedIn()) {
+            fabVerify.hide();
+            this.startRequiredCredentialServices();
+        } else {
+            fabVerify.show();
+            EntryFragment.getInstance().show(getSupportFragmentManager(), "entry");
+        }
     }
 
     private void requestRequiredAccess() {
@@ -120,75 +157,16 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
         }
     }
 
-    //MAP
-    private void showMapOnUI() {
+    private void startRequiredCredentialServices() {
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        assert mapFragment != null;
-        mapFragment.getMapAsync(googleMap -> {
-            mMap = googleMap;
-            mMap.setOnMapLoadedCallback(this::initMapStuff);
-        });
+        ServiceUtils.startRequiredAccessObserverService(this);
+        ServiceUtils.startLocationUpdaterService(this);
+        ServiceUtils.startNearDevicesUpdaterService(this);
     }
 
-    private void initMapStuff() {
-
-        this.goCurrentLocationOnMap();
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.getUiSettings().setZoomGesturesEnabled(true);
-    }
-
-    private void goCurrentLocationOnMap() {
-
-        if (mMap != null) {
-
-            CurrentLocation.getCurrentLocation(this, mLocation -> {
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 8F));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLocation.getLatitude(), mLocation.getLongitude()), 8F));
-                addMaker(mLocation.getLatitude(), mLocation.getLongitude());
-
-                //After get current location, set contact list to map
-                this.presenter.loadContacts(this);
-            });
-
-//            mMap.setOnCameraMoveListener(() -> mMap.clear());
-//
-//            mMap.setOnCameraIdleListener(() -> {
-//                LatLng midLatLng = mMap.getCameraPosition().target;
-//                addMaker(midLatLng.latitude, midLatLng.longitude);
-//            });
-        }
-    }
-
-    private void addMaker(double latitude, double longitude) {
-
-        Marker marker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude, longitude))
-                .title(LocationUtils.getAddressName(this, latitude, longitude)));
-        marker.showInfoWindow();
-    }
-    //MAP
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_info) {
-            this.startActivity(new Intent(this, AboutActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick(R.id.iBtnShowDashboard)
+    @OnClick(R.id.fabShowDashboard)
     public void onClickShowDashboard() {
-        new DashboardFragment().show(getSupportFragmentManager(), "Dashboard");
+        DashboardFragment.getInstance().show(getSupportFragmentManager(), "dashboard");
     }
 
     @Override
@@ -207,11 +185,11 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
             public boolean onClusterItemClick(@NonNull ContactClusterItem clusterItem) {
                 XLogger.debug(this.getClass(), "onClusterItemClick : " + clusterItem.getContact());
 
-                ContactFragment contactFragment = new ContactFragment();
+                ContactFragment contactFragment = ContactFragment.getInstance();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("contact", clusterItem.getContact());
                 contactFragment.setArguments(bundle);
-                contactFragment.show(getSupportFragmentManager(), "Contact");
+                contactFragment.show(getSupportFragmentManager(), "contact");
 
                 return false;
             }
@@ -226,5 +204,25 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
                     contact));
         }
         mClusterManager.setItems(clusterItems);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_info) {
+            this.startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.fabVerify)
+    void onClickVerify() {
+        EntryFragment.getInstance().show(getSupportFragmentManager(), "entry");
     }
 }

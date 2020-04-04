@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_large"
     android:background="@drawable/shape_dialog_bg"
-    android:padding="@dimen/margin_large">
+    android:padding="@dimen/margin_largest_x">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imvIcon"
@@ -12,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_solid_warning" />
+        app:srcCompat="@drawable/ic_solid_warning" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/lblTitle"
@@ -32,7 +34,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/lblMessage"
-        style="@style/LabelMediumBlackBold"
+        style="@style/LabelMediumBlack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lblTitle"

@@ -69,7 +69,7 @@ public class XAlertDialog extends AppCompatDialog {
         this.message = message;
         this.btnMessage = btnMessage;
         this.listener = listener;
-        this.setCancelable(false);
+        this.setCancelable(true);
     }
 
     @Override

@@ -39,6 +39,8 @@
     <dimen name="edt_height_regular">42dp</dimen>
     <dimen name="btn_height_regular">42dp</dimen>
 
+    <dimen name="bottom_sheet_height_regular">200dp</dimen>
+
     <!--card view-->
     <dimen name="card_view_corner_radius_tiny_x">1dp</dimen>
     <dimen name="card_view_corner_radius_tiny">2dp</dimen>

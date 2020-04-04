@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- shimmer colors-->
-    <color name="colorShimmer">#E0E0E0</color>
-    <color name="colorShimmerHighlight">#FAFAFA</color>
-
-    <color name="circle_button_normal">#CCF5F5F5</color>
-    <color name="circle_button_pressed">#CCC8C8C8</color>
-
-    <!-- customize colors -->
-    <color name="transparent_grey_800_15_percent">#26424242</color>
-    <color name="transparent_grey_800_25_percent">#40424242</color>
-
     <!-- bootstrap colors -->
     <color name="x_default">#FF333333</color>
     <color name="x_light">#FFFFFFFF</color>

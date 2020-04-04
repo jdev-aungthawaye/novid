@@ -1,7 +1,9 @@
 package software.techbase.novid.component.ui.reusable;
 
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
@@ -22,13 +24,15 @@ public class XSnackBar {
                             int duration,
                             @DrawableRes int iconResId,
                             @ColorRes int backgroundColorResId,
-                            @StringRes int actionMessage) {
+                            @StringRes int actionMessage,
+                            View.OnClickListener listener) {
 
         snackbar = Snackbar.make(view, message, duration);
         if (actionMessage != 0) {
             snackbar.setActionTextColor(Color.WHITE);
             snackbar.setAction(actionMessage, v -> {
                 snackbar.dismiss();
+                listener.onClick(v);
                 snackbar = null;
             });
         }
@@ -36,6 +40,9 @@ public class XSnackBar {
         textView.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
         textView.setCompoundDrawablePadding(16);
         snackbar.getView().setBackgroundResource(backgroundColorResId);
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbar.getView().getLayoutParams();
+        params.gravity = Gravity.BOTTOM;
+        snackbar.getView().setLayoutParams(params);
         snackbar.show();
     }
 
@@ -44,13 +51,15 @@ public class XSnackBar {
                             int duration,
                             @DrawableRes int iconResId,
                             @ColorRes int backgroundColorResId,
-                            @StringRes int actionMessage) {
+                            @StringRes int actionMessage,
+                            View.OnClickListener listener) {
 
         snackbar = Snackbar.make(view, message, duration);
         if (actionMessage != 0) {
             snackbar.setActionTextColor(Color.WHITE);
             snackbar.setAction(actionMessage, v -> {
                 snackbar.dismiss();
+                listener.onClick(v);
                 snackbar = null;
             });
         }
@@ -58,6 +67,9 @@ public class XSnackBar {
         textView.setCompoundDrawablesWithIntrinsicBounds(iconResId, 0, 0, 0);
         textView.setCompoundDrawablePadding(16);
         snackbar.getView().setBackgroundResource(backgroundColorResId);
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbar.getView().getLayoutParams();
+        params.gravity = Gravity.BOTTOM;
+        snackbar.getView().setLayoutParams(params);
         snackbar.show();
     }
 
