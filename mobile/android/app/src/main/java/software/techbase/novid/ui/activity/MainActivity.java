@@ -105,29 +105,30 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     }
 
     private void showMapOnUI() {
+        if (mMap != null) {
+            //OnMapReady
+            GoogleMapHelper.defaultMapSettings(mMap);
+            this.presenter.loadContacts(this);
 
-        mMap.setOnMapLoadedCallback(() -> {
-            if (mMap != null) {
-                //OnMapReady
-                GoogleMapHelper.defaultMapSettings(mMap);
-                this.presenter.loadContacts(this);
+            //Move to myanmar
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(21.9162, 95.9560), 8F));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(21.9162, 95.9560), 8F));
 
-                //Move to current location
-                CurrentLocation.getCurrentLocation(this, mLocation -> {
+            //Move to current location
+            CurrentLocation.getCurrentLocation(this, mLocation -> {
 
-                    double lat = mLocation.getLatitude();
-                    double lng = mLocation.getLongitude();
+                double lat = mLocation.getLatitude();
+                double lng = mLocation.getLongitude();
 
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
-                    Marker marker = mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(lat, lng))
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                            .title(LocationUtils.getAddressName(this, lat, lng)));
-                    marker.showInfoWindow();
-                });
-            }
-        });
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(lat, lng))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        .title(LocationUtils.getAddressName(this, lat, lng)));
+                marker.showInfoWindow();
+            });
+        }
     }
 
     private void checkLoggedIn() {

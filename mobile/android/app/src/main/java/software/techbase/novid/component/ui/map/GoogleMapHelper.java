@@ -14,7 +14,7 @@ public class GoogleMapHelper {
         googleMap.getUiSettings().setMapToolbarEnabled(false);
         googleMap.getUiSettings().setRotateGesturesEnabled(true);
         googleMap.getUiSettings().setTiltGesturesEnabled(true);
-        googleMap.getUiSettings().setCompassEnabled(false);
+        googleMap.getUiSettings().setCompassEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
