@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import jdev.novid.common.value.Mobile;
 import jdev.novid.common.value.Nric;
-import jdev.novid.component.util.EnvAwareUnitTest;
 import jdev.novid.foundation.config.ApplicationConfiguration;
 import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
 import jdev.novid.model.usecase.SignUp;
@@ -21,7 +20,7 @@ import jdev.novid.support.verification.exception.VerificationNotFoundException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfiguration.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SignUpUT extends EnvAwareUnitTest {
+public class SignUpUT {
 
     @Autowired
     private SignUp signUp;

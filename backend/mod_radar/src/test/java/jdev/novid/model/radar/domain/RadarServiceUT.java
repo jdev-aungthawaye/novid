@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import jdev.novid.common.identity.UserId;
-import jdev.novid.component.util.EnvAwareUnitTest;
 import jdev.novid.foundation.config.ApplicationConfiguration;
 import jdev.novid.model.domain.User;
 import jdev.novid.model.query.UserQuery;
@@ -19,7 +18,7 @@ import jdev.novid.model.query.UserQuery;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfiguration.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RadarServiceUT extends EnvAwareUnitTest {
+public class RadarServiceUT {
 
     @Autowired
     private RadarService radarService;

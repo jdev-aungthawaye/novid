@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import jdev.novid.common.value.Mobile;
-import jdev.novid.component.util.EnvAwareUnitTest;
 import jdev.novid.foundation.config.ApplicationConfiguration;
 import jdev.novid.model.domain.exception.MobileAlreadyTakenException;
 import jdev.novid.model.usecase.RequestVerification;
@@ -19,7 +18,7 @@ import jdev.novid.support.verification.exception.TooManyRequestsException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { ApplicationConfiguration.class })
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RequestVerificationUT extends EnvAwareUnitTest {
+public class RequestVerificationUT {
 
     @Autowired
     private RequestVerification requestVerification;
