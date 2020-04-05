@@ -7,8 +7,6 @@ import android.location.Location;
 import android.os.Handler;
 import android.os.IBinder;
 
-import java.util.Objects;
-
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver;
 import software.techbase.novid.domain.location.CurrentLocation;
 import software.techbase.novid.domain.remote.client.XApplicationAPIClient;
@@ -30,23 +28,28 @@ public class LocationUpdaterService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        if (Objects.requireNonNull(intent.getAction()).contains(Constants.ACTION.START_ACTION)) {
+        if (intent != null) {
+            String action = intent.getAction();
+            if (action != null) {
+                if (action.contains(Constants.ACTION.START_ACTION)) {
 
-            super.startForeground(Constants.NOTIFICATION_ID_FOREGROUND_SERVICE, ServiceNotification.setNotification(getApplicationContext()));
+                    super.startForeground(Constants.NOTIFICATION_ID_FOREGROUND_SERVICE, ServiceNotification.setNotification(getApplicationContext()));
 
-            handler = new Handler();
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                    CurrentLocation.getCurrentLocation(getApplicationContext(), location -> sendData(getApplicationContext(), location));
-                    handler.postDelayed(this, DATA_SEND_PERIOD);
+                    handler = new Handler();
+                    runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            CurrentLocation.getCurrentLocation(getApplicationContext(), location -> sendData(getApplicationContext(), location));
+                            handler.postDelayed(this, DATA_SEND_PERIOD);
+                        }
+                    };
+                    handler.post(runnable);
+                } else {
+                    handler.removeCallbacks(runnable);
+                    super.stopForeground(true);
+                    super.stopSelf();
                 }
-            };
-            handler.post(runnable);
-        } else {
-            handler.removeCallbacks(runnable);
-            super.stopForeground(true);
-            super.stopSelf();
+            }
         }
         return Service.START_STICKY;
     }

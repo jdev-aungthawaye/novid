@@ -3,14 +3,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/shape_progress_dialog_bg">
+    android:background="@drawable/shape_round_rectangle_bg">
 
     <ProgressBar
         android:id="@+id/progressAnimation"
         android:layout_width="38dp"
         android:layout_height="38dp"
-        android:layout_margin="@dimen/margin_small"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin_small" />
 
 </RelativeLayout>

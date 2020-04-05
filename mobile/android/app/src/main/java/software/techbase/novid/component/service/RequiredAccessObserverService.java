@@ -10,8 +10,6 @@ import android.provider.Settings;
 
 import androidx.annotation.RequiresApi;
 
-import java.util.Objects;
-
 import software.techbase.novid.component.android.broadcast.BluetoothStatusBroadcastReceiver;
 import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver;
@@ -36,75 +34,81 @@ public class RequiredAccessObserverService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        if (Objects.requireNonNull(intent.getAction()).contains(Constants.ACTION.START_ACTION)) {
+        if (intent != null) {
+            String action = intent.getAction();
+            if (action != null) {
 
-            super.startForeground(Constants.NOTIFICATION_ID_FOREGROUND_SERVICE, ServiceNotification.setNotification(getApplicationContext()));
+                if (action.contains(Constants.ACTION.START_ACTION)) {
 
-            new BluetoothStatusBroadcastReceiver(getApplicationContext(), new BluetoothStatusBroadcastReceiver.BluetoothStatusListener() {
-                @Override
-                public void isBluetoothEnable() {
+                    super.startForeground(Constants.NOTIFICATION_ID_FOREGROUND_SERVICE, ServiceNotification.setNotification(getApplicationContext()));
 
+                    new BluetoothStatusBroadcastReceiver(getApplicationContext(), new BluetoothStatusBroadcastReceiver.BluetoothStatusListener() {
+                        @Override
+                        public void isBluetoothEnable() {
+
+                        }
+
+                        @Override
+                        public void isBluetoothDisable() {
+                            enableBluetoothNotification();
+                        }
+                    });
+
+                    new GPSStatusBroadcastReceiver(getApplicationContext(), new GPSStatusBroadcastReceiver.LocationStatusListener() {
+
+                        @Override
+                        public void isLocationEnable() {
+
+                        }
+
+                        @Override
+                        public void isLocationDisable() {
+
+                            enableLocationNotification();
+                        }
+                    });
+
+                    new NetworkStatusBroadcastReceiver(getApplicationContext(), new NetworkStatusBroadcastReceiver.NetworkStatusListener() {
+                        @Override
+                        public void onInternetAvailable() {
+
+                        }
+
+                        @Override
+                        public void onInternetUnavailable() {
+
+                            enableNetworkNotification();
+                        }
+                    });
+
+                    handler = new Handler();
+                    runnable = new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (!NetworkStatusBroadcastReceiver.isInternetAvailable(getApplicationContext())) {
+                                enableNetworkNotification();
+                            }
+
+                            if (!GPSStatusBroadcastReceiver.isLocationEnabled(getApplicationContext())) {
+                                enableLocationNotification();
+                            }
+
+                            if (!BluetoothStatusBroadcastReceiver.isBluetoothEnabled(getApplicationContext())) {
+                                enableBluetoothNotification();
+                            }
+
+                            handler.postDelayed(this, STATE_CHECKER_PERIOD);
+                        }
+                    };
+                    handler.post(runnable);
+
+                } else {
+                    handler.removeCallbacks(runnable);
+                    super.stopForeground(true);
+                    super.stopSelf();
                 }
-
-                @Override
-                public void isBluetoothDisable() {
-                    enableBluetoothNotification();
-                }
-            });
-
-            new GPSStatusBroadcastReceiver(getApplicationContext(), new GPSStatusBroadcastReceiver.LocationStatusListener() {
-
-                @Override
-                public void isLocationEnable() {
-
-                }
-
-                @Override
-                public void isLocationDisable() {
-
-                    enableLocationNotification();
-                }
-            });
-
-            new NetworkStatusBroadcastReceiver(getApplicationContext(), new NetworkStatusBroadcastReceiver.NetworkStatusListener() {
-                @Override
-                public void onInternetAvailable() {
-
-                }
-
-                @Override
-                public void onInternetUnavailable() {
-
-                    enableNetworkNotification();
-                }
-            });
-
-            handler = new Handler();
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-
-                    if (!NetworkStatusBroadcastReceiver.isInternetAvailable(getApplicationContext())) {
-                        enableNetworkNotification();
-                    }
-
-                    if (!GPSStatusBroadcastReceiver.isLocationEnabled(getApplicationContext())) {
-                        enableLocationNotification();
-                    }
-
-                    if (!BluetoothStatusBroadcastReceiver.isBluetoothEnabled(getApplicationContext())) {
-                        enableBluetoothNotification();
-                    }
-
-                    handler.postDelayed(this, STATE_CHECKER_PERIOD);
-                }
-            };
-            handler.post(runnable);
-
-        } else {
-            handler.removeCallbacks(runnable);
-            super.stopForeground(true);
-            super.stopSelf();
+            }
         }
         return Service.START_STICKY;
     }

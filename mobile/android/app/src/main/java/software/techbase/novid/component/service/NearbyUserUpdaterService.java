@@ -11,8 +11,6 @@ import androidx.annotation.RequiresApi;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Objects;
-
 import software.techbase.novid.component.android.broadcast.NetworkStatusBroadcastReceiver;
 import software.techbase.novid.component.android.xlogger.XLogger;
 import software.techbase.novid.domain.bluetooth.BluetoothDevicesScanner;
@@ -36,34 +34,39 @@ public class NearbyUserUpdaterService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        if (Objects.requireNonNull(intent.getAction()).contains(Constants.ACTION.START_ACTION)) {
+        if (intent != null) {
+            String action = intent.getAction();
+            if (action != null) {
+                if (action.contains(Constants.ACTION.START_ACTION)) {
 
-            super.startForeground(Constants.NOTIFICATION_ID_FOREGROUND_SERVICE, ServiceNotification.setNotification(getApplicationContext()));
+                    super.startForeground(Constants.NOTIFICATION_ID_FOREGROUND_SERVICE, ServiceNotification.setNotification(getApplicationContext()));
 
-            handler = new Handler();
-            runnable = new Runnable() {
-                @Override
-                public void run() {
+                    handler = new Handler();
+                    runnable = new Runnable() {
+                        @Override
+                        public void run() {
 
-                    BluetoothDevicesScanner.scan(NearbyUserUpdaterService.this, bluetoothDevice -> {
+                            BluetoothDevicesScanner.scan(NearbyUserUpdaterService.this, bluetoothDevice -> {
 
-                        String deviceName = bluetoothDevice.getName();
-                        XLogger.debug(this.getClass(), "Found device : " + deviceName);
+                                String deviceName = bluetoothDevice.getName();
+                                XLogger.debug(this.getClass(), "Found device : " + deviceName);
 
-                        if (deviceName != null && deviceName.startsWith(getPackageName())) {
-                            String userId = StringUtils.substringAfter(deviceName, getPackageName());
-                            XLogger.debug(this.getClass(), "Neared user id : " + userId);
-                            sendData(getApplicationContext(), userId);
+                                if (deviceName != null && deviceName.startsWith(getPackageName())) {
+                                    String userId = StringUtils.substringAfter(deviceName, getPackageName());
+                                    XLogger.debug(this.getClass(), "Neared user id : " + userId);
+                                    sendData(getApplicationContext(), userId);
+                                }
+                            });
+                            handler.postDelayed(this, DATA_SEND_PERIOD);
                         }
-                    });
-                    handler.postDelayed(this, DATA_SEND_PERIOD);
+                    };
+                    handler.post(runnable);
+                } else {
+                    handler.removeCallbacks(runnable);
+                    super.stopForeground(true);
+                    super.stopSelf();
                 }
-            };
-            handler.post(runnable);
-        } else {
-            handler.removeCallbacks(runnable);
-            super.stopForeground(true);
-            super.stopSelf();
+            }
         }
         return Service.START_STICKY;
     }

@@ -15,11 +15,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.maps.android.clustering.ClusterManager;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -33,12 +36,11 @@ import software.techbase.novid.cache.sharepreferences.UserInfoStorage;
 import software.techbase.novid.component.android.broadcast.BluetoothStatusBroadcastReceiver;
 import software.techbase.novid.component.android.broadcast.GPSStatusBroadcastReceiver;
 import software.techbase.novid.component.android.runtimepermissions.RuntimePermissions;
-import software.techbase.novid.component.android.xlogger.XLogger;
 import software.techbase.novid.component.service.ServiceUtils;
 import software.techbase.novid.component.ui.base.BaseActivity;
-import software.techbase.novid.component.ui.map.ContactClusterItem;
-import software.techbase.novid.component.ui.map.clustering.ClusterManager;
-import software.techbase.novid.component.ui.map.clustering.XCluster;
+import software.techbase.novid.component.ui.map.GoogleMapHelper;
+import software.techbase.novid.component.ui.map.MarkerClusterRenderer;
+import software.techbase.novid.component.ui.map.XContactClusterItem;
 import software.techbase.novid.component.ui.reusable.XAlertDialog;
 import software.techbase.novid.domain.bluetooth.BluetoothUtils;
 import software.techbase.novid.domain.location.CurrentLocation;
@@ -54,13 +56,14 @@ import software.techbase.novid.ui.presenter.MainActivityPresenter;
  * Created by Wai Yan on 3/28/20.
  */
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class MainActivity extends BaseActivity implements MainActivityContract.View {
+public class MainActivity extends BaseActivity implements MainActivityContract.View, OnMapReadyCallback {
 
     @BindView(R.id.fabVerify)
     FloatingActionButton fabVerify;
 
     private GoogleMap mMap;
     private final MainActivityPresenter presenter = new MainActivityPresenter(this);
+    private SupportMapFragment mapFragment;
 
     @Override
     protected int getLayoutFileId() {
@@ -74,41 +77,42 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.launch();
-        this.requestRequiredAccess();
+        this.mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
+        mapFragment.getMapAsync(this);
+
         this.checkLoggedIn();
     }
 
-    private void launch() {
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.mMap = googleMap;
+        this.checkPermissionsAndLaunch();
+    }
 
+    private void checkPermissionsAndLaunch() {
         RuntimePermissions.with(this)
-                .permissions(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                .permissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .onAccepted(permissionResult -> {
-
                     BluetoothUtils.setDeviceName(this, this.getPackageName() + UserInfoStorage.getInstance().getUserId());
+                    this.requestRequiredAccess();
                     this.showMapOnUI();
                 })
                 .onDenied(permissionResult -> {
+                    this.checkPermissionsAndLaunch();
                 })
                 .ask();
     }
 
     private void showMapOnUI() {
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        assert mapFragment != null;
-        mapFragment.getMapAsync(googleMap -> {
-            mMap = googleMap;
-            mMap.setOnMapLoadedCallback(() -> {
-                mMap.setMyLocationEnabled(true);
-                mMap.getUiSettings().setMyLocationButtonEnabled(true);
-                mMap.getUiSettings().setZoomControlsEnabled(true);
-                mMap.getUiSettings().setZoomGesturesEnabled(true);
-                //After get current location, when map is ready
+        mMap.setOnMapLoadedCallback(() -> {
+            if (mMap != null) {
+                //OnMapReady
+                GoogleMapHelper.defaultMapSettings(mMap);
                 this.presenter.loadContacts(this);
-                //InitMapStuff
+
+                //Move to current location
                 CurrentLocation.getCurrentLocation(this, mLocation -> {
 
                     double lat = mLocation.getLatitude();
@@ -118,10 +122,11 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
                     Marker marker = mMap.addMarker(new MarkerOptions()
                             .position(new LatLng(lat, lng))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                             .title(LocationUtils.getAddressName(this, lat, lng)));
                     marker.showInfoWindow();
                 });
-            });
+            }
         });
     }
 
@@ -164,46 +169,20 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
         ServiceUtils.startNearDevicesUpdaterService(this);
     }
 
-    @OnClick(R.id.fabShowDashboard)
-    public void onClickShowDashboard() {
-        DashboardFragment.getInstance().show(getSupportFragmentManager(), "dashboard");
-    }
-
     @Override
     public void showContacts(List<GetContacts.Response> contacts) {
 
-        ClusterManager<ContactClusterItem> mClusterManager = new ClusterManager<>(this, mMap);
-        mMap.setOnCameraIdleListener(mClusterManager);
+        ClusterManager<XContactClusterItem> clusterManager = new ClusterManager<>(MainActivity.this, mMap);
+        clusterManager.setRenderer(new MarkerClusterRenderer(this, mMap, clusterManager));
 
-        mClusterManager.setCallbacks(new ClusterManager.Callbacks<ContactClusterItem>() {
-            @Override
-            public boolean onClusterClick(@NonNull XCluster<ContactClusterItem> XCluster) {
-                return false;
-            }
-
-            @Override
-            public boolean onClusterItemClick(@NonNull ContactClusterItem clusterItem) {
-                XLogger.debug(this.getClass(), "onClusterItemClick : " + clusterItem.getContact());
-
-                ContactFragment contactFragment = ContactFragment.getInstance();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("contact", clusterItem.getContact());
-                contactFragment.setArguments(bundle);
-                contactFragment.show(getSupportFragmentManager(), "contact");
-
-                return false;
-            }
-        });
-
-        List<ContactClusterItem> clusterItems = new ArrayList<>();
+        List<XContactClusterItem> clusterItems = new ArrayList<>();
         for (GetContacts.Response contact : contacts) {
-            clusterItems.add(new ContactClusterItem(
-                    new LatLng(contact.lat, contact.lng),
-                    contact.region + "၊" + contact.township,
-                    contact.department,
-                    contact));
+            clusterItems.add(new XContactClusterItem(new LatLng(contact.lat, contact.lng), contact.region + "၊ " + contact.township, contact.department, contact));
         }
-        mClusterManager.setItems(clusterItems);
+        clusterManager.clearItems();
+        clusterManager.addItems(clusterItems);
+        clusterManager.cluster();
+        clusterManager.setOnClusterItemInfoWindowClickListener(item -> this.showContactDetail(item.getContact()));
     }
 
     @Override
@@ -224,5 +203,19 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     @OnClick(R.id.fabVerify)
     void onClickVerify() {
         EntryFragment.getInstance().show(getSupportFragmentManager(), "entry");
+    }
+
+    @OnClick(R.id.fabShowDashboard)
+    public void onClickShowDashboard() {
+        DashboardFragment.getInstance().show(getSupportFragmentManager(), "dashboard");
+    }
+
+    private void showContactDetail(GetContacts.Response contact) {
+
+        ContactFragment contactFragment = ContactFragment.getInstance();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("contact", contact);
+        contactFragment.setArguments(bundle);
+        contactFragment.show(getSupportFragmentManager(), "contact");
     }
 }
