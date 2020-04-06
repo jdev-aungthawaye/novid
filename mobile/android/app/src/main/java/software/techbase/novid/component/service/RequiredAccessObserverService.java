@@ -120,7 +120,7 @@ public class RequiredAccessObserverService extends Service {
         bluetoothEnable.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         XNotificationManager.notify(getApplicationContext(),
-                "Novid requires bluetooth access",
+                "NOVID requires bluetooth access",
                 "Touch to open bluetooth",
                 XNotificationConstants.REQUEST_CHANNEL_ID,
                 XNotificationConstants.BLUETOOTH_REQUEST_NOTIFICATION_ID,
@@ -134,7 +134,7 @@ public class RequiredAccessObserverService extends Service {
         locationEnableIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         XNotificationManager.notify(getApplicationContext(),
-                "Novid requires location access",
+                "NOVID requires location access",
                 "Touch to open location",
                 XNotificationConstants.SERVICE_CHANNEL_ID,
                 XNotificationConstants.LOCATION_REQUEST_NOTIFICATION_ID,
@@ -148,10 +148,10 @@ public class RequiredAccessObserverService extends Service {
         networkEnableIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         XNotificationManager.notify(getApplicationContext(),
-                "Novid requires network connection",
+                "NOVID requires network connection",
                 "Touch to open internet",
                 XNotificationConstants.SERVICE_CHANNEL_ID,
-                XNotificationConstants.LOCATION_REQUEST_NOTIFICATION_ID,
+                XNotificationConstants.INTERNET_REQUEST_NOTIFICATION_ID,
                 networkEnableIntent);
     }
 }

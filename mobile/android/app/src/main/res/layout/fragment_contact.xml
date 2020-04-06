@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -38,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="ထားဝယ်" />
+                    tools:text="ထားဝယ်" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -61,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="ကျန်းမာရေး (သို့) အရေးပေါ် အကူအညီ" />
+                    tools:text="ကျန်းမာရေး (သို့) အရေးပေါ် အကူအညီ" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -84,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="တနင်္သာရီတိုင်းဒေသကြီး" />
+                    tools:text="တနင်္သာရီတိုင်းဒေသကြီး" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -107,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="ဒေါက်တာမျိုးမင်း" />
+                    tools:text="ဒေါက်တာမျိုးမင်း" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -129,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="ကျန်းမာရေးဌာန" />
+                    tools:text="ကျန်းမာရေးဌာန" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -152,7 +153,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="ဆေးရုံအုပ်ကြီး" />
+                    tools:text="ဆေးရုံအုပ်ကြီး" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -176,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
                     android:autoLink="phone"
-                    android:text="09 2021523" />
+                    tools:text="09 2021523" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -200,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
                     android:autoLink="phone"
-                    android:text="09 2021523" />
+                    tools:text="09 2021523" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -223,7 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="MMR006" />
+                    tools:text="MMR006" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -246,7 +247,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="MMR006001" />
+                    tools:text="MMR006001" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
