@@ -41,12 +41,6 @@ public class GetContacts extends RestInvoker<DataAPIService, GetContacts.Request
         @SerializedName("region")
         public String region;
 
-        @SerializedName("sr_pcode")
-        public String srPCode;
-
-        @SerializedName("tsp_pcode")
-        public String tspPCode;
-
         @SerializedName("charge")
         public String charge;
 

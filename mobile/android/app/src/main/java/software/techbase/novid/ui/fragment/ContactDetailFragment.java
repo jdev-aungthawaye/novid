@@ -35,12 +35,6 @@ public class ContactDetailFragment extends BaseBottomSheetFragment {
     @BindView(R.id.lblPhone2)
     AppCompatTextView lblPhone2;
 
-    @BindView(R.id.lblSRPCode)
-    AppCompatTextView lblSRPCode;
-
-    @BindView(R.id.lblTSPPcode)
-    AppCompatTextView lblTSPPcode;
-
     @Override
     protected void createView() {
 
@@ -48,16 +42,15 @@ public class ContactDetailFragment extends BaseBottomSheetFragment {
         assert bundle != null;
         GetContacts.Response contact = (GetContacts.Response) bundle.getSerializable("contact");
 
-        assert contact != null;
-        lblTownship.setText(contact.township);
-        lblIndustry.setText(contact.industry);
-        lblRegion.setText(contact.region);
-        lblCharge.setText(contact.charge);
-        lblOtherInformation.setText(contact.othersInformation);
-        lblPhone1.setText(contact.phone1);
-        lblPhone2.setText(contact.phone2);
-        lblSRPCode.setText(contact.srPCode);
-        lblTSPPcode.setText(contact.tspPCode);
+        if (contact != null) {
+            if (contact.township != null) lblTownship.setText(contact.township);
+            if (contact.industry != null) lblIndustry.setText(contact.industry);
+            if (contact.region != null) lblRegion.setText(contact.region);
+            if (contact.charge != null) lblCharge.setText(contact.charge);
+            if (contact.othersInformation != null) lblOtherInformation.setText(contact.othersInformation);
+            if (contact.phone1 != null) lblPhone1.setText(contact.phone1);
+            if (contact.phone2 != null) lblPhone2.setText(contact.phone2);
+        }
     }
 
     @Override

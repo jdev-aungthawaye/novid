@@ -12,6 +12,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.OnTextChanged;
 import software.techbase.novid.R;
+import software.techbase.novid.component.android.xlogger.XLogger;
 import software.techbase.novid.component.ui.base.BaseBottomSheetFragment;
 import software.techbase.novid.component.ui.decoration.RVDividerItemDecoration;
 import software.techbase.novid.domain.remote.api.GetContacts;
@@ -55,6 +56,15 @@ public class ContactListFragment extends BaseBottomSheetFragment {
     }
 
     private void showContactDetail(GetContacts.Response contact) {
+
+        XLogger.debug(this.getClass(), "Clicked : township " + contact.township);
+        XLogger.debug(this.getClass(), "Clicked : industry " + contact.industry);
+        XLogger.debug(this.getClass(), "Clicked : region " + contact.region);
+        XLogger.debug(this.getClass(), "Clicked : charge " + contact.charge);
+        XLogger.debug(this.getClass(), "Clicked : department " + contact.department);
+        XLogger.debug(this.getClass(), "Clicked : other information " + contact.othersInformation);
+        XLogger.debug(this.getClass(), "Clicked : phone 1 " + contact.phone1);
+        XLogger.debug(this.getClass(), "Clicked : phone 2 " + contact.phone2);
 
         ContactDetailFragment contactDetailFragment = new ContactDetailFragment();
         Bundle bundle = new Bundle();

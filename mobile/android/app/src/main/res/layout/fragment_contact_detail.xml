@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -201,52 +200,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_tiny_x"
                     android:autoLink="phone"
-                    android:text="-" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/LabelSmallGrey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="sr_pcode" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/lblSRPCode"
-                    style="@style/LabelRegularBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="-" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    style="@style/LabelSmallGrey"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_tiny_x"
-                    android:text="tsp_pcode" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/lblTSPPcode"
-                    style="@style/LabelRegularBlack"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_tiny_x"
                     android:text="-" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
