@@ -47,9 +47,11 @@ import software.techbase.novid.domain.location.CurrentLocation;
 import software.techbase.novid.domain.location.LocationUtils;
 import software.techbase.novid.domain.remote.api.GetContacts;
 import software.techbase.novid.ui.contract.MainActivityContract;
-import software.techbase.novid.ui.fragment.ContactFragment;
+import software.techbase.novid.ui.fragment.ContactDetailFragment;
+import software.techbase.novid.ui.fragment.ContactListFragment;
 import software.techbase.novid.ui.fragment.DashboardFragment;
 import software.techbase.novid.ui.fragment.EntryFragment;
+import software.techbase.novid.ui.fragment.QuestionsFragment;
 import software.techbase.novid.ui.presenter.MainActivityPresenter;
 
 /**
@@ -63,7 +65,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
 
     private GoogleMap mMap;
     private final MainActivityPresenter presenter = new MainActivityPresenter(this);
-    private SupportMapFragment mapFragment;
+    private ArrayList<GetContacts.Response> contacts = new ArrayList<>();
 
     @Override
     protected int getLayoutFileId() {
@@ -77,7 +79,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
@@ -138,7 +140,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
             this.startRequiredCredentialServices();
         } else {
             fabVerify.show();
-            EntryFragment.getInstance().show(getSupportFragmentManager(), "entry");
+            new EntryFragment().show(getSupportFragmentManager(), "entry");
         }
     }
 
@@ -173,11 +175,13 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     @Override
     public void showContacts(List<GetContacts.Response> contacts) {
 
+        this.contacts = (ArrayList<GetContacts.Response>) contacts;
+
         ClusterManager<XContactClusterItem> clusterManager = new ClusterManager<>(MainActivity.this, mMap);
         clusterManager.setRenderer(new MarkerClusterRenderer(this, mMap, clusterManager));
 
         List<XContactClusterItem> clusterItems = new ArrayList<>();
-        for (GetContacts.Response contact : contacts) {
+        for (GetContacts.Response contact : this.contacts) {
             clusterItems.add(new XContactClusterItem(new LatLng(contact.lat, contact.lng), contact.region + "၊ " + contact.township, contact.department, contact));
         }
         clusterManager.clearItems();
@@ -194,29 +198,39 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_info) {
-            this.startActivity(new Intent(this, AboutActivity.class));
-            return true;
+        if (item.getItemId() == R.id.action_questions) {
+            new QuestionsFragment().show(getSupportFragmentManager(), "questions");
         }
         return super.onOptionsItemSelected(item);
     }
 
     @OnClick(R.id.fabVerify)
     void onClickVerify() {
-        EntryFragment.getInstance().show(getSupportFragmentManager(), "entry");
+        new EntryFragment().show(getSupportFragmentManager(), "entry");
     }
 
     @OnClick(R.id.fabShowDashboard)
     public void onClickShowDashboard() {
-        DashboardFragment.getInstance().show(getSupportFragmentManager(), "dashboard");
+        new DashboardFragment().show(getSupportFragmentManager(), "dashboard");
     }
 
     private void showContactDetail(GetContacts.Response contact) {
 
-        ContactFragment contactFragment = ContactFragment.getInstance();
+        ContactDetailFragment contactDetailFragment = new ContactDetailFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("contact", contact);
-        contactFragment.setArguments(bundle);
-        contactFragment.show(getSupportFragmentManager(), "contact");
+        contactDetailFragment.setArguments(bundle);
+        contactDetailFragment.show(getSupportFragmentManager(), "contact-detail");
+    }
+
+    @OnClick(R.id.fabContactList)
+    void onClickFabContactList() {
+
+        ContactListFragment contactListFragment = new ContactListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("contacts", this.contacts);
+        contactListFragment.setArguments(bundle);
+        contactListFragment.show(getSupportFragmentManager(), "contact-detail");
     }
 }
+

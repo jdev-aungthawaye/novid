@@ -73,8 +73,6 @@
         <activity android:name=".ui.activity.SignUpActivity" />
         <activity android:name=".ui.activity.SignInActivity" />
         <activity android:name=".ui.activity.OTPConfirmActivity" />
-        <activity android:name=".ui.activity.AboutActivity" />
-        <activity android:name=".ui.activity.QuestionsActivity" />
     </application>
 
 </manifest>

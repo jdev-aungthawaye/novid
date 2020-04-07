@@ -99,7 +99,6 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
-    implementation 'com.github.andrefrsousa:SuperBottomSheet:1.5.0'
     implementation 'org.apache.commons:commons-lang3:3.10'
     implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
 
@@ -111,7 +110,7 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:1.0.2'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'

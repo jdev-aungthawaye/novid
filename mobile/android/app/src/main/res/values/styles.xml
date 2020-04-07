@@ -11,11 +11,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
         <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/font_family</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -34,18 +30,15 @@
         <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/font_family</item>
     </style>
 
-    <style name="LabelBrand">
-        <item name="android:textSize">@dimen/text_size_xxx_large</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textStyle">bold</item>
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
 
-    <style name="LabelBrandSubTitle">
-        <item name="android:textSize">@dimen/text_size_regular</item>
-        <item name="android:textColor">@android:color/black</item>
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/shape_rounded_dialog_bg</item>
     </style>
 
-    <!--Button Styles-->
+    <!--    Button Styles-->
     <style name="BtnPrimary">
         <item name="android:background">@drawable/shape_btn_bg_primary</item>
         <item name="android:textColor">@android:color/black</item>
@@ -60,6 +53,18 @@
         <item name="android:textSize">@dimen/text_size_regular</item>
     </style>
 
+    <!--    Text view styles-->
+    <style name="LabelBrand">
+        <item name="android:textSize">@dimen/text_size_xxx_large</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LabelBrandSubTitle">
+        <item name="android:textSize">@dimen/text_size_regular</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="LabelTitleLarge">
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
@@ -69,6 +74,11 @@
     <style name="LabelRegularBlack">
         <item name="android:textSize">@dimen/text_size_regular</item>
         <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="LabelRegularGrey">
+        <item name="android:textSize">@dimen/text_size_regular</item>
+        <item name="android:textColor">@color/grey_700</item>
     </style>
 
     <style name="LabelRegularBlackBold">
@@ -102,6 +112,12 @@
     <!--EditText Styles-->
     <style name="EditText">
         <item name="android:background">@drawable/shape_edit_text_bg</item>
+        <item name="android:padding">@dimen/margin_smaller</item>
+        <item name="android:textSize">@dimen/text_size_regular</item>
+    </style>
+
+    <style name="SearchBox">
+        <item name="android:background">@drawable/shape_edit_text_round_bg</item>
         <item name="android:padding">@dimen/margin_smaller</item>
         <item name="android:textSize">@dimen/text_size_regular</item>
     </style>

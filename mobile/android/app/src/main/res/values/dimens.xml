@@ -45,6 +45,7 @@
     <dimen name="card_view_corner_radius_tiny_x">1dp</dimen>
     <dimen name="card_view_corner_radius_tiny">2dp</dimen>
     <dimen name="card_view_corner_radius_normal">8dp</dimen>
+    <dimen name="card_view_corner_radius_medium">22dp</dimen>
     <dimen name="card_view_elevation_tiny_x">1dp</dimen>
     <dimen name="card_view_elevation_tiny">2dp</dimen>
 

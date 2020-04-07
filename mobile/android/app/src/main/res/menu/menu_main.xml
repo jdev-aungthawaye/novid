@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="software.techbase.novid.ui.activity.MainActivity">
     <item
-        android:id="@+id/action_info"
+        android:id="@+id/action_questions"
         android:icon="@drawable/ic_info_outline_black"
         android:orderInCategory="100"
-        android:title="@string/action_info"
+        android:title="@string/action_questions"
         app:showAsAction="never" />
 </menu>

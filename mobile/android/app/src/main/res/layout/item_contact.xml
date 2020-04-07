@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_smaller">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lblTownship"
+        style="@style/LabelRegularBlack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny_x"
+        tools:text="@string/app_name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lblRegion"
+        style="@style/LabelRegularGrey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny_x"
+        tools:text="@string/app_name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lblDepartment"
+        style="@style/LabelSmallGrey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny_x"
+        tools:text="@string/app_name" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
