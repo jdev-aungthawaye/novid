@@ -26,7 +26,7 @@ public class ServiceNotification {
                 .setContentTitle(context.getString(R.string.app_name))
                 .setTicker(context.getString(R.string.app_name))
                 .setContentText("Novid is running.")
-                .setSmallIcon(R.drawable.ic_my_location_black)
+                .setSmallIcon(R.drawable.ic_my_location)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .build();
