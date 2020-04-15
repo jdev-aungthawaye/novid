@@ -8,19 +8,19 @@
           <td></td>
        </tr>
        <tr>
-          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup.png" width="200"></td>
-          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup1.png" width="200"></td>
-          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup2.png" width="200"></td>
+          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup.png" width="180"></td>
+          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup1.png" width="180"></td>
+          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup2.png" width="180"></td>
        </tr>
         <tr>
-          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup3.png" width="200"></td>
-          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup4.png" width="200"></td>
-          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup5.png" width="200"></td>
+          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup3.png" width="180"></td>
+          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup4.png" width="180"></td>
+          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup5.png" width="180"></td>
        </tr>
         <tr>
-          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup6.png" width="200"></td>
-          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup7.png" width="200"></td>
-          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup8.png" width="200"></td>
+          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup6.png" width="180"></td>
+          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup7.png" width="180"></td>
+          <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup8.png" width="180"></td>
        </tr>
  </table>
 </p>
