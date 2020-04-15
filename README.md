@@ -3,8 +3,8 @@
 <p align="center">
 <table align="center">
        <tr>
-          <td>Download Here - https://github.com/wyphyoe/android_apk/raw/master/Novid.apk</td>
-          <td></td>
+          <td>Download in</td>
+          <td>https://github.com/wyphyoe/android_apk/raw/master/Novid.apk</td>
        </tr>
        <tr>
           <td><img src="https://github.com/es-aungthawaye/novid/blob/master/assets/images/white-mockup.png" width="400"></td>
