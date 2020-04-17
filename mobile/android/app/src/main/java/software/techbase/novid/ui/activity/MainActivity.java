@@ -11,11 +11,9 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -58,7 +56,7 @@ import software.techbase.novid.ui.presenter.MainActivityPresenter;
  * Created by Wai Yan on 3/28/20.
  */
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class MainActivity extends BaseActivity implements MainActivityContract.View, OnMapReadyCallback {
+public class MainActivity extends BaseActivity implements MainActivityContract.View {
 
     @BindView(R.id.fabVerify)
     FloatingActionButton fabVerify;
@@ -76,29 +74,29 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(findViewById(R.id.toolbar));
+
+        this.checkLoggedIn();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         assert mapFragment != null;
-        mapFragment.getMapAsync(this);
-
-        this.checkLoggedIn();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        this.mMap = googleMap;
-        this.checkPermissionsAndLaunch();
+        mapFragment.getMapAsync(googleMap -> {
+            this.mMap = googleMap;
+            this.mMap.setOnMapLoadedCallback(() -> {
+                this.showContactsOnMap();
+                this.checkPermissionsAndLaunch();
+            });
+        });
     }
 
     private void checkPermissionsAndLaunch() {
+
         RuntimePermissions.with(this)
                 .permissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .onAccepted(permissionResult -> {
                     BluetoothUtils.setDeviceName(this, this.getPackageName() + UserInfoStorage.getInstance().getUserId());
+                    this.moveToCurrentLocation();
                     this.requestRequiredAccess();
-                    this.showMapOnUI();
                 })
                 .onDenied(permissionResult -> {
                     this.checkPermissionsAndLaunch();
@@ -106,15 +104,19 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
                 .ask();
     }
 
-    private void showMapOnUI() {
-        if (mMap != null) {
-            //OnMapReady
-            GoogleMapHelper.defaultMapSettings(mMap);
-            this.presenter.loadContacts(this);
+    private void showContactsOnMap() {
 
-            //Move to myanmar
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(21.9162, 95.9560), 8F));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(21.9162, 95.9560), 8F));
+        this.presenter.loadContacts(this);
+        //Move to myanmar
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(21.9162, 95.9560), 8F));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(21.9162, 95.9560), 8F));
+    }
+
+    private void moveToCurrentLocation() {
+
+        if (mMap != null) {
+            //Setup map settings
+            GoogleMapHelper.defaultMapSettings(this.mMap);
 
             //Move to current location
             CurrentLocation.getCurrentLocation(this, mLocation -> {
@@ -122,8 +124,8 @@ public class MainActivity extends BaseActivity implements MainActivityContract.V
                 double lat = mLocation.getLatitude();
                 double lng = mLocation.getLongitude();
 
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 8F));
                 Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(lat, lng))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))

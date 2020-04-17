@@ -15,7 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/ic_my_location_black"
+        app:srcCompat="@drawable/ic_my_location"
         tools:ignore="VectorDrawableCompat"
         tools:targetApi="lollipop" />
 
