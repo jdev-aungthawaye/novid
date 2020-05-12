@@ -19,8 +19,6 @@ import software.techbase.novid.ui.activity.MainActivity;
  */
 public class XNotificationManager {
 
-    private NotificationCompat.Builder builder;
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     public static void createNotificationChannel(Context context,
                                                  String channelId,
