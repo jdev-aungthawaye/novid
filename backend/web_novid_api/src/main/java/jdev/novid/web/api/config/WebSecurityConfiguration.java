@@ -19,7 +19,7 @@ import jdev.novid.web.api.security.ExceptionHandler;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan("es.vstore")
+@ComponentScan("jdev.novid")
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -38,10 +38,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // we don't need CSRF because our token is invulnerable
         // httpSecurity.requiresChannel().anyRequest().requiresSecure();
 
-        httpSecurity.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .exceptionHandling().authenticationEntryPoint(this.unauthorizedHandler()).and().authorizeRequests()
-                .antMatchers("/").permitAll().antMatchers("/public/**").permitAll().antMatchers("/private/**")
-                .hasRole("USER").anyRequest().authenticated();
+        httpSecurity
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling().authenticationEntryPoint(this.unauthorizedHandler())
+                .and()
+                .authorizeRequests()
+                .antMatchers("/").permitAll().antMatchers("/public/**").permitAll()
+                .antMatchers("/private/**").hasRole("USER")
+                .anyRequest().authenticated();
 
         // custom token based security filter
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
